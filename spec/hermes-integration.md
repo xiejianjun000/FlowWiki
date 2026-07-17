@@ -49,34 +49,34 @@ storage/{industry_slug}/industry.yaml
 
 ### 3.3 四个现有行业的适配器
 
-#### 3.3.1 大气溯源
+#### 3.3.1 根因分析
 
 ```yaml
-name: "大气溯源"
-slug: "atmospheric-tracing"
+name: "根因分析"
+slug: "root-cause"
 gb_code: "M7461"
 domain: "environmental"
 subdomain: "atmospheric_tracing"
 perspective: "monitoring_station"
 
 raw_sources:
-  laws: [环境保护法, 大气污染防治法, 生态环境法典]
+  laws: [审计法, 会计法, 内部审计准则]
   standards: [GB 3095-2012, HJ 633-2012, HJ 663-2013]
-  datasets: [CNEMC 实时监测数据, 气象再分析数据, 排放清单]
+  datasets: [业务系统日志, 审计追踪记录, 异常事件库]
 
 wiki_structure:
-  concepts: [气团后向轨迹, EKMA曲线, O3生成敏感性, PM2.5化学组分重构]
+  concepts: [数据溯源链路, 趋势分析方法, 异常检测方法, 数据重构方法]
   playbooks: [溯源研判五步法, 市州级溯源工作流, 县域级溯源工作流]
-  comparisons: [HYSPLIT vs FLEXPART, WRF-Chem vs CMAQ]
+  comparisons: [自上而下 vs 自下而上, 定量分析 vs 定性分析]
 
 scenarios:
   - id: trace-source
     name: "溯源研判"
-    trigger: "用户上传监测数据或描述污染过程"
+    trigger: "用户上传业务数据或描述异常事件"
     skills: [判据匹配, 区域传输分析, 源类指纹识别]
   - id: ekma-analysis
-    name: "EKMA敏感性分析"
-    trigger: "用户询问O3污染成因"
+    name: "趋势分析"
+    trigger: "用户询问数据变化趋势"
 
 industry_skills:
   - name: "判据匹配"
@@ -85,19 +85,19 @@ industry_skills:
     file: ".agents/skills/o3-sensitivity/SKILL.md"
 ```
 
-#### 3.3.2 执法督察评查
+#### 3.3.2 合规审查
 
 ```yaml
-name: "执法督察评查"
-slug: "law-enforcement-review"
+name: "合规审查"
+slug: "compliance-review"
 gb_code: "M7821"
 domain: "legal"
 subdomain: "law_enforcement"
 perspective: "regulatory"
 
 raw_sources:
-  laws: [行政处罚法, 行政强制法, 生态环境保护综合行政执法事项指导目录]
-  standards: [生态环境行政处罚办法, 环境行政执法文书制作规范]
+  laws: [行政处罚法, 行政强制法, 行政执法事项指导目录]
+  standards: [行政处罚办法, 行政执法文书制作规范]
   datasets: [案卷评查标准, 典型案例库, 执法流程模板]
 
 wiki_structure:
@@ -122,33 +122,33 @@ industry_skills:
     file: ".agents/skills/evidence-review/SKILL.md"
 ```
 
-#### 3.3.3 环评与排污许可
+#### 3.3.3 证照管理
 
 ```yaml
-name: "环评与排污许可"
-slug: "eia-permit"
+name: "证照管理"
+slug: "license-management"
 gb_code: "M7481"
 domain: "environmental"
 subdomain: "eia_permit"
 perspective: "review_agency"
 
 raw_sources:
-  laws: [环境影响评价法, 排污许可管理条例, 建设项目环境保护管理条例]
+  laws: [行政许可法, 商事登记管理办法, 行业准入管理规定]
   standards: [HJ 2.1-2016, HJ 942-2018]
-  datasets: [排污许可名录, 环评批复数据库, 排放标准库]
+  datasets: [许可证名录, 审批数据库, 资质标准库]
 
 wiki_structure:
-  concepts: [环境影响评价, 排污许可证, 达标排放, 总量控制]
-  playbooks: [环评审批工作流, 排污许可证核发流程, 许可证后监管]
-  comparisons: [环评 vs 排污许可, 报告书 vs 报告表 vs 登记表]
+  concepts: [行政许可, 资质证书, 合规边界, 审批条件]
+  playbooks: [证照审批工作流, 资质证书核发流程, 许可后监管]
+  comparisons: [许可 vs 备案, 报告书 vs 报告表 vs 登记表]
 
 scenarios:
   - id: eia-review
-    name: "环评文件审查"
-    trigger: "用户上传环评文件"
+    name: "证照文件审查"
+    trigger: "用户上传证照文件"
     skills: [合规审查, 标准匹配, 公众参与核查]
   - id: permit-analysis
-    name: "排污许可证分析"
+    name: "资质证书分析"
     trigger: "用户上传许可证或询问许可事项"
     skills: [许可证拆解, 达标判定, 变更评估]
 
@@ -170,7 +170,7 @@ subdomain: "compliance"
 perspective: "enterprise"
 
 raw_sources:
-  laws: [公司法, 劳动合同法, 安全生产法, 环境保护法]
+  laws: [公司法, 劳动合同法, 安全生产法, 审计法]
   standards: [ISO 19600, GB/T 35770]
   datasets: [合规风险清单, 政策更新库, 行业合规标准]
 
@@ -201,9 +201,9 @@ industry_skills:
 ```
 FlowWiki 标准版（骨架，git 仓库）
 ├── storage/
-│   ├── atmospheric-tracing/industry.yaml
-│   ├── law-enforcement-review/industry.yaml
-│   ├── eia-permit/industry.yaml
+│   ├── root-cause/industry.yaml
+│   ├── compliance-review/industry.yaml
+│   ├── license-management/industry.yaml
 │   ├── enterprise-compliance/industry.yaml
 │   └── {new-industry}/industry.yaml
 ├── _scripts/
@@ -232,7 +232,7 @@ Hermes: 创建 storage/food-safety/industry.yaml
   ↓ 自动填充 ↓
   laws: [食品安全法, 农产品质量安全法, 产品质量法]
   standards: [GB 2760, GB 2761, GB 2762, GB 2763, GB 29921...]
-  scenarios: [添加剂合规, 污染物限量, 微生物检验, HACCP审计, 标签审核]
+  scenarios: [数据合规, 安全审计, 质量检验, 流程审计, 标签审核]
   ↓
 Hermes: 拷贝 FlowWiki 骨架 → 创建 raw/ wiki/ 00_首页/ .memory/
   ↓
@@ -281,9 +281,9 @@ Hermes: 生成 L4 记忆卡片 + L7 场景页 + 行业专属 Skill
 
 ## 9. 推进策略
 
-1. **试点改造**：选环评库做试点（差距最小，只缺 5/11）
+1. **试点改造**：选证照管理做试点（差距最小，只缺 5/11）
 2. **验证机制**：验证 industry.yaml 机制和骨肉分离设计
-3. **推广复制**：推广到大气溯源、执法督察评查、企业合规AI管家
+3. **推广复制**：推广到根因分析、合规审查、企业合规AI管家
 4. **自动冷启动**：实现新行业 Hermes 自动建库
 
 ## 10. 验收标准

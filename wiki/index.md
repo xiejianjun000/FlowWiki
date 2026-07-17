@@ -3,17 +3,17 @@
 ## 机器索引 — 紧凑、结构化
 
 ### concepts
-- [ekma曲线](concepts/ekma曲线.md)
-- [pm2.5化学组分重构](concepts/pm2.5化学组分重构.md)
-- [o3生成敏感性](concepts/o3生成敏感性.md)
-- [气团后向轨迹](concepts/气团后向轨迹.md)
+- [趋势分析方法](concepts/趋势分析方法.md)
+- [异常检测方法](concepts/异常检测方法.md)
+- [数据重构方法](concepts/数据重构方法.md)
+- [数据溯源链路](concepts/数据溯源链路.md)
 
 ### playbooks
-- [县域级溯源工作流](playbooks/县域级溯源工作流.md)
-- [市州级溯源工作流](playbooks/市州级溯源工作流.md)
-- [溯源研判五步法](playbooks/溯源研判五步法.md)
+- [局部分析工作流](playbooks/局部分析工作流.md)
+- [跨域分析工作流](playbooks/跨域分析工作流.md)
+- [根因分析五步法](playbooks/根因分析五步法.md)
 
 ### comparisons
-- [hysplit-vs-flexpart](comparisons/hysplit-vs-flexpart.md)
-- [wrf-chem-vs-cmaq](comparisons/wrf-chem-vs-cmaq.md)
+- [定量分析-vs-定性分析](comparisons/定量分析-vs-定性分析.md)
+- [自上而下-vs-自下而上](comparisons/自上而下-vs-自下而上.md)
 

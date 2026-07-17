@@ -110,7 +110,7 @@ L7 场景层（业务外壳，可插拔） ← 通用骨架 + 领域场景作为
 | 方法论白皮书 | README.md + spec/ 全套 | 想理解原理的人 |
 | 脚手架模板 | 空目录 + 模板 + 脚本 | 想直接用的人 |
 
-V2 阶段补充：生态环境领域参考实现（基于本套方法论改造现有 4 个库中的最佳实践）。
+V2 阶段补充：通用领域参考实现（7 场景可插拔架构）。
 
 ---
 
@@ -139,7 +139,7 @@ FlowWiki **不做** 以下事情：
 | M2 4 操作 skill | ingest/query/lint/research 都可执行 + lint 归零 |
 | M3 ACE + A-MEM | ACE 三 agent 循环跑通 + Zettelkasten 卡片生成 |
 | M4 双索引 | 6 板块 MOC + index.md 自动同步 |
-| M5 L7 场景 | 生态环境 7 场景参考实现 + 可拔插验证 |
+| M5 L7 场景 | 通用 7 场景参考实现 + 可拔插验证 |
 | M6 多 agent | Claude Code/Codex/Amp 三家都能接手维护 |
 | M7 白皮书 | README.md + gist 发布 |
 
@@ -151,4 +151,4 @@ FlowWiki **不做** 以下事情：
 - 不替代 SpecCoding（FlowWiki 是 SpecCoding 的脚手架产物，不是替代）
 - 不做云服务（FlowWiki 是本地优先的 Markdown 仓库）
 - 不做图形界面（依赖 Obsidian 等第三方可视化）
-- 不绑定具体业务领域（生态环境只是参考实现）
+- 不绑定具体业务领域（7 场景仅为参考实现）

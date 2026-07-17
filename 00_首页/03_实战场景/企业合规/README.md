@@ -1,28 +1,30 @@
 # 企业合规场景
 
-## 概述
+为企业提供合规管理支撑，包括合规清单生成、风险评估和政策追踪。
 
-基于企业所属行业和业务，生成合规清单和追踪政策更新。
+## 场景说明
 
-## 场景列表
+基于公司法、安全生产法和合规管理体系标准，帮助企业建立和维持合规管理体系。
+
+## 典型场景
 
 ### 合规清单生成
+
 - **触发条件**：用户询问企业合规要求
-- **调用 Skill**：法规检索、风险识别、清单编制
+- **输入**：企业基本信息
 - **输出**：合规清单
 
 ### 政策追踪
+
 - **触发条件**：用户询问政策更新
-- **调用 Skill**：政策监控、影响分析、合规建议
+- **输入**：关注领域
 - **输出**：政策更新报告
 
-## 典型案例
+## 相关 Skill
 
-- [制造业合规案例](cases.md)
-- [服务业合规案例](cases.md)
-
-## 相关判据
-
-- 法律法规判据集
-- 行业标准判据集
-- 风险评估判据集
+- [法规检索](../../../.agents/skills/regulation-search/SKILL.md)
+- [风险识别](../../../.agents/skills/risk-identification/SKILL.md)
+- [清单编制](../../../.agents/skills/checklist-compile/SKILL.md)
+- [政策监控](../../../.agents/skills/policy-monitor/SKILL.md)
+- [影响分析](../../../.agents/skills/impact-analysis/SKILL.md)
+- [合规建议](../../../.agents/skills/compliance-suggestion/SKILL.md)

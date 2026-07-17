@@ -1,10 +1,10 @@
 # FlowWiki 案例集
 
-## 案例 1：大气溯源知识库
+## 案例 1：根因分析知识库
 
 **行业**：环境监测
 **规模**：1000+ 条判据，160+ 篇微信原文，800+ 文件
-**场景**：溯源研判、EKMA 分析、区域传输
+**场景**：根因定位、趋势分析、跨域追踪
 
 ### 改造前
 
@@ -22,11 +22,11 @@
 - ✅ 双索引同步
 - ✅ 行业专属 Skill（判据匹配、O3 敏感性诊断等）
 
-## 案例 2：环评与排污许可知识库
+## 案例 2：证照管理知识库
 
 **行业**：环保审批
 **规模**：38 份原始资料，30+ wiki 页面
-**场景**：环评审查、许可证分析、两证衔接
+**场景**：证照审查、许可证分析、合规判定
 
 ### 改造前
 
@@ -41,7 +41,7 @@
 - ✅ .memory/ A-MEM 卡片层
 - ✅ 00_首页/ 人类 UX 入口
 - ✅ storage/eia-permit/industry.yaml 行业适配器
-- ✅ 4 大场景页（环评审查/许可证分析/两证衔接/执法检查）
+- ✅ 4 大场景页（证照审查/许可证分析/合规判定/执法检查）
 - ✅ 6 个行业专属 Skill
 
 ### 验证结果
@@ -50,7 +50,7 @@
 $ python3 _scripts/ingest_pipeline.py
 INFO:__main__:Starting EIA-permit ingest pipeline...
 INFO:__main__:Found 37 raw files
-INFO:__main__:Industry: 环评与排污许可
+INFO:__main__:Industry: 证照管理
 INFO:__main__:Updated wiki/index.md
 INFO:__main__:Ingest pipeline completed
 ```

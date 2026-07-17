@@ -47,7 +47,7 @@ format = "json"
 file = "flowwiki.log"
 
 [industry]
-default = "atmospheric-tracing"
+default = "root-cause"
 switch_enabled = true
 
 [storage]

@@ -67,7 +67,7 @@ FlowWiki/
 │
 ├── 70_Prompt库/                     ← 场景&功能提示词存档（Skill 升级池）
 │   ├── README.md                    ← Prompt 索引 + 升级规则说明
-│   ├── 01_生成类.md                 ← "生成迎检清单"/"生成监测方案" 等
+│   ├── 01_生成类.md                 ← "生成审计清单"/"生成分析方案" 等
 │   ├── 02_校对类.md                 ← "校对案卷程序"/"校对数据一致性" 等
 │   ├── 03_问句类.md                 ← "从执法者视角"/"用企业视角" 等
 │   └── 04_拆解类.md                 ← "拆解许可证"/"拆解法规" 等
@@ -171,15 +171,15 @@ FlowWiki/
 |--------------|---------|--------|
 | `spec/` | SpecCoding 模板 | 强制 4 文件齐备 |
 | `openspec/changes/` | OpenSpec + SuperSpec | 加 `.openspec.yaml` 配置 |
-| `raw/` | Karpathy 原教 + 执法督察评查库 | 保留只读原则 |
-| `wiki/` | 环评与排污许可库 | 7 类页面 + confidence |
+| `raw/` | Karpathy 原教 | 保留只读原则 |
+| `wiki/` | 通用知识库 | 7 类页面 + confidence |
 | `00_首页/` | TRAE Work 6 板块 + 企业合规库 | 双索引，AI 与人各取所需 |
 | `.memory/` ★ | A-MEM 论文 + FlowWiki 原创 | 三子目录分工 |
-| `.agents/skills/` `.claude/skills/` | 环评与排污许可库 + Claude 官方 | 双格式同步部署 |
-| `.llm-wiki/config.toml` | llm-wiki CLI（环评库已用） | 加自适应阈值 |
-| `_scripts/` | 执法督察评查库 5 脚本 | 新增 ace_review.py + a_mem_card.py + sync_index.py |
-| `_templates/` | 执法督察评查库 | 扩展到 6 类模板 |
-| `CLAUDE.md` `AGENTS.md` | 环评与排污许可库 | 双 bootstrap 内容同步 |
+| `.agents/skills/` `.claude/skills/` | 通用 skill 集 + Claude 官方 | 双格式同步部署 |
+| `.llm-wiki/config.toml` | llm-wiki CLI | 加自适应阈值 |
+| `_scripts/` | 通用脚本集 | 新增 ace_review.py + a_mem_card.py + sync_index.py |
+| `_templates/` | 通用模板集 | 扩展到 6 类模板 |
+| `CLAUDE.md` `AGENTS.md` | 通用 bootstrap | 双 bootstrap 内容同步 |
 
 ---
 

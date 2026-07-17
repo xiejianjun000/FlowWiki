@@ -92,7 +92,7 @@ def run_ace_review(wiki_content: str) -> dict:
 def main():
     logger.info("Starting ingest pipeline...")
 
-    default_industry = "atmospheric-tracing"
+    default_industry = "root-cause"
     industry_config = load_industry_config(default_industry)
     
     if not industry_config:

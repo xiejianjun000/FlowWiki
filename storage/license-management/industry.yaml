@@ -1,0 +1,57 @@
+name: "证照管理"
+slug: "license-management"
+domain: "generic"
+subdomain: "license_management"
+perspective: "review_agency"
+
+raw_sources:
+  laws:
+    - 行政许可法
+    - 商事登记管理办法
+    - 行业准入管理规定
+  standards:
+    - ISO 9001 质量管理体系
+    - GB/T 19001 质量管理体系要求
+    - 行业资质分类标准
+  datasets:
+    - 许可证名录
+    - 审批数据库
+    - 资质标准库
+
+wiki_structure:
+  concepts:
+    - 行政许可
+    - 资质证书
+    - 合规边界
+    - 审批条件
+  playbooks:
+    - 证照审批工作流
+    - 许可证核发流程
+    - 许可后监管
+  comparisons:
+    - 许可 vs 备案
+    - 报告书 vs 报告表 vs 登记表
+
+scenarios:
+  - id: license-review
+    name: "证照文件审查"
+    trigger: "用户上传证照文件"
+    skills: [文档审查, 标准匹配, 公众参与核查]
+  - id: license-analysis
+    name: "许可证分析"
+    trigger: "用户上传许可证或询问许可事项"
+    skills: [许可证拆解, 合规判定, 变更评估]
+
+industry_skills:
+  - name: "文档审查"
+    file: ".agents/skills/document-review/SKILL.md"
+  - name: "许可证拆解"
+    file: ".agents/skills/license-breakdown/SKILL.md"
+  - name: "标准匹配"
+    file: ".agents/skills/standard-match/SKILL.md"
+  - name: "公众参与核查"
+    file: ".agents/skills/public-participation/SKILL.md"
+  - name: "合规判定"
+    file: ".agents/skills/compliance-judgment/SKILL.md"
+  - name: "变更评估"
+    file: ".agents/skills/change-assessment/SKILL.md"

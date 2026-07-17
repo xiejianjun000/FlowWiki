@@ -1,21 +1,19 @@
-# Impact Analysis Skill — 影响分析
+# Impact Analysis Skill
+
+> 影响分析 — 评估变更或事件的潜在影响
 
 ## 功能
 
-分析法规政策变更、企业变更或环境事件对合规状态的影响范围和程度。
+评估企业变更事项、政策更新或突发事件对合规状态的潜在影响。
 
 ## 输入
 
 ```json
 {
-  "analysis_type": "法规变更|企业变更|环境事件|政策调整",
-  "trigger": "触发事件描述",
-  "scope": {
-    "enterprises": ["受影响企业"],
-    "region": "影响区域",
-    "timeframe": "时间范围"
-  },
-  "current_status": "当前合规状态"
+  "event": "事件描述",
+  "entity": "企业名称",
+  "current_status": "当前合规状态",
+  "scope": "分析范围"
 }
 ```
 
@@ -23,39 +21,24 @@
 
 ```json
 {
-  "status": "success",
-  "impact_assessment": {
-    "direct_impacts": [
-      {
-        "area": "影响领域",
-        "severity": "高|中|低",
-        "description": "影响描述",
-        "affected_count": 0
-      }
-    ],
-    "indirect_impacts": [
-      {
-        "area": "间接影响领域",
-        "description": "影响描述"
-      }
-    ]
-  },
-  "risk_level": "高风险|中风险|低风险",
-  "action_required": ["需要采取的行动"],
-  "summary": "影响分析结论"
+  "impact_level": "高|中|低",
+  "affected_areas": [
+    {"area": "受影响领域", "impact": "影响描述", "severity": "high|medium|low"}
+  ],
+  "recommendations": ["应对建议"],
+  "timeline": "影响时间线"
 }
 ```
 
 ## 分析维度
 
-1. **合规影响**：是否导致不合规、需变更许可证
-2. **经济影响**：整改成本、罚款风险、停产风险
-3. **环境影响**：排放变化、环境质量影响
-4. **管理影响**：管理流程调整、人员培训需求
-5. **时效影响**：整改时限、过渡期安排
+1. **法律合规**：是否违反法规要求
+2. **经营影响**：对业务运营的影响
+3. **财务影响**：经济损失或成本增加
+4. **声誉影响**：对企业形象的影响
 
 ## 约束
 
-- 区分直接影响和间接影响
-- 影响程度分级必须附依据
-- 给出明确的风险等级和行动建议
+- 影响评估需基于事实和数据
+- 需要领域专家确认分析结论
+- 评估结果需定期复核

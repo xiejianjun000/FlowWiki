@@ -1,0 +1,53 @@
+name: "根因分析"
+slug: "root-cause"
+domain: "generic"
+subdomain: "root_cause_analysis"
+perspective: "analyst"
+
+raw_sources:
+  laws:
+    - 数据治理管理办法
+    - 信息安全技术 个人信息安全规范
+  standards:
+    - ISO 8000 数据质量标准
+    - GB/T 36073 数据管理能力成熟度评估模型
+  datasets:
+    - 业务系统日志
+    - 审计追踪记录
+    - 异常事件库
+
+wiki_structure:
+  concepts:
+    - 数据溯源链路
+    - 趋势分析方法
+    - 异常检测方法
+    - 数据重构方法
+  playbooks:
+    - 根因分析五步法
+    - 跨域分析工作流
+    - 局部分析工作流
+  comparisons:
+    - 自上而下 vs 自下而上
+    - 定量分析 vs 定性分析
+
+scenarios:
+  - id: trace-root-cause
+    name: "根因定位"
+    trigger: "用户描述异常现象或提交分析请求"
+    skills: [判据匹配, 跨域追踪, 模式识别]
+  - id: trend-analysis
+    name: "趋势分析"
+    trigger: "用户询问数据变化趋势"
+    skills: [趋势分析, 异常检测]
+
+industry_skills:
+  - name: "判据匹配"
+    file: ".agents/skills/criteria-matching/SKILL.md"
+  - name: "异常检测"
+    file: ".agents/skills/anomaly-detection/SKILL.md"
+  - name: "跨域追踪"
+    file: ".agents/skills/cross-domain-tracing/SKILL.md"
+  - name: "模式识别"
+    file: ".agents/skills/pattern-recognition/SKILL.md"
+  - name: "趋势分析"
+    file: ".agents/skills/trend-analysis/SKILL.md"

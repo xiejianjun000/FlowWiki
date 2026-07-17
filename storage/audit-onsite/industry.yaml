@@ -1,0 +1,59 @@
+name: "现场核查"
+slug: "audit-onsite"
+domain: "generic"
+subdomain: "audit"
+perspective: "auditor"
+
+raw_sources:
+  laws:
+    - 审计法
+    - 会计法
+    - 内部审计准则
+  standards:
+    - ISO 19011 管理体系审核指南
+    - 中国注册会计师审计准则
+    - 内部审计基本准则
+  datasets:
+    - 审计问题台账
+    - 整改验收记录
+
+wiki_structure:
+  concepts:
+    - 审计问题定性
+    - 证据固定规范
+    - 整改验收标准
+  playbooks:
+    - 现场核查研判流程
+    - 证据固定操作指南
+    - 整改建议编制流程
+  comparisons:
+    - 内部审计 vs 外部审计
+    - 重大违规 vs 一般违规
+
+scenarios:
+  - id: issue-assessment
+    name: "现场问题研判"
+    trigger: "用户描述现场发现的问题"
+    skills: [风险识别, 判据匹配, 法规检索]
+  - id: evidence-fixing
+    name: "证据固定指引"
+    trigger: "用户询问现场取证要求"
+    skills: [证据审核, 文书规范]
+  - id: rectification
+    name: "整改建议生成"
+    trigger: "用户要求生成整改方案"
+    skills: [合规建议, 影响分析]
+
+industry_skills:
+  - name: "风险识别"
+    file: ".agents/skills/risk-identification/SKILL.md"
+  - name: "证据审核"
+    file: ".agents/skills/evidence-review/SKILL.md"
+  - name: "法规检索"
+    file: ".agents/skills/regulation-search/SKILL.md"
+  - name: "文书规范"
+    file: ".agents/skills/document-norm/SKILL.md"
+  - name: "合规建议"
+    file: ".agents/skills/compliance-suggestion/SKILL.md"
+  - name: "影响分析"
+    file: ".agents/skills/impact-analysis/SKILL.md"

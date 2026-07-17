@@ -1,22 +1,19 @@
-# Compliance Judgment Skill — 合规判定
+# Compliance Judgment Skill
+
+> 合规判定 — 判定企业行为是否符合法规要求
 
 ## 功能
 
-根据监测数据和排放标准，判定企业排放是否达标，输出合规判定结果。
+根据输入数据和法规标准，判定企业行为是否合规，输出合规判定结果。
 
 ## 输入
 
 ```json
 {
-  "enterprise_id": "企业编号",
-  "monitoring_data": {
-    "pollutant": "污染物名称",
-    "concentration": "浓度值",
-    "unit": "单位",
-    "monitoring_type": "在线|手工|委托",
-    "time": "监测时间"
-  },
-  "applicable_standard": "适用标准"
+  "entity": "企业名称",
+  "behavior": "待判定行为",
+  "applicable_rules": ["适用法规/标准"],
+  "evidence": "证据材料"
 }
 ```
 
@@ -24,28 +21,26 @@
 
 ```json
 {
-  "status": "达标|超标|临界",
-  "judgment": {
-    "pollutant": "污染物",
-    "actual_value": "实际值",
-    "limit_value": "限值",
-    "exceed_ratio": "超标倍数",
-    "standard_reference": "标准引用"
-  },
-  "legal_consequence": "法律后果说明",
-  "summary": "判定结论"
+  "judgment": "合规|不合规|待确认",
+  "violations": [
+    {
+      "rule": "违反的法规/标准",
+      "item": "违规项",
+      "severity": "严重|一般|轻微"
+    }
+  ],
+  "recommendations": ["整改建议"]
 }
 ```
 
-## 判定规则
+## 审查要点
 
-1. 对比监测值与排放标准限值
-2. 考虑监测类型（在线/手工/委托）的法律效力
-3. 判断是否超过许可排放量
-4. 评估超标程度（轻微/一般/严重）
+1. 对比实际行为与法规要求
+2. 考虑证据的法律效力
+3. 判断是否超过许可范围
 
 ## 约束
 
-- 引用具体标准条款和限值
-- 区分浓度达标和总量达标
-- 超标判定必须附法律后果说明
+- 判定需引用具体法规条款
+- 证据不足时标注"待确认"
+- 不可替代法律意见

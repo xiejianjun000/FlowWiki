@@ -1,7 +1,6 @@
 name: "案卷评查"
 slug: "case-review"
-gb_code: "M7462"
-domain: "environmental"
+domain: "generic"
 subdomain: "case_review"
 perspective: "reviewer"
 
@@ -9,11 +8,9 @@ raw_sources:
   laws:
     - 行政处罚法
     - 行政强制法
-    - 环境保护法
     - 行政执法程序规定
   standards:
-    - 环境行政处罚办法
-    - 环境行政执法文书规范
+    - 行政执法文书规范
     - 案卷评查标准
   datasets:
     - 评查案卷样本

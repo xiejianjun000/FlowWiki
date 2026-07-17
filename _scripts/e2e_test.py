@@ -54,7 +54,7 @@ for i, name in enumerate(["01_知识图谱", "02_判据体系", "03_实战场景
     test(f"00_首页/{name}/README.md", (BASE / f"00_首页/{name}/README.md").exists())
 
 # 7 场景
-scenarios = ["大气溯源", "执法办案", "排污许可", "企业合规", "督察现场", "案卷评查", "迎检准备"]
+scenarios = ["根因分析", "合规审查", "证照管理", "企业合规", "现场核查", "案卷评查", "审计准备"]
 test(f"7 场景全齐 ({len(scenarios)} 个)", all(
     (BASE / f"00_首页/03_实战场景/{s}/README.md").exists() for s in scenarios
 ), f"场景: {', '.join(scenarios)}")

@@ -1,7 +1,6 @@
 name: "企业合规AI管家"
 slug: "enterprise-compliance"
-gb_code: "L7299"
-domain: "business"
+domain: "generic"
 subdomain: "compliance"
 perspective: "enterprise"
 
@@ -10,7 +9,7 @@ raw_sources:
     - 公司法
     - 劳动合同法
     - 安全生产法
-    - 环境保护法
+    - 数据安全法
   standards:
     - ISO 19600 合规管理体系 指南
     - GB/T 35770-2017 合规管理体系 指南

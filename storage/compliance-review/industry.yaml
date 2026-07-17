@@ -1,0 +1,61 @@
+name: "合规审查"
+slug: "compliance-review"
+domain: "generic"
+subdomain: "compliance_review"
+perspective: "reviewer"
+
+raw_sources:
+  laws:
+    - 行政处罚法
+    - 行政强制法
+    - 行政执法程序规定
+  standards:
+    - 行政执法文书规范
+    - 案卷评查标准
+    - 行政执法三项制度
+  datasets:
+    - 评查案卷样本
+    - 评查问题台账
+
+wiki_structure:
+  concepts:
+    - 案卷评查标准
+    - 程序合法性
+    - 证据链完整性
+  playbooks:
+    - 案卷评查操作流程
+    - 程序审查五步法
+    - 证据链审核指南
+  comparisons:
+    - 行政处罚 vs 行政强制
+    - 一般程序 vs 简易程序
+
+scenarios:
+  - id: procedure-review
+    name: "案卷程序审查"
+    trigger: "用户上传案卷材料"
+    skills: [程序审查, 步骤验证, 时限计算]
+  - id: evidence-audit
+    name: "证据链审核"
+    trigger: "用户询问证据完整性"
+    skills: [证据审核, 文书规范]
+  - id: law-application
+    name: "法律适用检查"
+    trigger: "用户询问处罚依据"
+    skills: [法规检索, 法律适用]
+
+industry_skills:
+  - name: "程序审查"
+    file: ".agents/skills/procedure-review/SKILL.md"
+  - name: "证据审核"
+    file: ".agents/skills/evidence-review/SKILL.md"
+  - name: "步骤验证"
+    file: ".agents/skills/step-verification/SKILL.md"
+  - name: "时限计算"
+    file: ".agents/skills/time-limit-calc/SKILL.md"
+  - name: "法规检索"
+    file: ".agents/skills/regulation-search/SKILL.md"
+  - name: "法律适用"
+    file: ".agents/skills/law-application/SKILL.md"
+  - name: "文书规范"
+    file: ".agents/skills/document-norm/SKILL.md"
