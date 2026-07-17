@@ -4,6 +4,9 @@
 >
 > 版本：v0.7（M0-M6 已完成，M7 白皮书发布中，2026-07-17）
 
+[![CI](https://github.com/xiejianjun000/FlowWiki/actions/workflows/ci.yml/badge.svg)](https://github.com/xiejianjun000/FlowWiki/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ---
 
 ## 一句话定义
