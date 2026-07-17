@@ -1,0 +1,56 @@
+[retrieval]
+engine = "bm25"
+fallback_engines = ["nano-graphrag", "lightrag"]
+
+[bm25]
+k1 = 1.2
+b = 0.75
+min_token_length = 2
+
+[nano-graphrag]
+enabled = true
+max_depth = 3
+top_k = 10
+
+[lightrag]
+enabled = false
+api_key = ""
+model = "text-embedding-3-small"
+
+[ingest]
+auto_compile = true
+compile_interval = "30m"
+max_workers = 4
+
+[ace]
+enabled = true
+reflector_threshold = 0.8
+curator_override = true
+
+[memory]
+card_limit = 10000
+auto_prune = true
+prune_threshold = 0.3
+
+[skill]
+cache_enabled = true
+cache_ttl = "1h"
+
+[hermes]
+api_url = "https://api.hermes.ai"
+api_key = ""
+timeout = 30
+
+[logging]
+level = "INFO"
+format = "json"
+file = "flowwiki.log"
+
+[industry]
+default = "atmospheric-tracing"
+switch_enabled = true
+
+[storage]
+path = "./storage"
+backup_enabled = true
+backup_interval = "24h"

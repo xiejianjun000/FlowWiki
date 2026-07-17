@@ -1,0 +1,25 @@
+---
+id: {{ id }}
+date: {{ date }}
+tags: {{ tags }}
+source: {{ source }}
+related: {{ related }}
+---
+
+# {{ title }}
+
+## 核心内容
+
+{{ content }}
+
+## 关联知识
+
+{% for item in related %}
+- [{{ item.name }}]({{ item.path }})
+{% endfor %}
+
+## 原始证据
+
+{% for item in evidences %}
+- [{{ item.name }}]({{ item.path }})
+{% endfor %}

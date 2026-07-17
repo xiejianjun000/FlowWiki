@@ -1,0 +1,21 @@
+name: dual-index-ace
+title: 双索引机制与ACE反思循环实现
+version: 0.1
+status: active
+created: 2026-07-17
+updated: 2026-07-17
+
+owner: flowwiki-team
+domain: infrastructure
+priority: high
+
+scope:
+  - 实现双索引同步机制（wiki/index.md + 00_首页/）
+  - 实现ACE反思循环（Generator→Reflector→Curator）
+  - 创建相关脚本和工具
+
+deliverables:
+  - _scripts/ace_review.py
+  - _scripts/sync_dual_index.py
+  - 双索引设计文档
+  - ACE循环设计文档

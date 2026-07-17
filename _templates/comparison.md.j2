@@ -1,0 +1,65 @@
+---
+type: comparison
+title: {{ title }}
+created: {{ created }}
+updated: {{ updated }}
+confidence: {{ confidence | default("medium") }}
+sources: {{ sources }}
+tags: [flow-wiki, comparison, {{ topic }}]
+status: {{ status | default("draft") }}
+---
+
+# {{ title }}
+
+## 概述
+
+{{ overview }}
+
+## 对比对象
+
+{% for item in subjects %}
+- **{{ item.name }}**：{{ item.brief }}
+{% endfor %}
+
+## 对比维度
+
+| 维度 | {% for item in subjects %}{{ item.name }} | {% endfor %}
+|------|{% for item in subjects %}---------|{% endfor %}
+{% for dimension in dimensions %}
+| {{ dimension.name }} |{% for value in dimension.values %} {{ value }} |{% endfor %}
+{% endfor %}
+
+## 详细分析
+
+{% for dimension in dimensions %}
+### {{ dimension.name }}
+
+{{ dimension.analysis }}
+
+{% endfor %}
+
+## 适用场景对比
+
+{% for scenario in scenario_comparison %}
+- **{{ scenario.scenario }}**：
+{% for rec in scenario.recommendations %}
+  - {{ rec }}
+{% endfor %}
+
+{% endfor %}
+
+## 结论
+
+{{ conclusion }}
+
+## 相关概念
+
+{% for related in related_concepts %}
+- [{{ related.name }}]({{ related.path }})
+{% endfor %}
+
+## 原始证据
+
+{% for evidence in evidences %}
+- [{{ evidence.name }}](../raw/{{ evidence.path }})
+{% endfor %}

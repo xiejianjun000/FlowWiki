@@ -1,0 +1,60 @@
+---
+type: concept
+title: {{ title }}
+created: {{ created }}
+updated: {{ updated }}
+confidence: {{ confidence | default("medium") }}
+sources: {{ sources }}
+tags: [flow-wiki, concept, {{ topic }}]
+status: {{ status | default("draft") }}
+---
+
+# {{ title }}
+
+## 概述
+
+{{ overview }}
+
+## 核心定义
+
+{{ definition }}
+
+## 关键要点
+
+{% for point in key_points %}
+- {{ point }}
+{% endfor %}
+
+## 技术参数
+
+{% if parameters %}
+| 参数 | 值 | 说明 |
+|------|------|------|
+{% for param in parameters %}
+| {{ param.name }} | {{ param.value }} | {{ param.description }} |
+{% endfor %}
+{% endif %}
+
+## 相关概念
+
+{% for related in related_concepts %}
+- [{{ related.name }}]({{ related.path }})
+{% endfor %}
+
+## 对比分析
+
+{% for comparison in comparisons %}
+- [{{ comparison.name }}]({{ comparison.path }})
+{% endfor %}
+
+## 原始证据
+
+{% for evidence in evidences %}
+- [{{ evidence.name }}](../raw/{{ evidence.path }})
+{% endfor %}
+
+## 操作手册引用
+
+{% for playbook in playbooks %}
+- [{{ playbook.name }}]({{ playbook.path }})
+{% endfor %}

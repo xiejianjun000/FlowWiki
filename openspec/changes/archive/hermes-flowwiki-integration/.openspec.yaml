@@ -1,0 +1,39 @@
+name: hermes-flowwiki-integration
+title: Hermes AI 框架与 FlowWiki 集成
+version: 0.1
+status: active
+created: 2026-07-17
+updated: 2026-07-17
+
+owner: flowwiki-team
+domain: infrastructure
+priority: high
+
+related_specs:
+  - ../../spec/requirements.md
+  - ../../spec/design.md
+  - ../../spec/structure.md
+  - ../../spec/tasks.md
+
+dependencies:
+  - flowwiki-skeleton (M1)
+
+scope:
+  - 定义 industry.yaml 行业适配器规范
+  - 设计骨肉分离架构（L2-L6 通用骨架 + L1+L7 行业内容）
+  - 设计「4+1」部署模式
+  - 设计 Hermes 冷启动自动建库流程
+  - 编写 spec/hermes-integration.md
+
+deliverables:
+  - proposal.md
+  - design.md
+  - specs/industry-adapter.yaml
+  - plan.md
+  - spec/hermes-integration.md
+
+acceptance_criteria:
+  - industry.yaml 规范完整，可用于 4 个现有知识库的适配
+  - 骨肉分离设计文档完备，L1-L7 各层职责清晰
+  - Hermes 冷启动流程可执行
+  - spec/hermes-integration.md 写入 FlowWiki 全局 spec

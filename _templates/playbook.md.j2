@@ -1,0 +1,74 @@
+---
+type: playbook
+title: {{ title }}
+created: {{ created }}
+updated: {{ updated }}
+confidence: {{ confidence | default("medium") }}
+sources: {{ sources }}
+tags: [flow-wiki, playbook, {{ topic }}]
+status: {{ status | default("draft") }}
+---
+
+# {{ title }}
+
+## 概述
+
+{{ overview }}
+
+## 适用场景
+
+{{ applicable_scenarios }}
+
+## 前置条件
+
+{% for prereq in prerequisites %}
+- {{ prereq }}
+{% endfor %}
+
+## 操作步骤
+
+{% for step in steps %}
+### 步骤 {{ loop.index }}：{{ step.name }}
+
+{{ step.description }}
+
+{% if step.inputs %}
+**输入**：
+{% for input in step.inputs %}
+- {{ input }}
+{% endfor %}
+{% endif %}
+
+{% if step.outputs %}
+**输出**：
+{% for output in step.outputs %}
+- {{ output }}
+{% endfor %}
+{% endif %}
+
+{% if step.skills %}
+**调用 Skill**：
+{% for skill in step.skills %}
+- [{{ skill.name }}]({{ skill.path }})
+{% endfor %}
+{% endif %}
+
+{% endfor %}
+
+## 注意事项
+
+{% for note in notes %}
+- ⚠️ {{ note }}
+{% endfor %}
+
+## 相关概念
+
+{% for related in related_concepts %}
+- [{{ related.name }}]({{ related.path }})
+{% endfor %}
+
+## 原始证据
+
+{% for evidence in evidences %}
+- [{{ evidence.name }}](../raw/{{ evidence.path }})
+{% endfor %}

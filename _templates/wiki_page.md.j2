@@ -1,0 +1,27 @@
+# {{ title }}
+
+## 概述
+
+{{ overview }}
+
+## 核心内容
+
+{{ content }}
+
+## 相关资料
+
+{% for source in sources %}
+- [{{ source.name }}]({{ source.path }})
+{% endfor %}
+
+## 关联知识
+
+{% for related in related %}
+- [{{ related.name }}]({{ related.path }})
+{% endfor %}
+
+## 原始证据
+
+{% for evidence in evidences %}
+- [{{ evidence.name }}](../raw/{{ evidence.path }})
+{% endfor %}

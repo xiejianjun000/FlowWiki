@@ -1,0 +1,56 @@
+name: "大气溯源"
+slug: "atmospheric-tracing"
+gb_code: "M7461"
+domain: "environmental"
+subdomain: "atmospheric_tracing"
+perspective: "monitoring_station"
+
+raw_sources:
+  laws:
+    - 环境保护法
+    - 大气污染防治法
+    - 生态环境法典
+  standards:
+    - GB 3095-2012 环境空气质量标准
+    - HJ 633-2012 空气质量指数技术规定
+    - HJ 663-2013 环境空气质量评价技术规范
+  datasets:
+    - CNEMC 实时监测数据
+    - 气象再分析数据
+    - 排放清单
+
+wiki_structure:
+  concepts:
+    - 气团后向轨迹
+    - EKMA曲线
+    - O3生成敏感性
+    - PM2.5化学组分重构
+  playbooks:
+    - 溯源研判五步法
+    - 市州级溯源工作流
+    - 县域级溯源工作流
+  comparisons:
+    - HYSPLIT vs FLEXPART
+    - WRF-Chem vs CMAQ
+
+scenarios:
+  - id: trace-source
+    name: "溯源研判"
+    trigger: "用户上传监测数据或描述污染过程"
+    skills: [判据匹配, 区域传输分析, 源类指纹识别]
+  - id: ekma-analysis
+    name: "EKMA敏感性分析"
+    trigger: "用户询问O3污染成因"
+    skills: [O3敏感性诊断, EKMA曲线分析]
+
+industry_skills:
+  - name: "判据匹配"
+    file: ".agents/skills/criteria-match/SKILL.md"
+  - name: "O3敏感性诊断"
+    file: ".agents/skills/o3-sensitivity/SKILL.md"
+  - name: "区域传输分析"
+    file: ".agents/skills/regional-transport/SKILL.md"
+  - name: "源类指纹识别"
+    file: ".agents/skills/source-fingerprint/SKILL.md"
+  - name: "EKMA曲线分析"
+    file: ".agents/skills/ekma-analysis/SKILL.md"

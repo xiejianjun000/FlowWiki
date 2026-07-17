@@ -1,0 +1,64 @@
+name: "迎检准备"
+slug: "inspection-prep"
+gb_code: "M7460"
+domain: "environmental"
+subdomain: "inspection_preparation"
+perspective: "enterprise"
+
+raw_sources:
+  laws:
+    - 环境保护法
+    - 环境影响评价法
+    - 排污许可管理条例
+    - 大气污染防治法
+    - 水污染防治法
+  standards:
+    - GB 3095-2012 环境空气质量标准
+    - GB 3838-2002 地表水环境质量标准
+    - HJ 942-2018 排污许可证申请与核发技术规范
+  datasets:
+    - 企业合规自查清单
+    - 迎检材料模板库
+
+wiki_structure:
+  concepts:
+    - 迎检合规要求
+    - 风险排查方法
+    - 材料准备规范
+  playbooks:
+    - 迎检准备全流程
+    - 合规自查操作指南
+    - 风险排查五步法
+  comparisons:
+    - 中央督察 vs 省级督察 vs 日常检查
+    - 专项检查 vs 综合检查
+
+scenarios:
+  - id: compliance-checklist
+    name: "合规自查清单生成"
+    trigger: "用户询问迎检准备事项"
+    skills: [清单编制, 法规检索, 标准匹配]
+  - id: material-prep
+    name: "迎检材料准备"
+    trigger: "用户询问需要准备的材料"
+    skills: [文书规范, 清单编制]
+  - id: risk-screening
+    name: "问题预判与风险排查"
+    trigger: "用户描述企业情况"
+    skills: [风险识别, 影响分析, 合规建议]
+
+industry_skills:
+  - name: "清单编制"
+    file: ".agents/skills/checklist-compile/SKILL.md"
+  - name: "风险识别"
+    file: ".agents/skills/risk-identification/SKILL.md"
+  - name: "文书规范"
+    file: ".agents/skills/document-norm/SKILL.md"
+  - name: "合规建议"
+    file: ".agents/skills/compliance-suggestion/SKILL.md"
+  - name: "法规检索"
+    file: ".agents/skills/regulation-search/SKILL.md"
+  - name: "标准匹配"
+    file: ".agents/skills/standard-match/SKILL.md"
+  - name: "影响分析"
+    file: ".agents/skills/impact-analysis/SKILL.md"

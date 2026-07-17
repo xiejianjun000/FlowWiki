@@ -1,0 +1,31 @@
+# raw/ 索引
+
+## 行业：{{ industry_name }}
+
+### 法律文件
+
+{% for law in laws %}
+- {{ law }}
+{% endfor %}
+
+### 标准文件
+
+{% for standard in standards %}
+- {{ standard }}
+{% endfor %}
+
+### 报告文件
+
+{% for report in reports %}
+- {{ report }}
+{% endfor %}
+
+### 数据集
+
+{% for dataset in datasets %}
+- {{ dataset }}
+{% endfor %}
+
+## 更新时间
+
+{{ timestamp }}

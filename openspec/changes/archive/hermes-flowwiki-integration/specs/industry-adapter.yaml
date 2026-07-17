@@ -1,0 +1,177 @@
+name: industry-adapter
+title: 行业适配器规范
+version: 1.0
+status: active
+
+description: |
+  定义 industry.yaml 的 schema 和验证规则，用于驱动 FlowWiki 的跨行业适配。
+
+schema:
+  type: object
+  required:
+    - name
+    - slug
+    - gb_code
+    - domain
+    - subdomain
+    - perspective
+  properties:
+    name:
+      type: string
+      description: 行业中文名称
+      example: "大气溯源"
+    slug:
+      type: string
+      description: 行业英文标识，用于目录命名，仅包含小写字母、数字和连字符
+      pattern: "^[a-z0-9-]+$"
+      example: "atmospheric-tracing"
+    gb_code:
+      type: string
+      description: GB/T 4754-2017 国民经济行业分类代码
+      example: "M7461"
+    domain:
+      type: string
+      description: 一级领域
+      enum:
+        - environmental
+        - legal
+        - business
+        - health
+        - education
+        - technology
+        - finance
+        - manufacturing
+        - agriculture
+        - service
+        - other
+      example: "environmental"
+    subdomain:
+      type: string
+      description: 二级子领域
+      example: "atmospheric_tracing"
+    perspective:
+      type: string
+      description: 使用视角
+      enum:
+        - enterprise
+        - government
+        - regulatory
+        - monitoring_station
+        - review_agency
+        - research_institute
+        - general_public
+      example: "monitoring_station"
+
+    raw_sources:
+      type: object
+      description: 必须入仓的原始资料清单
+      properties:
+        laws:
+          type: array
+          items:
+            type: string
+          description: 必须入仓的法律清单
+          example: ["环境保护法", "大气污染防治法"]
+        standards:
+          type: array
+          items:
+            type: string
+          description: 必须入仓的标准清单
+          example: ["GB 3095-2012 环境空气质量标准"]
+        datasets:
+          type: array
+          items:
+            type: string
+          description: 行业特有数据源
+          example: ["CNEMC 实时监测数据"]
+
+    wiki_structure:
+      type: object
+      description: wiki 页面结构定义
+      properties:
+        concepts:
+          type: array
+          items:
+            type: string
+          description: 行业核心概念列表
+          example: ["气团后向轨迹", "EKMA曲线"]
+        playbooks:
+          type: array
+          items:
+            type: string
+          description: 行业操作手册列表
+          example: ["溯源研判五步法"]
+        comparisons:
+          type: array
+          items:
+            type: string
+          description: 行业对比分析列表
+          example: ["HYSPLIT vs FLEXPART"]
+
+    scenarios:
+      type: array
+      items:
+        type: object
+        required:
+          - id
+          - name
+          - trigger
+          - skills
+        properties:
+          id:
+            type: string
+            description: 场景唯一标识
+            pattern: "^[a-z0-9-]+$"
+            example: "trace-source"
+          name:
+            type: string
+            description: 场景名称
+            example: "溯源研判"
+          trigger:
+            type: string
+            description: 触发条件描述
+            example: "用户上传监测数据或描述污染过程"
+          skills:
+            type: array
+            items:
+              type: string
+            description: 场景关联的 Skill 列表
+            example: ["判据匹配", "区域传输分析"]
+
+    industry_skills:
+      type: array
+      items:
+        type: object
+        required:
+          - name
+          - file
+        properties:
+          name:
+            type: string
+            description: 行业专属 Skill 名称
+            example: "判据匹配"
+          file:
+            type: string
+            description: Skill 文件路径，相对于仓库根目录
+            pattern: "^\\.agents/skills/.+/SKILL\\.md$"
+            example: ".agents/skills/criteria-match/SKILL.md"
+
+validation_rules:
+  - slug 必须唯一，不能与其他行业重复
+  - gb_code 必须符合 GB/T 4754-2017 格式
+  - industry_skills[].file 路径必须存在
+  - scenarios[].id 必须唯一
+
+default_values:
+  domain: "other"
+  perspective: "general_public"
+  raw_sources:
+    laws: []
+    standards: []
+    datasets: []
+  wiki_structure:
+    concepts: []
+    playbooks: []
+    comparisons: []
+  scenarios: []
+  industry_skills: []

@@ -1,0 +1,59 @@
+name: "企业合规AI管家"
+slug: "enterprise-compliance"
+gb_code: "L7299"
+domain: "business"
+subdomain: "compliance"
+perspective: "enterprise"
+
+raw_sources:
+  laws:
+    - 公司法
+    - 劳动合同法
+    - 安全生产法
+    - 环境保护法
+  standards:
+    - ISO 19600 合规管理体系 指南
+    - GB/T 35770-2017 合规管理体系 指南
+    - ISO 45001 职业健康安全管理体系
+  datasets:
+    - 合规风险清单
+    - 政策更新库
+    - 行业合规标准
+
+wiki_structure:
+  concepts:
+    - 合规管理体系
+    - 风险评估
+    - 合规审计
+    - 合规培训
+  playbooks:
+    - 合规清单生成流程
+    - 合规风险评估工作流
+    - 合规检查程序
+  comparisons:
+    - 合规 vs 内控
+    - ISO 19600 vs GB/T 35770
+
+scenarios:
+  - id: compliance-checklist
+    name: "合规清单生成"
+    trigger: "用户询问企业合规要求"
+    skills: [法规检索, 风险识别, 清单编制]
+  - id: policy-tracking
+    name: "政策追踪"
+    trigger: "用户询问政策更新"
+    skills: [政策监控, 影响分析, 合规建议]
+
+industry_skills:
+  - name: "法规检索"
+    file: ".agents/skills/regulation-search/SKILL.md"
+  - name: "风险识别"
+    file: ".agents/skills/risk-identification/SKILL.md"
+  - name: "清单编制"
+    file: ".agents/skills/checklist-compile/SKILL.md"
+  - name: "政策监控"
+    file: ".agents/skills/policy-monitor/SKILL.md"
+  - name: "影响分析"
+    file: ".agents/skills/impact-analysis/SKILL.md"
+  - name: "合规建议"
+    file: ".agents/skills/compliance-suggestion/SKILL.md"

@@ -1,0 +1,68 @@
+---
+type: case
+title: {{ title }}
+created: {{ created }}
+updated: {{ updated }}
+confidence: {{ confidence | default("medium") }}
+sources: {{ sources }}
+tags: [flow-wiki, case, {{ topic }}]
+status: {{ status | default("draft") }}
+---
+
+# {{ title }}
+
+## 概述
+
+{{ overview }}
+
+## 案件背景
+
+{{ background }}
+
+## 关键事实
+
+{% for fact in key_facts %}
+- {{ fact }}
+{% endfor %}
+
+## 分析过程
+
+{% for step in analysis_steps %}
+### {{ step.title }}
+
+{{ step.content }}
+
+{% if step.evidence %}
+**证据**：
+{% for ev in step.evidence %}
+- [{{ ev.name }}](../raw/{{ ev.path }})
+{% endfor %}
+{% endif %}
+
+{% endfor %}
+
+## 判定结果
+
+{{ verdict }}
+
+## 适用法规/标准
+
+{% for reference in legal_references %}
+- {{ reference }}
+{% endfor %}
+
+## 经验总结
+
+{{ lessons_learned }}
+
+## 关联案例
+
+{% for related in related_cases %}
+- [{{ related.name }}]({{ related.path }})
+{% endfor %}
+
+## 原始证据
+
+{% for evidence in evidences %}
+- [{{ evidence.name }}](../raw/{{ evidence.path }})
+{% endfor %}
