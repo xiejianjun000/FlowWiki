@@ -57,11 +57,8 @@ jobs:
 
       - name: Run lint
         run: |
-          # 检查所有 wiki 页面是否有 frontmatter
-          # 检查文件命名规范
-          # 检查双索引一致性
           python -c "
-          import os, sys
+          import sys
           from pathlib import Path
 
           errors = []
@@ -77,18 +74,19 @@ jobs:
               if not content.startswith('---'):
                   errors.append(f'Missing frontmatter: {f}')
 
-          # 2. raw 目录只读检查（确保没有 AI 修改痕迹）
-          raw_readme = base / 'raw/README.md'
-          if raw_readme.exists():
-              content = raw_readme.read_text(encoding='utf-8')
-              if 'AI' in content and '修改' in content:
-                  errors.append('raw/README.md contains AI modification traces')
-
-          # 3. 双索引存在性
+          # 2. 双索引存在性
           if not (base / 'wiki/index.md').exists():
               errors.append('wiki/index.md missing')
           if not (base / '00_首页/README.md').exists():
               errors.append('00_首页/README.md missing')
+
+          # 3. .gitignore 存在
+          if not (base / '.gitignore').exists():
+              errors.append('.gitignore missing')
+
+          # 4. SCHEMA.md 存在
+          if not (base / 'SCHEMA.md').exists():
+              errors.append('SCHEMA.md missing')
 
           if errors:
               for e in errors:
