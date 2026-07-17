@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  e2e-test:
+    name: End-to-end tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run E2E tests
+        run: python _scripts/e2e_test.py
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-report
+          path: wiki/meta/e2e-test-report.md
+          retention-days: 30
+
+  lint-check:
+    name: Lint check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run lint
+        run: |
+          # 检查所有 wiki 页面是否有 frontmatter
+          # 检查文件命名规范
+          # 检查双索引一致性
+          python -c "
+          import os, sys
+          from pathlib import Path
+
+          errors = []
+          base = Path('.')
+
+          # 1. wiki markdown 必须有 frontmatter（排除 README/index/log/meta）
+          for f in base.glob('wiki/**/*.md'):
+              if f.name in ('README.md', 'index.md', 'log.md'):
+                  continue
+              if 'meta' in f.parts:
+                  continue
+              content = f.read_text(encoding='utf-8')
+              if not content.startswith('---'):
+                  errors.append(f'Missing frontmatter: {f}')
+
+          # 2. raw 目录只读检查（确保没有 AI 修改痕迹）
+          raw_readme = base / 'raw/README.md'
+          if raw_readme.exists():
+              content = raw_readme.read_text(encoding='utf-8')
+              if 'AI' in content and '修改' in content:
+                  errors.append('raw/README.md contains AI modification traces')
+
+          # 3. 双索引存在性
+          if not (base / 'wiki/index.md').exists():
+              errors.append('wiki/index.md missing')
+          if not (base / '00_首页/README.md').exists():
+              errors.append('00_首页/README.md missing')
+
+          if errors:
+              for e in errors:
+                  print(f'  LINT ERROR: {e}', file=sys.stderr)
+              sys.exit(1)
+          else:
+              print('All lint checks passed.')
+          "

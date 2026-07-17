@@ -83,30 +83,40 @@ class DualIndexSync:
         return content
 
     def sync(self):
-        """执行同步"""
+        """执行同步（幂等：内容未变则不写入）"""
         logger.info("Starting dual index sync...")
 
         structure = self.scan_wiki()
 
-        # 更新机器索引
+        # 更新机器索引（幂等）
         machine_index = self.generate_machine_index(structure)
         wiki_index = self.wiki_dir / "index.md"
-        wiki_index.write_text(machine_index, encoding="utf-8")
-        logger.info(f"Updated machine index: {wiki_index}")
+        if wiki_index.exists():
+            existing = wiki_index.read_text(encoding="utf-8")
+            if existing != machine_index:
+                wiki_index.write_text(machine_index, encoding="utf-8")
+                logger.info(f"Updated machine index: {wiki_index}")
+            else:
+                logger.info(f"Machine index unchanged: {wiki_index}")
+        else:
+            wiki_index.write_text(machine_index, encoding="utf-8")
+            logger.info(f"Created machine index: {wiki_index}")
 
-        # 更新人类索引
+        # 更新人类索引（幂等）
         human_index = self.generate_human_index(structure)
         home_index = self.home_dir / "README.md"
         if home_index.exists():
             existing = home_index.read_text(encoding="utf-8")
-            # 在人类索引后追加机器索引的链接
             if "## 机器索引" not in existing:
                 existing += "\n\n## 机器索引\n\n"
                 existing += "[查看完整机器索引](../wiki/index.md)\n"
-            home_index.write_text(existing, encoding="utf-8")
+                home_index.write_text(existing, encoding="utf-8")
+                logger.info(f"Updated human index: {home_index}")
+            else:
+                logger.info(f"Human index already synced: {home_index}")
         else:
             home_index.write_text(human_index, encoding="utf-8")
-        logger.info(f"Updated human index: {home_index}")
+            logger.info(f"Created human index: {home_index}")
 
         logger.info("Dual index sync completed")
 
