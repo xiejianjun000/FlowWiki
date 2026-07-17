@@ -7,6 +7,23 @@ FlowWiki 的所有重要变更都会记录在此文件中。
 
 ---
 
+## [0.2.0] - 2026-07-18
+
+### 新增
+- **MCP Server** — `_scripts/mcp_server.py`，暴露 5 个工具（query/read/lint/research/index），支持 stdio/SSE 双传输
+- **Docker 部署** — `Dockerfile`（多阶段构建）、`docker-compose.yml`（flowwiki + mcp-server 双服务）、`.dockerignore`
+- **MCP 集成文档** — `docs/mcp-integration.md`，含 Claude Code/Codex/Cursor 接入指南
+- **`.mcp.json`** — 项目级 MCP 配置，Claude Code 打开项目自动加载
+- **`requirements.txt`** — 锁定 PyYAML + MCP SDK 依赖
+
+### 变更
+- **README** — 新增 2026 Q3 竞品全景对比表（nashsu/SamurAIGPT/atomicstrata/agentmemory/mem0）
+- **README** — 新增 Docker 部署和 MCP Server 接入说明
+- **README** — Tech Stack 表更新为含 Docker + MCP
+- **GitHub Topics** — 添加 14 个标签（llm-wiki, knowledge-base, agent-memory 等）提升可发现性
+
+---
+
 ## [0.1.0] - 2026-07-17
 
 ### 新增

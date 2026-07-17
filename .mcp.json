@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "flowwiki": {
+      "command": "python",
+      "args": ["_scripts/mcp_server.py"],
+      "cwd": "."
+    }
+  }
+}

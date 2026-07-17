@@ -185,6 +185,27 @@ cp -r raw/ wiki/ 00_首页/ config.toml SCHEMA.md your-vault/
 
 参考 [SCHEMA.md](./SCHEMA.md) 手动创建目录结构，或使用 `_scripts/` 下的脚本初始化。
 
+### Option 4：Docker 一键部署
+
+```bash
+git clone https://github.com/xiejianjun000/FlowWiki.git my-wiki
+cd my-wiki
+
+# 构建并启动
+docker compose up -d
+
+# 接入 MCP（让 AI Agent 直接调用 FlowWiki）
+# 参考 docs/mcp-integration.md
+```
+
+### Option 5：MCP Server 接入
+
+```bash
+pip install -r requirements.txt
+python _scripts/mcp_server.py
+```
+然后在你的 AI Agent 的 MCP 配置中添加 FlowWiki server，详见 [docs/mcp-integration.md](./docs/mcp-integration.md)。
+
 ---
 
 ## 核心操作
@@ -247,6 +268,22 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 
 > **FlowWiki 是唯一同时覆盖以上 9 个维度的项目。**
 
+### 2026 Q3 竞品全景（截至 2026-07-18）
+
+| 项目 | Stars | 定位 | 核心亮点 | FlowWiki 对比 |
+|------|-------|------|----------|-------------|
+| **nashsu/llm_wiki** | 14.8K | 桌面 GUI 应用 | Tauri+React GUI，Louvain 图谱聚类，Chrome 剪藏，MCP | FlowWiki 无 GUI 但方法论更深 |
+| **SamurAIGPT/llm-wiki-agent** | 3.2K | 多 Agent Skill 包 | Agent-agnostic，Git 版本控制，知识图谱可视化 | FlowWiki 的 ACE 是其没有的防幻觉层 |
+| **Ar9av/obsidian-wiki** | 2.9K | 完整框架 | 13 skill 文件，Delta tracking，图片编译，多 AI 兼容 | FlowWiki 有 ACE+A-MEM，但缺少技能数量 |
+| **atomicstrata/llm-wiki-compiler** | 1.8K | npm 知识编译器 | OKF 格式，eval harness，MCP Server，review policy | 最接近 FlowWiki 品质控制理念的竞品 |
+| **lucasastorian/llmwiki** | 1.4K | Web 托管 | llmwiki.app 在线服务，Chrome 扩展，自动维护 | FlowWiki 本地优先，数据主权更好 |
+| **agentmemory** | 22K | Agent 持久记忆 | MCP 集中式记忆，BM25+向量+图谱三流检索，自动遗忘 | FlowWiki 的 A-MEM 卡片更轻量，零依赖 |
+| **mem0** | 22K | 通用记忆层 | 生产级 SDK/API，LongMemEval=94.8，托管服务 | FlowWiki 面向方法论用户，mem0 面向开发者 |
+
+**FlowWiki 的差异化定位**：最严格的知识质量保证 + 能力复利飞轮。
+- 桌面应用选 nashsu，Web 托管选 lucasastorian，工程化编译选 atomicstrata
+- **要对知识质量有洁癖 → FlowWiki（ACE 三 agent 制约 + SpecCoding 追溯）**
+
 ---
 
 ## Tech Stack
@@ -261,7 +298,9 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 | Agent 兼容 L6 | CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md | 5 家 agent 通吃 |
 | Skill 分发 L5 | .agents/skills/ + .claude/skills/ 双部署 | 同一 skill 两套格式 |
 | 可视化 | Obsidian Graph View + Dataview | 零额外依赖 |
-| 依赖 | 仅 PyYAML | 极简优先 |
+| 部署 | Docker + docker compose | 一键启动 |
+| MCP 接口 | `_scripts/mcp_server.py` | 5 工具暴露给 AI Agent |
+| 依赖 | PyYAML + MCP SDK | 极简优先 |
 
 ---
 

@@ -1,0 +1,46 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+.venv
+venv
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# CI
+.github
+
+# WorkBuddy
+.workbuddy
+
+# Obsidian
+.obsidian
+.trash
+.stfolder
+
+# Logs
+*.log
+logs/
+
+# Node (if any)
+node_modules
