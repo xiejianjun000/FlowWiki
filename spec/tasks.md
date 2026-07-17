@@ -71,7 +71,7 @@
 | 2.7 | 写 build_match_index.py | _scripts/build_match_index.py | ✅ |
 | 2.8 | 写 sync_dual_index.py | _scripts/sync_dual_index.py | ✅ |
 | 2.9 | 端到端测试：用 1 篇 mock raw 走完整 ingest 流程 | - | ✅ (raw/test.md 测试通过) |
-| 2.10 | 写 reindex.py / normalize.py / fix_dangling.py / lint.py / graph.py | _scripts/ | ⏳ 待补（5 个辅助脚本） |
+| 2.10 | 写 reindex.py / normalize.py / fix_dangling.py / lint.py / graph.py | _scripts/ | ✅ |
 
 **验收**：4 skill 可执行 + lint 归零。✅（核心 skill 可执行）
 

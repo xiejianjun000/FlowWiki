@@ -1,3 +1,13 @@
+---
+type: concept
+title: Agent 兼容矩阵
+created: '2026-07-17'
+updated: '2026-07-17'
+confidence: medium
+sources: []
+tags: [flow-wiki]
+status: draft
+---
 # Agent 兼容矩阵
 
 ## 概述
