@@ -1,49 +1,81 @@
 # FlowWiki
 
-> AI 与人类协同复利的知识库方法论
->
-> 版本：v0.7（M0-M6 已完成，M7 白皮书发布中，2026-07-17）
+> Knowledge compounds like code. FlowWiki is the compiler.
 
 [![CI](https://github.com/xiejianjun000/FlowWiki/actions/workflows/ci.yml/badge.svg)](https://github.com/xiejianjun000/FlowWiki/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Specs](https://img.shields.io/badge/Specs-7%E9%98%B6%E6%AE%B5-blue)](./spec/)
+[![Agents](https://img.shields.io/badge/Agents-5%E5%AE%B6%E5%85%BC%E5%AE%B9-green)](./CLAUDE.md)
+[![Scenes](https://img.shields.io/badge/Scenes-L7%E5%8F%AF%E6%8F%92%E6%8B%94-orange)](./storage/)
 
 ---
 
-## 一句话定义
+## Contents
 
-**FlowWiki = Karpathy LLM Wiki × TRAE Work × ACE 反思循环 × A-MEM 卡片记忆 × SpecCoding 七阶段**
-
-它让 AI 编译知识像复利一样积累，让人类像走工作流一样使用，让多 agent 像接力一样接手。
-
----
-
-## 为什么需要 FlowWiki
-
-### 现有方法的痛点
-
-| 方法论 | 优点 | 致命短板 |
-|--------|------|---------|
-| **Karpathy LLM Wiki** | raw→wiki→schema 三层 + 4 操作，AI 自动编译复利 | 无记忆层 / 无人类 UX / 无变更管理 / 超 500 页爆 context |
-| **TRAE Work** | 6 板块 + 7 场景，人类工作流闭环 | 知识不复利 / AI 无法接手 / 维护成本高 |
-| **传统 RAG** | 任何规模可查询 | 每次重算 / 不积累 / 矛盾静默覆盖 |
-| **现有 LLM Wiki 实现** | 单平台可用 | 绑死 Claude Code / 业务领域硬编码 / 工程化弱 |
-
-### FlowWiki 的解法
-
-| 痛点 | FlowWiki 解法 |
-|------|--------------|
-| AI 永久化幻觉 | **ACE 反思循环**：Generator→Reflector→Curator 三 agent 制约 |
-| 跨会话记忆丢失 | **A-MEM 卡片**：每个 raw 生成 Zettelkasten 卡片，跨会话可读 |
-| 人类入口缺失 | **双索引**：机器走 `wiki/index.md`，人类走 `00_首页/` 6 板块 MOC |
-| 知识不复利 | **任务→知识→Skill 三元组**：高频任务自动抽象为 O(1) 调用的 skill |
-| 变更不可追溯 | **SpecCoding 七阶段**：每个变更走 openspec/changes/ |
-| 规模超 200 页爆 context | **双索引 + 自适应检索**：BM25→nano-graphrag→LightRAG |
-| 单平台绑定 | **CLAUDE.md + AGENTS.md 双 bootstrap**：5 家 agent 通吃 |
-| 业务领域硬编码 | **L7 场景外壳可插拔**：通用骨架 L1-L6 + 场景作为变量 |
+- [Karpathy 的愿景](#karpathy-的愿景)
+- [原始愿景的 6 个缺口](#原始愿景的-6-个缺口)
+- [FlowWiki 的 6 个增强](#flowwiki-的-6-个增强)
+- [架构总览](#架构总览)
+- [三大创新招牌](#三大创新招牌)
+- [快速开始](#快速开始)
+- [核心操作](#核心操作)
+- [Skill vs Prompt 决策指南](#skill-vs-prompt-决策指南)
+- [与具体项目对比](#与具体项目对比)
+- [Tech Stack](#tech-stack)
+- [设计哲学](#设计哲学)
+- [适用场景](#适用场景)
+- [里程碑路线图](#里程碑路线图)
+- [FAQ](#faq)
+- [参考与致谢](#参考与致谢)
+- [License](#license)
 
 ---
 
-## 6 层架构
+## Karpathy 的愿景
+
+2025 年，Andrej Karpathy 提出了一个简洁而强大的类比：
+
+> **Obsidian 是 IDE，LLM 是程序员，Wiki 是代码库。**
+
+传统 RAG 是解释器——每次查询都重新推导。LLM Wiki 是编译器——知识只编译一次，保持最新，查询时直接读取。好的查询结果归档回 Wiki，探索本身也复利积累。
+
+三层架构：`raw/`（不可变源文件）→ `wiki/`（LLM 编译维护）→ `schema/`（协同演进配置）。
+
+四个操作：`ingest` → `query` → `lint` → `research`。
+
+这个概念启发了整个社区——GitHub 上已涌现 30+ 个 LLM Wiki 项目，累计 30,000+ Stars。
+
+**但原始愿景有缺口。**
+
+---
+
+## 原始愿景的 6 个缺口
+
+| # | 缺口 | 症状 | 后果 |
+|---|------|------|------|
+| 1 | **无防幻觉机制** | AI 生成的摘要可能包含事实错误 | 错误知识永久化，越积越深 |
+| 2 | **无跨会话记忆** | 每次 ingest 独立执行，不记得上次做了什么 | 重复劳动，无法累积上下文 |
+| 3 | **无人类入口** | wiki/ 是扁平文件列表，人类找不到东西 | 技术好但不好用 |
+| 4 | **知识不复利到能力** | 高频任务每次都从零开始 | 效率不随知识增长而提升 |
+| 5 | **变更不可追溯** | 改了什么、为什么改，无记录 | 知识库变成黑箱 |
+| 6 | **单平台绑定** | 绑死 Claude Code 或单一 agent | 换工具就丢知识库 |
+
+---
+
+## FlowWiki 的 6 个增强
+
+| 缺口 | FlowWiki 解法 | 层级 |
+|------|--------------|------|
+| 无防幻觉 | **ACE 反思循环** — Generator→Reflector→Curator 三 agent 制约，错误知识不进 wiki | L4 |
+| 无跨会话记忆 | **A-MEM 卡片** — 每个 raw 生成 Zettelkasten 卡片，跨会话可读 | L4 |
+| 无人类入口 | **双索引** — 机器走 `wiki/index.md`，人类走 `00_首页/` 6 板块 MOC | L1 |
+| 知识不复利 | **任务→知识→Skill 三元组** — 高频任务自动抽象为 O(1) 调用的 skill | L5 |
+| 变更不可追溯 | **SpecCoding 七阶段** — 每个变更走 `openspec/changes/` | L3 |
+| 单平台绑定 | **多 agent bootstrap** — CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md | L6 |
+
+---
+
+## 架构总览
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -85,7 +117,6 @@
 ```
 
 - Karpathy 只有 raw→wiki 两层（O(n) 查询）
-- TRAE 只有任务→流程（不复利）
 - FlowWiki 引入第三层 Skill，让"复利"从知识扩展到能力，下次同类任务 O(1) 调用
 
 ### 创新 B：ACE 反思循环嵌入 ingest
@@ -120,25 +151,39 @@
 
 ---
 
-## 快速开始（M1 完成后可用）
+## 快速开始
+
+### Option 1：从模板克隆（推荐）
 
 ```bash
-# 1. 克隆脚手架
-git clone https://github.com/<your-name>/flowwiki-template.git my-wiki
+git clone https://github.com/xiejianjun000/FlowWiki.git my-wiki
 cd my-wiki
 
-# 2. 选择 agent bootstrap
-# Claude Code 用 CLAUDE.md，其他用 AGENTS.md
+# 选择你的 agent bootstrap
+# Claude Code → 读 CLAUDE.md
+# Codex / Gemini / WorkBuddy → 读 AGENTS.md
 
-# 3. 投入第一篇 raw
-mkdir -raw/articles
+# 投入第一篇 raw
+mkdir -p raw/articles
 cp ~/some-article.md raw/articles/
 
-# 4. 触发 ingest skill（在 Claude Code / Codex / WorkBuddy 中）
+# 在 agent 中触发 ingest
 > 请按 ingest skill 把 raw/articles/some-article.md 入库
 ```
 
-详细使用见 `docs/getting-started.md`（M7 阶段补全）。
+### Option 2：添加到现有 Obsidian Vault
+
+```bash
+# 把 FlowWiki 骨架文件复制到你的 vault 根目录
+cp -r raw/ wiki/ 00_首页/ config.toml SCHEMA.md your-vault/
+
+# 把 CLAUDE.md / AGENTS.md 放到 vault 根目录
+# Obsidian 会自动识别 00_首页/ 为 MOC 入口
+```
+
+### Option 3：从零搭建
+
+参考 [SCHEMA.md](./SCHEMA.md) 手动创建目录结构，或使用 `_scripts/` 下的脚本初始化。
 
 ---
 
@@ -155,7 +200,9 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 
 每个操作有对应的 `.claude/skills/<op>/SKILL.md` 和 `.agents/skills/<op>/SKILL.md`，5 家 agent 都能直接调用。
 
-### Skill vs Prompt：什么时候用哪个
+---
+
+## Skill vs Prompt 决策指南
 
 | 用 Skill | 用 Prompt |
 |----------|----------|
@@ -167,11 +214,11 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 
 **升级路径**：Prompt（探索期）→ 高频使用 ≥3 次 + 流程可标准化 → **升级为 Skill**（O(1) 调用）
 
-详细规则见 [spec/design.md § L5 设计决策](./spec/design.md#l5-设计决策skill-vs-prompt-边界规则)。
-
 ---
 
-## 与现有方法论的对比
+## 与具体项目对比
+
+### 方法论维度对比
 
 | 维度 | Karpathy LLM Wiki | TRAE Work | 传统 RAG | **FlowWiki** |
 |------|------------------|-----------|---------|------------|
@@ -184,22 +231,37 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 | 业务可插拔 | ❌ | ❌ | ❌ | ✅ L7 场景外壳 |
 | 规模上限 | 200 页 | 无限（但人工） | 万页 | 自适应 |
 
+### 与 GitHub 同类项目对比
+
+| 能力 | FlowWiki | llm-wiki-agent | claude-obsidian | llm-wiki-compiler | synthadoc |
+|------|:-:|:-:|:-:|:-:|:-:|
+| 防幻觉机制 | ACE 三 agent | 矛盾标记 | 无 | 无 | Pre-LLM 净化 |
+| 跨会话记忆 | A-MEM 卡片 | 无 | Hot Cache | 无 | 无 |
+| 多 agent 兼容 | 5 家 agent | 3 家 | 仅 Claude | 仅 Claude | 3 家 |
+| 人类 UX | 双索引 6 板块 | 无 | Obsidian 原生 | 桌面 GUI | Web UI |
+| 业务可插拔 | L7 场景外壳 | 无 | 无 | 无 | 无 |
+| 变更追溯 | SpecCoding | 无 | 无 | 无 | 无 |
+| 知识复利到能力 | 任务→知识→Skill | 无 | 无 | 无 | 无 |
+| 自适应检索 | BM25→graphrag→LightRAG | 无 | 混合检索 | BM25 | 知识图谱 |
+| 矛盾追踪 | conflict/ 目录 | 标记不追踪 | 无 | 无 | 无 |
+
+> **FlowWiki 是唯一同时覆盖以上 9 个维度的项目。**
+
 ---
 
-## 里程碑路线图
+## Tech Stack
 
-| 里程碑 | 名称 | 状态 |
-|--------|------|------|
-| M0 | 全局 spec 设计 | ✅ 已完成 |
-| M1 | 骨架脚手架 | ✅ 已完成 |
-| M2 | 4 操作 skill 实现 | ✅ 已完成 |
-| M3 | ACE 反思循环 + A-MEM ★ | ✅ 已完成 |
-| M4 | 双索引同步 | ✅ 已完成 |
-| M5 | L7 场景参考实现 | ✅ 已完成 |
-| M6 | 多 agent 兼容矩阵 | ✅ 已完成 |
-| M7 | 方法论白皮书发布 | ✅ 已完成 |
-
-详细任务见 [spec/tasks.md](./spec/tasks.md)。
+| 层 | 技术 | 说明 |
+|----|------|------|
+| 知识格式 | Markdown + YAML frontmatter | 人类可读、Obsidian 兼容 |
+| 检索 L2 | BM25 + CJK 分词 → nano-graphrag → LightRAG | 自适应三档，按规模自动切换 |
+| 记忆 L4 | A-MEM Zettelkasten 卡片 | 跨会话持久化，零数据库依赖 |
+| 防幻觉 L4 | ACE Generator→Reflector→Curator | 三 agent 制约，ingest 时拦截错误 |
+| 变更管理 L3 | OpenSpec + SpecCoding 七阶段 | 可追溯，每个变更有提案/执行/归档 |
+| Agent 兼容 L6 | CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md | 5 家 agent 通吃 |
+| Skill 分发 L5 | .agents/skills/ + .claude/skills/ 双部署 | 同一 skill 两套格式 |
+| 可视化 | Obsidian Graph View + Dataview | 零额外依赖 |
+| 依赖 | 仅 PyYAML | 极简优先 |
 
 ---
 
@@ -227,25 +289,72 @@ ACE 三 agent 制约 + 矛盾显式标注 + 旧说法被推翻时不静默覆盖
 
 ### 6. 复利飞轮
 
+```
 raw → wiki → skill → 自动调用 → 新任务 → 新 raw → wiki 增厚 → skill 增多 → ...
+```
 
 ---
 
 ## 适用场景
 
-### 适合 FlowWiki 的场景
+### 适合 FlowWiki
 
 - 个人/团队知识库（100-10000 页规模）
 - AI agent 长期维护的专业领域知识库
 - 需要多 agent 接手的协作型知识库
 - 业务领域可插拔的多场景知识库
 
-### 不适合 FlowWiki 的场景
+### 不适合 FlowWiki
 
 - 单次查询的临时知识需求（用 RAG 即可）
 - 必须用云服务的多租户 SaaS（FlowWiki 是本地优先）
 - 必须图形界面（FlowWiki 依赖 Obsidian 等第三方可视化）
 - 万页以上且需秒级查询（用专业向量数据库）
+
+---
+
+## 里程碑路线图
+
+| 里程碑 | 名称 | 状态 |
+|--------|------|------|
+| M0 | 全局 spec 设计 | ✅ |
+| M1 | 骨架脚手架 | ✅ |
+| M2 | 4 操作 skill 实现 | ✅ |
+| M3 | ACE 反思循环 + A-MEM | ✅ |
+| M4 | 双索引同步 | ✅ |
+| M5 | L7 场景参考实现 | ✅ |
+| M6 | 多 agent 兼容矩阵 | ✅ |
+| M7 | 方法论白皮书发布 | ✅ |
+
+详细任务见 [spec/tasks.md](./spec/tasks.md)。
+
+---
+
+## FAQ
+
+### FlowWiki 和 Karpathy 的 LLM Wiki 有什么区别？
+
+Karpathy 提出了 raw→wiki→schema 三层架构和 4 操作的核心理念。FlowWiki 在此基础上新增了 6 个增强：ACE 防幻觉循环、A-MEM 跨会话记忆、双索引人类 UX、任务→知识→Skill 复利、SpecCoding 变更追溯、多 agent 兼容。简单说，Karpathy 是编译器，FlowWiki 是带类型检查、缓存和插件的编译器。
+
+### FlowWiki 和传统 RAG 有什么区别？
+
+RAG 是解释器——每次查询都重新推导，结果不持久化。FlowWiki 是编译器——知识只编译一次并保持最新，查询时直接读取编译产物。更关键的是，FlowWiki 的探索结果会归档回 wiki，让探索本身也复利积累。传统 RAG 没有防幻觉机制，FlowWiki 有 ACE 三 agent 制约。
+
+### FlowWiki 适合什么规模的知识库？
+
+100-10000 页是最佳区间。100 页以下用纯 Obsidian 即可，不需要 FlowWiki 的 L2 自适应检索。10000 页以上且需秒级查询，建议用专业向量数据库。FlowWiki 的 BM25→nano-graphrag→LightRAG 三档自适应正好覆盖中间地带。
+
+### FlowWiki 需要向量数据库吗？
+
+不需要。FlowWiki 默认零数据库依赖，100 页以下用 BM25+CJK 分词就够了。超过 100 页可以按需启用 nano-graphrag（轻量图谱检索），超过 500 页可以启用 LightRAG。全部是纯 Python + 文件系统，不引入任何外部服务。
+
+### FlowWiki 支持哪些 AI agent？
+
+5 家：Claude Code（读 CLAUDE.md）、Codex（读 AGENTS.md）、Gemini CLI（读 AGENTS.md）、Amp（读 AGENTS.md）、WorkBuddy（读 WORKBUDDY.md）。所有 agent 共享同一套 skill（.agents/skills/ 和 .claude/skills/ 双部署），换 agent 不丢知识库。
+
+### FlowWiki 是 Obsidian 插件吗？
+
+不是。FlowWiki 是一套方法论 + 目录规范 + 脚本工具，输出的是标准 Markdown 文件。你可以用 Obsidian 打开（推荐，因为有 Graph View 和 Dataview），也可以用 VS Code、Typora 或任何 Markdown 编辑器打开。
 
 ---
 
@@ -272,26 +381,4 @@ FlowWiki 站在以下巨人的肩膀上：
 
 ## License
 
-MIT（M1 阶段补全）
-
----
-
-## 状态
-
-✅ **当前阶段**：M0-M7 全部完成
-
-📋 **已完成内容**：
-- M0: 全局 spec 设计（含 Hermes 集成方案）
-- M1: 骨架脚手架（SCHEMA.md/CLAUDE.md/AGENTS.md/config.toml）
-- M2: 4 操作 skill 实现（ingest/query/lint/research）
-- M3: ACE 反思循环 + A-MEM（ace_review.py + .memory/）
-- M4: 双索引同步（sync_dual_index.py）
-- M5: L7 场景参考实现（4 行业 × 2-4 场景）
-- M6: 多 agent 兼容矩阵（CLAUDE.md/AGENTS.md/CODEX.md/WORKBUDDY.md）
-- M7: 方法论白皮书发布（README.md + docs/）
-
-📋 **试点验证**：环评与排污许可知识库（37 raw 文件 → ingest 成功）
-
-📋 **文件统计**：FlowWiki 标准版 73 个文件，环评库试点 94 个文件
-
-详见 [spec/tasks.md](./spec/tasks.md)。
+[MIT](./LICENSE)
