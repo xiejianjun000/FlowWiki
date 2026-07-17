@@ -8,7 +8,12 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def generate_criteria_page(criteria_name: str, criteria_list: list, output_dir: Path):
-    content = f"# {criteria_name}判据集\n\n"
+    output_file = output_dir / f"{criteria_name.lower().replace(' ', '-')}.md"
+    if output_file.exists():
+        logger.info(f"Skipped (already exists): {output_file}")
+        return
+    content = f"---\ntype: criteria\ntitle: {criteria_name}判据集\ncreated: 2026-07-17\nupdated: 2026-07-17\nconfidence: high\nsources: []\ntags: [flow-wiki, criteria]\nstatus: active\n---\n\n"
+    content += f"# {criteria_name}判据集\n\n"
     content += f"## 判据数量\n\n{len(criteria_list)} 条\n\n"
     content += "## 判据列表\n\n"
 
@@ -19,7 +24,6 @@ def generate_criteria_page(criteria_name: str, criteria_list: list, output_dir: 
         content += f"- **来源**：{criterion.get('source', '未知')}\n"
         content += f"\n"
 
-    output_file = output_dir / f"{criteria_name.lower().replace(' ', '-')}.md"
     output_file.write_text(content, encoding="utf-8")
     logger.info(f"Generated: {output_file}")
 
