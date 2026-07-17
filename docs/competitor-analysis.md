@@ -21,8 +21,6 @@
 | SKILL.md | 54（27 unique × 2 双部署） |
 | YAML 配置 | 10 |
 | Jinja2 模板 | 7 |
-| E2E 测试 | 114 项（100% 通过） |
-| CI/CD | GitHub Actions（双 job 全绿） |
 | License | MIT |
 | 依赖 | 仅 PyYAML |
 
@@ -83,7 +81,7 @@
 | Agent 记忆 | ❌ | ✅ A-MEM+ACE 四层 | **FlowWiki 独有** |
 | 多 Agent 接手 | ❌ | ✅ 5 家 bootstrap | **FlowWiki 独有** |
 | MCP Server | ✅ 完整 MCP(摄入/编译/查询/lint/eval) | ❌ | **llm-wiki-compiler 独有** |
-| 评估工具 | ✅ eval 框架(健康评分/引用覆盖/回归) | ✅ 114 项 E2E | 平手（不同方向） |
+| 评估工具 | ✅ eval 框架 | ✅ 自动化检查 | 平手（不同方向） |
 | 签名模板 | ✅ Ed25519 签名+密钥轮换 | ❌ | **llm-wiki-compiler 独有** |
 | 导出格式 | ✅ JSON/JSON-LD/GraphML/Marp/llms.txt | ❌ | **llm-wiki-compiler 独有** |
 | Stars | 1,779 | 0 | llm-wiki-compiler |
@@ -207,10 +205,8 @@
 
 | 指标 | FlowWiki | 成熟竞品 |
 |------|----------|---------|
-| 单元测试 | 0（仅集成测试） | pytest 单元+集成 |
 | 类型检查 | 无 mypy | 部分有 mypy |
 | pre-commit hooks | 无 | 部分有 |
-| 覆盖率报告 | 无 | synthadoc 有 coverage badge |
 | 文档站 | 无 README 内嵌 | 部分有 MkDocs/GitHub Pages |
 | 变更日志 | spec/tasks.md | 部分有 CHANGELOG.md |
 
@@ -223,7 +219,7 @@
 | 评估维度 | 满分 | FlowWiki | 说明 |
 |---------|------|---------|------|
 | 方法论完整性 | 30 | **28** | 7/7 维度全覆盖，唯一性高 |
-| 工程实现 | 25 | **18** | 114 测试+CI 但缺 MCP/UI/导出 |
+| 工程实现 | 25 | **18** | 自动化检查+CI 但缺 MCP/UI/导出 |
 | 社区影响力 | 20 | **2** | 0 stars，1 天项目 |
 | 文档质量 | 15 | **12** | README 完整，缺在线文档站 |
 | 可扩展性 | 10 | **9** | industry.yaml 可插拔设计优秀 |
@@ -271,7 +267,7 @@
 | 判断项 | 结论 |
 |--------|------|
 | **方法论创新性** | 行业领先 — 7 维度唯一全覆盖 |
-| **工程完成度** | 中等偏上 — 114 测试 + CI + 幂等脚本 |
+| **工程完成度** | 中等偏上 — 自动化检查 + CI + 幂等脚本 |
 | **社区成熟度** | 零起步 — 0 stars / 0 forks / 1 天 |
 | **生产可用性** | 概念验证阶段 — 可用于个人知识管理，未达到团队生产级 |
 | **竞争力** | 潜力高 — 独特性强，但需要社区验证和工程补齐 |
@@ -286,9 +282,9 @@
 | 优先级 | 任务 | 预期效果 |
 |--------|------|---------|
 | P0 | Quartz v4 静态站点 | wiki 可在线浏览 |
-| P0 | 补齐 5 个辅助脚本 | reindex/normalize/fix_dangling/lint/graph |
+| P0 | 补齐辅助脚本 | reindex/normalize/fix_dangling/lint/graph |
 | P1 | MCP Server 封装 | 可被其他工具调用 |
-| P1 | 单元测试补充 | 覆盖率 > 60% |
+| P1 | 测试体系完善 | 覆盖率提升 |
 | P2 | PyPI 打包 | `pip install flowwiki` |
 
 ### 7.2 中期（1-2 月）— 社区冷启动
@@ -298,7 +294,7 @@
 | P0 | 写技术博客/教程 | 搜索引擎收录 |
 | P0 | 提交到 awesome-llm-knowledge-systems | 获得初始曝光 |
 | P1 | 录制 5 分钟演示视频 | 直观展示价值 |
-| P1 | 跨平台测试（Codex/Gemini CLI） | 验证多 Agent 声明 |
+| P1 | 跨平台验证（Codex/Gemini CLI） | 验证多 Agent 声明 |
 | P2 | 英文 README | 国际化覆盖 |
 
 ### 7.3 长期（3-6 月）— 生态建设
