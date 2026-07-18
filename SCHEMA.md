@@ -1,225 +1,99 @@
+---
+标题: 执法督察评查知识库 · FlowWiki Schema
+layer: 10-元文档
+type: schema
+触发词: ["schema", "维护约定", "怎么改库", "入库规范", "ingest流程", "flowwiki"]
+适用场景: LLM 每次 Ingest/Query/Lint 前读取本文件，作为统一维护纪律
+关联法条: []
+调用skill: [eco-review-kb]
+风险等级: 🟡
+version: 2.0
+status: 现行
+ingested: 2026-07-18T00:00:00+08:00
+updated: 2026-07-18
+tags: [10-元文档, schema, 现行, flowwiki]
+confidence: high
+sources: []
+---
+
 # FlowWiki SCHEMA — 知识库宪法
 
-## 1. 核心原则
+> 本库基于 FlowWiki 方法论（7 层架构），本文件为 LLM 维护公约。
 
-### 1.1 CIC 工作流
-- **Collect（收集）**：人类负责收集原始资料到 raw/，保证证据保真
-- **Compile（编译）**：AI 负责将 raw/ 编译到 wiki/，生成结构化知识
-- **Compound（复利）**：人和 AI 共用 wiki/，知识持续增长
+## 1. 七层架构
 
-### 1.2 骨肉分离
-- **骨架**（L2-L6）：所有行业完全相同，零修改
-- **肉**（L1 + L7）：每个行业不同内容
-- **驱动**：industry.yaml 连接骨架与肉
+| 层 | 名称 | 本库对应 | 说明 |
+|----|------|---------|------|
+| L1 | 知识编译层 | raw/ + wiki/ + 00_首页/ | 人类放 raw、AI 编 wiki、人类用入口 |
+| L2 | 检索增强层 | config.toml | BM25→nano-graphrag→LightRAG 自适应 |
+| L3 | Spec-Driven 层 | spec/ + openspec/ | 全局设计 + 变更治理 |
+| L4 | Agent 记忆层 | .memory/ (ace/gaps/zettelkasten) | ACE 反思 + A-MEM 卡片 + 缺口学习 |
+| L5 | Skill 化层 | .agents/skills/enforcement-review/ | 7 个执法评查专属 Skill |
+| L6 | 多 Agent 层 | CLAUDE.md / AGENTS.md / CODEX.md / WORKBUDDY.md | 4 家 agent 共享同一套知识库 |
+| L7 | 场景层 | 00_首页/03_实战场景/ | 评查/督察/法条 3 大场景入口 |
 
-### 1.3 证据链完整
-- 所有 wiki/ 内容必须能追溯到 raw/ 原始证据
-- 禁止无证据的 AI 编造内容进入 wiki/
-- ACE 反思循环确保错误知识不进 wiki
+## 2. L5 Skills（执法督察评查专属）
 
-## 2. 文件结构规范
+### 行业入口 Skill
+- **enforcement-review-kb** → `.agents/skills/enforcement-review/SKILL.md`
 
-### 2.1 L1 知识编译层
+### 6 个子 Skill
+| Skill | 文件 | 用途 |
+|-------|------|------|
+| legality-review | legality-review/SKILL.md | 合法性审查 |
+| evidence-verification | evidence-verification/SKILL.md | 证据链核验 |
+| discretion-matching | discretion-matching/SKILL.md | 裁量权匹配 |
+| permit-compliance | permit-compliance/SKILL.md | 排污许可检查 |
+| onsite-checklist | onsite-checklist/SKILL.md | 现场核查清单 |
+| code-transition | code-transition/SKILL.md | 法典衔接判断 |
 
-```
-raw/                    # 只读证据层，人类维护
-  ├── laws/             # 法律文件
-  ├── standards/        # 标准文件
-  ├── reports/          # 报告文件
-  ├── datasets/         # 数据集
-  └── README.md         # raw 索引
+## 3. 提示词（Prompts）
 
-wiki/                   # AI 编译知识层，AI 维护
-  ├── index.md          # wiki 总索引
-  ├── concepts/         # 核心概念
-  ├── playbooks/        # 操作手册
-  ├── comparisons/      # 对比分析
-  ├── entities/         # 实体定义
-  ├── sources/          # 源解析
-  └── synthesis/        # 综合研判
+位置: `70_Prompt库/task/enforcement-review/`
 
-00_首页/                # 人类 UX 入口
-  ├── 01_知识图谱/
-  ├── 02_判据体系/
-  ├── 03_实战场景/
-  ├── 04_进化学习/
-  ├── 05_采集记录/
-  ├── 06_系统运维/
-  └── README.md
-```
+| Prompt | 触发场景 |
+|--------|---------|
+| 案卷评查.md | 用户提交案卷或询问评查结果 |
+| 现场核查.md | 用户需要现场核查指导 |
+| 法典衔接.md | 用户询问新旧法衔接 |
 
-### 2.2 L2 检索增强层
+## 4. CIC 工作流
 
-```
-config.toml             # 检索配置
-```
+- **Collect（收集）**：人类拖资料到 `/raw/` → 自动打 `ingested` 时间戳
+- **Compile（编译）**：运行 `python _scripts/bootstrap.py --slug enforcement-review`
+- **Compound（复利）**：ACE 反思 + gap 学习 → 知识持续增长
 
-### 2.3 L3 Spec-Driven 层
+## 5. 三验标准
 
-```
-spec/                   # 全局设计
-  ├── design.md
-  ├── requirements.md
-  ├── structure.md
-  ├── tasks.md
-  └── hermes-integration.md
+| 验证 | 方法 | 达标线 |
+|------|------|--------|
+| 一验 lint | frontmatter + 断链 | 0 缺 / 0 断 |
+| 二验 graph | 孤立 + 密度 | 0 孤立 / 密度 ≥ 2.0 |
+| 三验 hermes | LLM 评审 | pass / 评分 ≥ 7.0 |
 
-openspec/               # 变更治理
-  ├── changes/          # 活跃变更
-  └── archive/          # 归档变更
-```
+## 6. 知识库当前状态
 
-### 2.4 L4 Agent 记忆层
+- raw/: 167 篇 (155 原始 + 12 Hermes 新增)
+- wiki/: 109 节点 / 479 边 / 密度 4.4
+- LLM 可路由: 85%
+- Hermes 评分: 8/10 pass
+- 图谱: 0 孤立 / 0 断链
 
-```
-.memory/                # A-MEM 卡片库
-  ├── cards/            # Zettelkasten 卡片
-  ├── ace/              # ACE 反思记录
-  └── README.md
-```
+## 6. 入库双标准（raw→wiki 编译必须遵守）
 
-### 2.5 L5 Skill 化层
+1. **格式标准** → `wiki/meta/入库文档格式标准.md`
+   - 网页残留清洗（导航/版权/跳转提示）
+   - 表格还原为 markdown 表格
+   - 标题层级规范化（正文从 ## 起）
+   - Generator 阶段执行
+2. **质量标准** → `wiki/meta/入库质量标准.md`
+   - 5 维度评分卡（信息密度/结构/溯源/独特性/可操作）
+   - Curator 按分决策：≥9 优质入库、6-8 合格、3-5 待核、<3 退回
 
-```
-.agents/skills/         # Skill 登记册
-  ├── ingest/           # 入仓
-  ├── query/            # 查询
-  ├── lint/             # 检查
-  ├── research/         # 研究
-  └── {industry_slug}/  # 行业专属
-```
+## 7. 操作纪律
 
-### 2.6 L6 多 agent 接手层
-
-```
-.agents/
-  ├── CLAUDE.md         # CLAUDE bootstrap
-  └── AGENTS.md         # AGENTS bootstrap
-```
-
-### 2.7 L7 场景层
-
-```
-00_首页/03_实战场景/
-  ├── {industry_slug}/
-  │   ├── README.md
-  │   ├── playbooks.md
-  │   ├── cases.md
-  │   └── skills.md
-```
-
-### 2.8 基础设施
-
-```
-storage/                # 行业适配器
-  └── {industry_slug}/
-      └── industry.yaml
-
-_scripts/               # 工具脚本
-  ├── ingest_pipeline.py
-  ├── gen_criteria_pages.py
-  └── build_match_index.py
-
-_templates/             # 模板
-  ├── wiki_page.md.j2
-  ├── raw_index.md.j2
-  └── memory_card.md.j2
-
-70_Prompt库/            # Prompt 管理
-  ├── system/
-  ├── task/
-  ├── retrieval/
-  └── output/
-```
-
-## 3. 命名规范
-
-### 3.1 文件命名
-- 使用小写字母、数字和连字符
-- 中文文件名使用拼音或英文描述
-- 避免空格和特殊字符
-
-### 3.2 目录命名
-- 行业目录：`{industry-slug}` 格式
-- 场景目录：`{scenario-id}` 格式
-- 概念目录：`{concept-name}` 格式
-
-### 3.3 链接规范
-- 使用相对路径
-- 链接到 raw/ 文件时使用 `../raw/` 前缀
-- 链接到 wiki/ 文件时使用 `../wiki/` 前缀
-
-## 4. 内容规范
-
-### 4.1 raw/ 规范
-- 文件必须是原始证据，未经 AI 修改
-- 文件名应包含来源、日期和主题
-- 每个文件应有元数据注释（来源、日期、版本）
-
-### 4.2 wiki/ 规范
-- 所有内容必须能追溯到 raw/
-- 使用 Markdown 格式
-- 遵循 wiki/ 页面模板
-- 禁止无证据的 AI 编造内容
-
-### 4.3 .memory/ 规范
-- 卡片使用 Zettelkasten 格式
-- 每条记录包含：ID、日期、内容、来源、标签
-- ACE 反思记录包含：Generator 输出、Reflector 审查、Curator 决策
-
-## 5. 操作规范
-
-### 5.1 入仓流程
-1. 人类收集原始资料 → 写入 raw/
-2. 运行 ingest_pipeline.py → AI 编译到 wiki/
-3. ACE 反思循环审查 → 确认无误后进入 wiki/
-4. 生成 A-MEM 卡片 → 存入 .memory/
-
-### 5.2 查询流程
-1. 用户提问 → Hermes 行业路由
-2. 读取 wiki/index.md → 加载相关页面
-3. 查询 raw/ 原始证据 → 验证准确性
-4. 生成回答 → 回存 wiki/ + 生成 ZK 卡片
-
-### 5.3 变更流程
-1. 创建 openspec/changes/{change-name}/
-2. 编写 proposal.md → design.md → specs/ → plan.md
-3. 执行变更 → 验证 → archive
-
-## 6. 安全规范
-
-### 6.1 访问控制
-- raw/ 目录只读，禁止 AI 直接修改
-- wiki/ 目录由 ACE 循环控制写入
-- .memory/ 目录由 Agent 自动维护
-
-### 6.2 内容审核
-- 所有 wiki/ 内容必须经过 ACE 反思循环审查
-- 人类可否决 AI 生成的内容
-- 错误内容必须回退到上一版本
-
-### 6.3 数据隔离
-- 每个行业的数据完全隔离
-- 通过 slug 作为命名空间标识
-- 检索时自动限定在当前行业范围内
-
-## 7. 版本控制
-
-### 7.1 Git 规范
-- 使用 Git 进行版本控制
-- 每次变更创建独立分支
-- 变更完成后合回主分支
-
-### 7.2 变更记录
-- 每次变更记录在 openspec/changes/
-- 归档后移入 openspec/changes/archive/
-- 更新 CHANGELOG.md
-
-## 8. 验收标准
-
-- 文件结构符合规范
-- 命名规范统一
-- 内容规范执行到位
-- 操作流程顺畅
-- 安全机制有效
-- 版本控制完整
+1. raw/ 只读，AI 绝不修改原始内容
+2. wiki/ 写入必须经过 ACE 反思循环
+3. 所有知识必须可追溯到 raw/ 原始证据
+4. 每次操作自动记录到 .memory/ops/YYYY-MM-DD.jsonl
+5. 前端改动后必须运行 bootstrap.py 重新入库

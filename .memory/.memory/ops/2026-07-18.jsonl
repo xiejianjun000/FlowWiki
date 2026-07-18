@@ -1,0 +1,10 @@
+{"time":"2026-07-18T11:30:00+08:00","op":"init","object":"Phase 1 FlowWiki升级启动","result":"success","actor":"ai","ref":["CLAUDE.md","AGENTS.md","CODEX.md",".memory/"]}
+{"time":"2026-07-18T11:31:00+08:00","op":"init","object":"L6 Bootstrap 3文件创建","result":"success","actor":"ai","ref":["CLAUDE.md","AGENTS.md","CODEX.md"]}
+{"time":"2026-07-18T11:32:00+08:00","op":"init","object":"L4 .memory/ 六子目录+READMEs创建","result":"success","actor":"ai","ref":[".memory/README.md",".memory/zettelkasten/",".memory/episodic/",".memory/conflict/",".memory/ace/",".memory/gaps/",".memory/ops/"]}
+{"time":"2026-07-18T11:33:00+08:00","op":"init","object":"10张ZK种子卡片生成","result":"success","actor":"ai","ref":["ZK-2026-07-18-001","ZK-2026-07-18-002","ZK-2026-07-18-003","ZK-2026-07-18-004","ZK-2026-07-18-005","ZK-2026-07-18-006","ZK-2026-07-18-007","ZK-2026-07-18-008","ZK-2026-07-18-009","ZK-2026-07-18-010"]}
+{"time":"2026-07-18T11:34:00+08:00","op":"init","object":"ace_review.py 脚本创建","result":"success","actor":"ai","ref":["_scripts/ace_review.py"]}
+{"time":"2026-07-18T11:50:00+08:00","op":"init","object":"L5 Skill层 24个SKILL.md（4操作+8行业）","result":"success","actor":"ai","ref":[".agents/skills/",".claude/skills/"]}
+{"time":"2026-07-18T11:51:00+08:00","op":"init","object":"L3 spec/ 4文件 + openspec/ + 70_Prompt库/","result":"success","actor":"ai","ref":["spec/","openspec/","70_Prompt库/"]}
+{"time":"2026-07-18T11:52:00+08:00","op":"init","object":"FlowWiki全栈升级完成","result":"success","actor":"ai","ref":["CLAUDE.md","AGENTS.md","CODEX.md",".memory/","raw/","wiki/",".agents/skills/","spec/","70_Prompt库/"]}
+{"time":"2026-07-18T12:10:00+08:00","op":"cleanup","object":"删除4个爬虫占位文件（排污许可x2+裁量权x2）","result":"success","actor":"ai","ref":["wiki/concepts/"]}
+{"time":"2026-07-18T12:11:00+08:00","op":"upgrade","object":"ACE v2 含内容去重Reflector","result":"success","actor":"ai","ref":["_scripts/ace_review.py"]}
