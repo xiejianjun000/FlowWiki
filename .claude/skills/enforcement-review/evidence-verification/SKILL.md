@@ -22,4 +22,4 @@
 enforcement-review（执法督察评查）
 
 ---
-*Skill 由 _scripts/gen_skills.py 自动生成*
+*Skill 由 .scripts/gen_skills.py 自动生成*

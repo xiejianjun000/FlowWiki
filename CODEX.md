@@ -17,7 +17,7 @@ sources: []
 ## 测试入口
 
 1. 读 TESTING.md
-2. 运行 `python _scripts/daily_test.py --quick`
+2. 运行 `python .scripts/daily_test.py --quick`
 3. 检查 .memory/ops/ 下的操作记录
 4. 检查 .memory/ace/ 下的反思日志
 
@@ -29,4 +29,4 @@ sources: []
 - 操作日志：wiki/log.md
 
 ---
-> 返回：[[index]] · [[SCHEMA]] · [[首页与导航]]
+> 返回：[[index]] · [[SCHEMA]] · [[首页/首页]]

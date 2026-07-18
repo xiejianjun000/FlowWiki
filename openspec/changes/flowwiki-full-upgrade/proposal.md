@@ -20,7 +20,7 @@ tags: [10-元文档, spec, 现行]
 | L1 | 迁移 22 篇源真到 raw/, 112 篇到 wiki/ | 134 |
 | L1 | 追加 confidence + sources 到全部 170 页 | 170 |
 | L5 | 创建 4 操作 skill + 8 行业 skill | 24 |
-| L3 | 创建 spec/ + openspec/ + 70_Prompt库/ | 12 |
+| L3 | 创建 spec/ + openspec/ + 提示词库/ | 12 |
 
 ## 验收标准
 - [x] lint 0 断链

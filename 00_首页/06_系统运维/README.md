@@ -1,57 +1,35 @@
-# 06_系统运维
+---
+标题: 06 系统运维 — 架构与配置
+layer: 00-导航
+type: index
+tags: [00-导航, 首页]
+---
 
-## 概述
+# 06 系统运维
 
-知识库健康度监控、检索配置和备份恢复。
+## 知识库宪法
+- [[SCHEMA]] — 维护约定（LLM每次操作前必读）
+- [[index]] — 机器目录
+- [[log]] — 操作时间轴
 
-## 内容
+## 元文档
+- [[元_设计原则]]
+- [[元_标签体系]]
+- [[元_命名规范]]
+- [[元_审计与版本管理]]
+- [[元_法典切换预案]]
 
-### 知识库健康度
+## 入库标准
+- [[入库质量标准]] — 5维度10分制评分卡
+- [[入库文档格式标准]] — 表格清洗/标题层级/段落规范
 
-通过 `lint` skill 定期体检：
+## 🔴 法律临界预警（一级红线）
+- [[法典8-15施行倒计时看板]] — 2026-08-15 后新立案禁引废止10法（一票否决）
+- [[元_法典切换预案]] — 切换当日执行步骤
+- [[法典对照与废止10法]] — 废止10法逐法对比
 
-- **悬空链**：`[[xxx]]` 无对应文件
-- **孤儿页**：无人引用的页面
-- **frontmatter 缺失**：必填字段未填
-- **confidence 不匹配**：low 但未标"待核"
-- **矛盾未解决**：`.memory/conflict/` 中未关闭的矛盾
+> 所有涉及 2026-08-15 后结案的案卷评查，必须先读倒计时看板。
 
-体检报告输出到 `wiki/meta/lint-report.md`
-
-### 检索配置
-
-```toml
-# config.toml
-[retrieval]
-engine = "bm25"           # 当前引擎
-fallback_engines = ["nano-graphrag", "lightrag"]
-```
-
-自适应切换规则：
-- ≤100 页：BM25 + CJK 分词（零依赖）
-- 100-500 页：nano-graphrag 轻量图谱
-- 500+ 页：LightRAG 实体抽取 + 图谱增强
-
-### 备份恢复
-
-- **自动备份**：`config.toml` 中 `backup_interval = "24h"`
-- **备份位置**：`storage/` 目录
-- **恢复方式**：从 `storage/` 恢复 raw/ + wiki/
-
-### 多 Agent 兼容矩阵
-
-| Agent | bootstrap | skills 目录 | 状态 |
-|-------|-----------|------------|------|
-| Claude Code | CLAUDE.md | .claude/skills/ | ✅ |
-| Codex | AGENTS.md | .agents/skills/ | ✅ |
-| Amp | AGENTS.md | .agents/skills/ | ✅ |
-| Gemini CLI | AGENTS.md | .agents/skills/ | ✅ |
-| WorkBuddy | WORKBUDDY.md | .agents/skills/ | ✅ |
-
-详见 `wiki/meta/agent-compatibility.md`
-
-## 导航
-
-- [检索配置](../../config.toml) — 引擎参数
-- [Agent 兼容矩阵](../../wiki/meta/agent-compatibility.md) — 多 agent 详情
-- [进化学习](../04_进化学习/README.md) — ACE 与记忆
+## 系统状态
+- [[TESTING]] — 验收说明书
+- [[图谱质量报告_20260717]] — 图谱链接质量

@@ -9,7 +9,7 @@ version: 1.0
 status: 现行
 tags: [00-导航, 🟡常规, schema, 现行]
 confidence: high
-sources: ["_scripts/"]
+sources: [".scripts/"]
 ---
 
 # CLAUDE.md — 执法督察评查知识库 · FlowWiki 主 Agent Bootstrap
@@ -47,7 +47,7 @@ sources: ["_scripts/"]
 |----|------|--------|------|
 | L1 raw | `raw/` | 人类策展，LLM 只读不改 | 原始证据层，status: 源真 |
 | L1 wiki | `wiki/` | LLM 全权维护 | 编译知识层，分 concepts/playbooks/comparisons/criteria/entities/meta |
-| L1 首页 | `00_首页/` | LLM 编译 + 人类策展 | TRAE 6 板块人类入口 |
+| L1 首页 | `首页/` | LLM 编译 + 人类策展 | TRAE 6 板块人类入口 |
 | L4 记忆 | `.memory/` | LLM 自动维护 | ZK 卡片 / ACE 记录 / 知识缺口 / 矛盾追踪 |
 | L5 Skill | `.agents/skills/` / `.claude/skills/` | LLM 抽象 + 人类批准 | 4 操作 skill + 行业专属 skill |
 | L3 治理 | `spec/` + `openspec/` | 人工主导 | 全局设计 + 变更追溯 |
@@ -76,7 +76,7 @@ sources: ["_scripts/"]
   ↓
 更新 wiki/index.md + wiki/log.md + .memory/zettelkasten/
   ↓
-运行 _scripts/lint.py → 确认零断链
+运行 .scripts/lint.py → 确认零断链
   ↓
 git add -A && git commit -m "feat(ingest): <主题>"
 ```
@@ -112,7 +112,7 @@ git add -A && git commit -m "feat(ingest): <主题>"
 ├─ 矛盾：旧说法被推翻但未更新
 └─ 知识缺口：raw/ 有源但 wiki 未编译
   ↓
-运行 _scripts/lint.py → 输出体检报告
+运行 .scripts/lint.py → 输出体检报告
   ↓
 人类审批修复 → LLM 执行
   ↓
@@ -173,12 +173,12 @@ git add -A && git commit -m "feat(ingest): <主题>"
 
 | 脚本 | 用途 | 调用时机 |
 |------|------|---------|
-| `_scripts/reindex.py` | 重生成 wiki/index.md | Ingest 后必跑 |
-| `_scripts/normalize_schema.py --apply` | 补缺失 frontmatter | 发现字段异常时 |
-| `_scripts/fix_dangling.py --apply` | 修复悬空双链 | Lint 发现断链时 |
-| `_scripts/lint.py` | 全身体检 | 每次大操作后 |
-| `_scripts/graph.py --format stats` | 图谱质量分析 | 每周 / 大量变更后 |
-| `_scripts/ace_review.py` | ACE 反思循环 | 每次 Ingest 必须调用 |
+| `.scripts/reindex.py` | 重生成 wiki/index.md | Ingest 后必跑 |
+| `.scripts/normalize_schema.py --apply` | 补缺失 frontmatter | 发现字段异常时 |
+| `.scripts/fix_dangling.py --apply` | 修复悬空双链 | Lint 发现断链时 |
+| `.scripts/lint.py` | 全身体检 | 每次大操作后 |
+| `.scripts/graph.py --format stats` | 图谱质量分析 | 每周 / 大量变更后 |
+| `.scripts/ace_review.py` | ACE 反思循环 | 每次 Ingest 必须调用 |
 
 ## 版本与备份
 
@@ -187,4 +187,4 @@ git add -A && git commit -m "feat(ingest): <主题>"
 - wiki/ 层 LLM 产物：ngest 后自动 commit 保留版本记录
 
 ---
-> 返回：[[index]] · [[SCHEMA]] · [[首页与导航]]
+> 返回：[[index]] · [[SCHEMA]] · [[首页/首页]]

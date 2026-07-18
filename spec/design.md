@@ -25,7 +25,7 @@ L5 Skill化层   .agents/skills/ + .claude/skills/（4操作+8行业）
 L4 记忆层      .memory/（zettelkasten / episodic / conflict / ace / gaps / ops）
 L3 变更治理    spec/ + openspec/changes/
 L2 检索增强    config.toml（BM25→nano-graphrag→LightRAG）
-L1 知识编译    raw/ + wiki/ + 00_首页/
+L1 知识编译    raw/ + wiki/ + 首页/
 ```
 
 ## 关键设计决策
@@ -33,11 +33,11 @@ L1 知识编译    raw/ + wiki/ + 00_首页/
 ### 决策 1：物理分离
 - raw/ 只读，LLM 不修改原始资料
 - wiki/ LLM 编译，人类不直接编辑
-- 00_首页/ 人类入口，LLM 编译 + 人类策展
+- 首页/ 人类入口，LLM 编译 + 人类策展
 
 ### 决策 2：双索引
 - 机器索引：wiki/index.md（紧凑，AI 优先）
-- 人类索引：00_首页与导航/（MOC，人类优先）
+- 人类索引：首页与导航/（MOC，人类优先）
 
 ### 决策 3：ACE 三 agent 制约
 - Generator 生成 → Reflector 批判 → Curator 决策

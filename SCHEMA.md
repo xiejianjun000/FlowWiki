@@ -24,13 +24,13 @@ sources: []
 
 | 层 | 名称 | 本库对应 | 说明 |
 |----|------|---------|------|
-| L1 | 知识编译层 | raw/ + wiki/ + 00_首页/ | 人类放 raw、AI 编 wiki、人类用入口 |
+| L1 | 知识编译层 | raw/ + wiki/ + 首页/ | 人类放 raw、AI 编 wiki、人类用入口 |
 | L2 | 检索增强层 | config.toml | BM25→nano-graphrag→LightRAG 自适应 |
 | L3 | Spec-Driven 层 | spec/ + openspec/ | 全局设计 + 变更治理 |
 | L4 | Agent 记忆层 | .memory/ (ace/gaps/zettelkasten) | ACE 反思 + A-MEM 卡片 + 缺口学习 |
 | L5 | Skill 化层 | .agents/skills/enforcement-review/ | 7 个执法评查专属 Skill |
 | L6 | 多 Agent 层 | CLAUDE.md / AGENTS.md / CODEX.md / WORKBUDDY.md | 4 家 agent 共享同一套知识库 |
-| L7 | 场景层 | 00_首页/03_实战场景/ | 评查/督察/法条 3 大场景入口 |
+| L7 | 场景层 | 首页/03_实战场景/ | 评查/督察/法条 3 大场景入口 |
 
 ## 2. L5 Skills（执法督察评查专属）
 
@@ -49,7 +49,7 @@ sources: []
 
 ## 3. 提示词（Prompts）
 
-位置: `70_Prompt库/task/enforcement-review/`
+位置: `提示词库/task/enforcement-review/`
 
 | Prompt | 触发场景 |
 |--------|---------|
@@ -60,7 +60,7 @@ sources: []
 ## 4. CIC 工作流
 
 - **Collect（收集）**：人类拖资料到 `/raw/` → 自动打 `ingested` 时间戳
-- **Compile（编译）**：运行 `python _scripts/bootstrap.py --slug enforcement-review`
+- **Compile（编译）**：运行 `python .scripts/bootstrap.py --slug enforcement-review`
 - **Compound（复利）**：ACE 反思 + gap 学习 → 知识持续增长
 
 ## 5. 三验标准
@@ -70,14 +70,6 @@ sources: []
 | 一验 lint | frontmatter + 断链 | 0 缺 / 0 断 |
 | 二验 graph | 孤立 + 密度 | 0 孤立 / 密度 ≥ 2.0 |
 | 三验 hermes | LLM 评审 | pass / 评分 ≥ 7.0 |
-
-## 6. 知识库当前状态
-
-- raw/: 167 篇 (155 原始 + 12 Hermes 新增)
-- wiki/: 109 节点 / 479 边 / 密度 4.4
-- LLM 可路由: 85%
-- Hermes 评分: 8/10 pass
-- 图谱: 0 孤立 / 0 断链
 
 ## 6. 入库双标准（raw→wiki 编译必须遵守）
 
@@ -90,7 +82,23 @@ sources: []
    - 5 维度评分卡（信息密度/结构/溯源/独特性/可操作）
    - Curator 按分决策：≥9 优质入库、6-8 合格、3-5 待核、<3 退回
 
-## 7. 操作纪律
+## 7. 实时数据来源
+
+宪法不写死数字。以下命令产出即当前真实状态：
+
+```bash
+# 篇数统计
+find raw -name '*.md' | wc -l    # raw/ 源真层
+find wiki -name '*.md' | wc -l   # wiki/ 编译层
+
+# 图谱质量
+python3 .scripts/graph.py --format stats
+
+# 全身体检
+python3 .scripts/lint.py
+```
+
+## 8. 操作纪律
 
 1. raw/ 只读，AI 绝不修改原始内容
 2. wiki/ 写入必须经过 ACE 反思循环

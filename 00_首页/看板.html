@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>执法督察评查知识库 · 看板</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --card-hover: #263548;
+    --border: #334155;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --accent: #38bdf8;
+    --green: #4ade80;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --teal: #2dd4bf;
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px;
+  }
+  .container { max-width: 1400px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 32px; padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header h1 {
+    font-size: 24px; font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--teal));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .header .badge {
+    font-size: 12px; color: var(--text-dim);
+    background: var(--card); padding: 6px 14px; border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+  .header .badge span { color: var(--green); }
+
+  /* Stats Row */
+  .stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px; margin-bottom: 28px;
+  }
+  .stat-card {
+    background: var(--card); border-radius: var(--radius);
+    padding: 16px; text-align: center;
+    border: 1px solid var(--border);
+  }
+  .stat-card .num { font-size: 28px; font-weight: 700; }
+  .stat-card .label { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+  .stat-card.green .num { color: var(--green); }
+  .stat-card.blue .num { color: var(--accent); }
+  .stat-card.amber .num { color: var(--amber); }
+  .stat-card.teal .num { color: var(--teal); }
+  .stat-card.red .num { color: var(--red); }
+
+  /* 6 Block Grid */
+  .blocks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 14px; margin-bottom: 28px;
+  }
+  .block {
+    background: var(--card); border-radius: var(--radius);
+    padding: 20px; border: 1px solid var(--border);
+    cursor: pointer; transition: all .2s;
+    position: relative; overflow: hidden;
+  }
+  .block:hover {
+    background: var(--card-hover);
+    transform: translateY(-2px);
+    border-color: var(--accent);
+  }
+  .block .icon { font-size: 28px; margin-bottom: 10px; }
+  .block h3 { font-size: 16px; margin-bottom: 6px; }
+  .block p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+  .block .tag {
+    display: inline-block; font-size: 11px; padding: 2px 8px;
+    border-radius: 10px; margin-top: 8px;
+  }
+  .tag.green { background: rgba(74,222,128,.15); color: var(--green); }
+  .tag.blue { background: rgba(56,189,248,.15); color: var(--accent); }
+  .tag.amber { background: rgba(251,191,36,.15); color: var(--amber); }
+  .tag.red { background: rgba(248,113,113,.15); color: var(--red); }
+
+  /* Two-column section */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+
+  /* Hub section */
+  .hub-list { list-style: none; }
+  .hub-list li {
+    padding: 8px 0; border-bottom: 1px solid rgba(51,65,85,.3);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px;
+  }
+  .hub-list li:last-child { border: none; }
+  .hub-list .count { font-size: 12px; color: var(--text-dim); }
+  .hub-list .count strong { color: var(--accent); }
+
+  /* Status indicator */
+  .status-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    margin-right: 6px;
+  }
+  .status-dot.green { background: var(--green); }
+  .status-dot.amber { background: var(--amber); }
+
+  /* Layer status table */
+  .layer-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .layer-table td { padding: 6px 0; border-bottom: 1px solid rgba(51,65,85,.3); }
+  .layer-table td:first-child { font-weight: 600; width: 70px; }
+  .layer-table td:nth-child(2) { color: var(--text-dim); }
+  .layer-table td:last-child { text-align: right; }
+
+  /* Card */
+  .card {
+    background: var(--card); border-radius: var(--radius);
+    padding: 18px; border: 1px solid var(--border);
+  }
+  .card h4 { font-size: 14px; margin-bottom: 10px; color: var(--text-dim); }
+
+  /* Quick links */
+  .quick-links {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px;
+  }
+  .quick-links a {
+    text-decoration: none; color: var(--accent);
+    background: var(--card); padding: 6px 14px; border-radius: 20px;
+    font-size: 13px; border: 1px solid var(--border);
+    transition: all .2s;
+  }
+  .quick-links a:hover {
+    background: var(--card-hover); border-color: var(--accent);
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center; font-size: 12px; color: var(--text-dim);
+    padding-top: 20px; border-top: 1px solid var(--border); margin-top: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .two-col { grid-template-columns: 1fr; }
+    .blocks { grid-template-columns: 1fr; }
+    body { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <h1>🏛️ 执法督察评查知识库</h1>
+      <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">
+        FlowWiki 7 层架构 · enforcement-review
+      </div>
+    </div>
+    <div class="badge">
+      <span>●</span> 更新于 2026-07-18
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card blue"><div class="num">131</div><div class="label">📄 Wiki 编译页</div></div>
+    <div class="stat-card green"><div class="num">22</div><div class="label">📜 raw 源真层</div></div>
+    <div class="stat-card teal"><div class="num">24</div><div class="label">⚡ Skill 技能</div></div>
+    <div class="stat-card amber"><div class="num">11</div><div class="label">🧠 ZK 记忆卡片</div></div>
+    <div class="stat-card green"><div class="num">0</div><div class="label">✅ Lint 异常</div></div>
+    <div class="stat-card green"><div class="num">6</div><div class="label">🗂️ 首页板块</div></div>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="quick-links">
+    <a href="#">🔴 法典8-15施行倒计时</a>
+    <a href="#">📋 25项一票否决清单</a>
+    <a href="#">⚖️ 程序违法排查</a>
+    <a href="#">🔗 证据链闭环核验</a>
+    <a href="#">📝 第一次做案卷评查</a>
+    <a href="#">🏁 督察场景</a>
+    <a href="#">📊 SCHEMA</a>
+  </div>
+
+  <!-- 6 Blocks -->
+  <div class="blocks">
+    <div class="block" onclick="location.href='01_知识图谱/README.md'">
+      <div class="icon">🧠</div>
+      <h3>01 · 知识图谱</h3>
+      <p>法律法规体系、生态环境法典、程序法更新、一级预警</p>
+      <span class="tag blue">实体 · 法规 · 预警</span>
+    </div>
+    <div class="block" onclick="location.href='02_判据体系/README.md'">
+      <div class="icon">⚖️</div>
+      <h3>02 · 判据体系</h3>
+      <p>25项一票否决、SOP审查动作、裁量基准、评查细则指针</p>
+      <span class="tag red">红线 · SOP · 裁量</span>
+    </div>
+    <div class="block" onclick="location.href='03_实战场景/README.md'">
+      <div class="icon">🎯</div>
+      <h3>03 · 实战场景</h3>
+      <p>6类案卷评查全流程 + 督察实战：异常信号、博弈话术</p>
+      <span class="tag amber">评查 · 督察</span>
+    </div>
+    <div class="block" onclick="location.href='04_进化学习/README.md'">
+      <div class="icon">📚</div>
+      <h3>04 · 进化学习</h3>
+      <p>全国评查模式汇编、程序法更新实务、典型案例库</p>
+      <span class="tag green">经验 · 模式 · 案例</span>
+    </div>
+    <div class="block" onclick="location.href='05_采集记录/README.md'">
+      <div class="icon">📥</div>
+      <h3>05 · 采集记录</h3>
+      <p>raw/ 源真层索引、近期入库日志、操作时间轴</p>
+      <span class="tag blue">入库 · raw · 日志</span>
+    </div>
+    <div class="block" onclick="location.href='06_系统运维/README.md'">
+      <div class="icon">⚙️</div>
+      <h3>06 · 系统运维</h3>
+      <p>SCHEMA、元文档、入库质量标准、格式规范、验收</p>
+      <span class="tag">架构 · 规范 · 标准</span>
+    </div>
+  </div>
+
+  <!-- Two column: Top hub pages + Layer status -->
+  <div class="two-col">
+    <!-- Hub pages -->
+    <div class="card">
+      <h4>🔗 枢纽页 Top 入链</h4>
+      <ul class="hub-list">
+        <li><span>🔴 法典8-15施行倒计时看板</span> <span class="count"><strong>26</strong> 入链</span></li>
+        <li><span>📋 25项一票否决清单</span> <span class="count"><strong>20</strong> 入链</span></li>
+        <li><span>📄 评查细则全文2024指针</span> <span class="count"><strong>19</strong> 入链</span></li>
+        <li><span>📑 法典对照与废止10法</span> <span class="count"><strong>14</strong> 入链</span></li>
+        <li><span>⚖️ 程序违法排查</span> <span class="count"><strong>13</strong> 入链</span></li>
+        <li><span>🔗 法律适用正确性审查</span> <span class="count"><strong>11</strong> 入链</span></li>
+      </ul>
+    </div>
+    <!-- Layer status -->
+    <div class="card">
+      <h4>🏗️ FlowWiki 7 层状态</h4>
+      <table class="layer-table">
+        <tr><td>L7</td><td>场景层</td><td><span class="status-dot green"></span> 评查 · 督察 · 法条</td></tr>
+        <tr><td>L6</td><td>Agent</td><td><span class="status-dot green"></span> CLAUDE + AGENTS + CODEX</td></tr>
+        <tr><td>L5</td><td>Skill</td><td><span class="status-dot green"></span> 12 + 12 双部署</td></tr>
+        <tr><td>L4</td><td>记忆</td><td><span class="status-dot green"></span> 11 ZK + ACE + gaps</td></tr>
+        <tr><td>L3</td><td>变更</td><td><span class="status-dot green"></span> spec/ + openspec/</td></tr>
+        <tr><td>L2</td><td>检索</td><td><span class="status-dot amber"></span> 待配置 config.toml</td></tr>
+        <tr><td>L1</td><td>知识</td><td><span class="status-dot green"></span> raw 22 + wiki 131</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    FlowWiki 7 层架构 · 执法督察评查知识库 · 基于 Karpathy LLM Wiki × TRAE × ACE × A-MEM
+  </div>
+
+</div>
+</body>
+</html>

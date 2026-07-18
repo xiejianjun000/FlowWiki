@@ -1,59 +1,38 @@
-# Prompt 库
-
-## 概述
-
-统一管理 FlowWiki 所有 Prompt，支持版本控制和复用。
-
-## 目录结构
-
-```
-70_Prompt库/
-├── system/          # 系统级 Prompt
-│   ├── generator.md
-│   ├── reflector.md
-│   └── curator.md
-├── task/            # 任务级 Prompt
-│   ├── ingest.md
-│   ├── query.md
-│   ├── lint.md
-│   └── research.md
-├── retrieval/       # 检索级 Prompt
-│   ├── bm25.md
-│   ├── graphrag.md
-│   └── lightrag.md
-└── output/          # 输出级 Prompt
-    ├── report.md
-    ├── card.md
-    └── summary.md
-```
-
-## Prompt 规范
-
-### 格式
-
-```markdown
 ---
-name: "Prompt 名称"
-version: "1.0"
-tags: ["标签1", "标签2"]
+标题: 70_Prompt库 · 索引与升级规则
+layer: 05-工具资源
+type: index
+触发词: ["prompt", "提示词", "skill升级"]
+适用场景: 管理提示词库，触发 skill 升级检查
+风险等级: 🟡
+version: 1.0
+status: 现行
+tags: [05-工具资源, 🟡常规, index, 现行]
+confidence: high
+sources: []
 ---
 
-# Prompt 内容
+# 70_Prompt库 — 索引 & 升级规则
 
-{Prompt 正文}
+## 分类
+
+| 文件 | 内容 | 升级候选 |
+|------|------|---------|
+| 01_生成类.md | 生成审计清单、分析方案、评查报告 | 🟡 有机会 → skill |
+| 02_校对类.md | 校对案卷程序、数据一致性、证据链 | 🟡 有机会 → skill |
+| 03_问句类.md | 执法者视角、企业视角、条文解释 | 🔵 风格调参，不升级 |
+| 04_拆解类.md | 拆解法规、许可证、案卷要素 | 🟡 有机会 → skill |
+
+## 升级规则
+
+同类 prompt 使用 ≥3 次 + 流程可标准化 → **升级为 L5 skill**
+
+```text
+1. 该 prompt 使用次数 ≥3？
+   → 否：保持不动
+   → 是：进入第 2 步
+2. 流程可标准化？（有明确输入/输出/步骤）
+   → 否：保持 prompt
+   → 是：生成 .agents/skills/<name>/SKILL.md + .claude/skills/<name>/SKILL.md
+3. 标记原 prompt 为 "⚠️ 已升级为 skill，请使用 /<name>"
 ```
-
-### 变量
-
-使用 `{{ variable }}` 格式定义变量：
-- `{{ context }}`：上下文
-- `{{ query }}`：查询词
-- `{{ industry }}`：行业
-- `{{ max_tokens }}`：最大 token 数
-
-## 管理策略
-
-- 统一版本控制
-- 定期审查更新
-- 支持 A/B 测试
-- 性能监控
