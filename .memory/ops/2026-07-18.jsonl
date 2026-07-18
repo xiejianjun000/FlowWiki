@@ -57,3 +57,5 @@
 {"ts": "2026-07-18T10:31:58.036408", "action": "review", "status": "ok", "detail": "Hermes: pass (8/10)", "industry": "enforcement-review", "meta": {"scores": {"结构": 8, "内容": 7, "图谱": 9, "操作": 8, "时效": 7, "维护": 8, "整体": 8}}}
 {"ts": "2026-07-18T10:31:58.041971", "action": "register", "status": "ok", "detail": "00_首页/ 注册 enforcement-review | 报告: bootstrap-enforcement-review-2026-07-18.md", "industry": "enforcement-review", "meta": {"verdict": "pass", "score": 8}}
 {"ts": "2026-07-18T10:31:58.042180", "action": "bootstrap", "status": "ok", "detail": "完成 enforcement-review 引导 (109s)", "industry": "enforcement-review", "meta": {"duration": 109.038328, "verdict": "pass"}}
+{"ts": "2026-07-18T10:55:14.818324", "action": "bootstrap", "status": "error", "detail": "失败: cannot access local variable 'review' where it is not associated with a value", "industry": "enforcement-review"}
+{"ts": "2026-07-18T10:55:20.861964", "action": "bootstrap", "status": "error", "detail": "失败: cannot access local variable 'graph_result' where it is not associated with a value", "industry": "enforcement-review"}
