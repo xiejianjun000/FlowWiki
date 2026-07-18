@@ -9,6 +9,10 @@ type: schema
 风险等级: 🟡
 version: 1.0
 status: 现行
+updated: 2026-07-18
+  - (入仓日期)
+ingested: 2026-07-18T00:00:00+08:00
+
 updated: 2026-07-16
 tags: [10-元文档, 🟡常规, schema, 现行]
 ---

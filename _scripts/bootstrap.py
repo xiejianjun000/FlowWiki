@@ -14,6 +14,11 @@ FlowWiki 全自动引导流水线
   Step 8  注册    更新 00_首页/03_实战场景/ 入口 + 写 ops_log
 """
 
+# macOS locale workaround
+import locale
+if not hasattr(locale, 'normalize'):
+    locale.normalize = lambda x: x.replace('_','-').lower()
+
 import argparse, json, os, re, shutil, subprocess, sys, urllib.request
 from datetime import datetime
 from pathlib import Path
@@ -70,12 +75,15 @@ def parse_json(text):
 def step_ingest(source_dir, slug):
     step_header(1, f"入仓: {Path(source_dir).name} → raw/{slug}/")
     raw_dir = PROJECT_ROOT / "raw" / slug
+    now = datetime.now()
+    today = now.strftime("%Y-%m-%d")
 
     files = [f for f in Path(source_dir).rglob("*.md")
              if ".obsidian" not in str(f) and ".git" not in str(f)]
 
     raw_dir.mkdir(parents=True, exist_ok=True)
     copied = 0
+    new_files = []
     for f in files:
         rel = f.relative_to(source_dir)
         dst = raw_dir / rel
@@ -83,9 +91,34 @@ def step_ingest(source_dir, slug):
         if not dst.exists():
             shutil.copy2(f, dst)
             copied += 1
+            new_files.append(str(rel))
+            # Add ingest timestamp to frontmatter
+            text = dst.read_text(encoding="utf-8")
+            if text.strip().startswith("---"):
+                fm_end = text.find("---", 3)
+                if fm_end > 0:
+                    fm = text[3:fm_end]
+                    if "ingested:" not in fm:
+                        text = text[:3] + f"\ningested: {now.isoformat()}\n" + text[3:]
+                        dst.write_text(text, encoding="utf-8")
+            else:
+                text = f"---\ningested: {now.isoformat()}\n---\n\n{text}"
+                dst.write_text(text, encoding="utf-8")
 
-    ops_log("ingest", f"raw/{slug}/ 入仓 {copied} 篇", {"files": copied}, slug)
-    print(f"  入仓: {copied} 篇 ({len(files)} 已有)", flush=True)
+    # Write daily ingest report
+    record_dir = PROJECT_ROOT / "00_首页" / "05_采集记录" / slug
+    record_dir.mkdir(parents=True, exist_ok=True)
+    if new_files:
+        report = f"# {slug} 入仓记录 · {today}\n\n"
+        report += f"**入仓时间**: {now.isoformat()}\n"
+        report += f"**新增文件**: {len(new_files)} 篇\n\n"
+        report += "## 文件清单\n\n"
+        for nf in new_files:
+            report += f"- `{nf}`\n"
+        (record_dir / f"{today}.md").write_text(report, encoding="utf-8")
+
+    ops_log("ingest", f"raw/{slug}/ 入仓 {copied} 篇 ({today})", {"files": copied, "date": today}, slug)
+    print(f"  入仓: {copied} 篇 ({len(files)} 已有) | 记录: 00_首页/05_采集记录/{slug}/{today}.md", flush=True)
     return raw_dir, copied
 
 
@@ -347,7 +380,8 @@ def step_design(slug):
 
     # Quality gate: check raw file coverage
     all_concepts = [c for section in ["concepts", "playbooks", "comparisons", "criteria"]
-                    for c in data.get("wiki_structure", {}).get(section, [])]
+                    for c in data.get("wiki_structure", {}).get(section, [])
+                    if isinstance(c, str)]  # filter dicts from LLM
     raw_files = [f.stem for f in raw_dir.rglob("*.md")]
     uncovered = []
     for rf in raw_files[:30]:  # Check first 30 raw files
@@ -399,12 +433,16 @@ def step_generate(slug, industry_data):
     ]:
         cat_dir = wiki_dir / category
         cat_dir.mkdir(parents=True, exist_ok=True)
-        batch = [n for n in names if not (cat_dir / f"{n}.md").exists()]
+        # Normalize: extract name from dict, filter out non-strings
+        def _name(n):
+            return n.get('name', str(n)) if isinstance(n, dict) else str(n)
+        batch = [n for n in names if not (cat_dir / f"{_name(n)}.md").exists()]
         if not batch:
             continue
 
         print(f"\n  [{category}] {len(batch)} 篇待生成", flush=True)
-        for i, name in enumerate(batch):
+        for i, entry in enumerate(batch):
+            name = _name(entry)
             prompt = f"""你是生态环境执法案卷评查专家。生成 {category} 页面: "{name}"。
 
 格式: FILENAME: {name}.md 后跟完整 markdown（含 --- frontmatter ---+正文+[[wikilink]]链接+法规引用）。
