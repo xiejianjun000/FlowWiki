@@ -80,3 +80,32 @@
 2. **行业隔离**：只使用当前行业的知识
 3. **ACE 审查**：回存 wiki 的内容必须经过 ACE 反思循环
 4. **用户优先**：当 AI 不确定时，明确告知用户并提供备选方案
+
+## 测试用知识库
+
+### enforcement-review（执法督察评查）
+
+**快速启动**：
+```bash
+python _scripts/bootstrap.py --source raw/enforcement-review --slug enforcement-review --skip-to 2
+```
+
+**测试查询**：
+- "企业累计超标18次颗粒物，是否违法？"
+- "双碱法脱硫在回转窑上能否稳定达标？"
+- "生成现场核查清单"
+
+**验证**：
+```bash
+python _scripts/hermes_review.py --industry enforcement-review
+python _scripts/graph.py --format stats --industry enforcement-review
+python _scripts/daily_test.py --quick
+```
+
+**报告位置**：
+- `.memory/ops/YYYY-MM-DD.jsonl` — 操作日志
+- `.memory/ace/` — ACE 反思记录
+- `ops/monitoring/` — 测试报告
+- `00_首页/` — 人类可见 6 页面
+
+详见 `TESTING.md`
