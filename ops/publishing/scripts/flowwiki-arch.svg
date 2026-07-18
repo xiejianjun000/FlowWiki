@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="1200" height="1500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/></filter>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="400" y="55" text-anchor="middle" font-family="system-ui,sans-serif" font-size="32" font-weight="800" fill="#e2e8f0">FlowWiki 7 层架构</text>
+  <text x="400" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" fill="#64748b">L1 知识编译 → L2 检索 → L3 Spec → L4 记忆 → L5 Skill → L6 多Agent → L7 场景</text>
+
+  <!-- Layers -->
+  <g filter="url(#shadow)">
+    <!-- L7 -->
+    <rect x="80" y="110" width="640" height="95" rx="12" fill="#1e3a5f"/>
+    <rect x="80" y="110" width="6" height="95" rx="3" fill="#38bdf8"/>
+    <text x="100" y="142" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#38bdf8">L7</text>
+    <text x="130" y="142" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#f0f9ff">场景层</text>
+    <text x="230" y="142" font-family="system-ui,sans-serif" font-size="14" fill="#94a3b8">Scene Layer</text>
+    <text x="100" y="178" font-family="system-ui,sans-serif" font-size="14" fill="#cbd5e1">7 个通用业务场景 · 根因分析 | 合规审查 | 证照管理 | 企业合规 | 现场核查 | 案卷评查 | 审计准备</text>
+    <text x="100" y="196" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">业务外壳可插拔，任意领域可扩展</text>
+
+    <!-- Arrow -->
+    <polygon points="400,210 392,222 408,222" fill="#475569"/>
+
+    <!-- L6 -->
+    <rect x="80" y="228" width="640" height="95" rx="12" fill="#1e293b"/>
+    <rect x="80" y="228" width="6" height="95" rx="3" fill="#818cf8"/>
+    <text x="100" y="260" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#818cf8">L6</text>
+    <text x="130" y="260" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#e2e8f0">多 Agent 接手层</text>
+    <text x="270" y="260" font-family="system-ui,sans-serif" font-size="14" fill="#94a3b8">Multi-Agent Handoff</text>
+    <text x="100" y="296" font-family="system-ui,sans-serif" font-size="14" fill="#cbd5e1">CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md</text>
+    <text x="100" y="314" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">5 家 AI Agent 通吃 · 换工具不丢知识库</text>
+
+    <!-- L5 -->
+    <polygon points="400,328 392,340 408,340" fill="#475569"/>
+    <rect x="80" y="346" width="640" height="95" rx="12" fill="#1e293b"/>
+    <rect x="80" y="346" width="6" height="95" rx="3" fill="#a78bfa"/>
+    <text x="100" y="378" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#a78bfa">L5</text>
+    <text x="130" y="378" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#e2e8f0">Skill 化层</text>
+    <text x="210" y="378" font-family="system-ui,sans-serif" font-size="14" fill="#94a3b8">Skill Layer ★</text>
+    <text x="100" y="414" font-family="system-ui,sans-serif" font-size="14" fill="#cbd5e1">27 个 Skill · ingest / query / lint / research + 高频任务自动抽象</text>
+    <text x="100" y="432" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">任务→知识→Skill 三元组 · O(1) 调用复利</text>
+
+    <!-- L4 -->
+    <polygon points="400,446 392,458 408,458" fill="#475569"/>
+    <rect x="80" y="464" width="640" height="95" rx="12" fill="#450a0a"/>
+    <rect x="80" y="464" width="6" height="95" rx="3" fill="#f87171"/>
+    <text x="100" y="496" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#f87171">L4</text>
+    <text x="130" y="496" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#fecaca">Agent 记忆层</text>
+    <text x="250" y="496" font-family="system-ui,sans-serif" font-size="14" fill="#94a3b8">Memory Layer ★★★ 独有</text>
+    <text x="100" y="532" font-family="system-ui,sans-serif" font-size="14" fill="#fca5a5">A-MEM Zettelkasten 卡片 + ACE Generator→Reflector→Curator 三 agent 反思循环</text>
+    <text x="100" y="550" font-family="system-ui,sans-serif" font-size="12" fill="#f87171">★ 防幻觉机制 · 跨会话记忆 · 错误知识不入 wiki</text>
+
+    <!-- L3 -->
+    <polygon points="400,564 392,576 408,576" fill="#475569"/>
+    <rect x="80" y="582" width="640" height="95" rx="12" fill="#1e293b"/>
+    <rect x="80" y="582" width="6" height="95" rx="3" fill="#fbbf24"/>
+    <text x="100" y="614" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#fbbf24">L3</text>
+    <text x="130" y="614" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#e2e8f0">Spec-Driven 层</text>
+    <text x="260" y="614" font-family="system-ui,sans-serif" font-size="14" fill="#94a3b8">Spec Layer</text>
+    <text x="100" y="650" font-family="system-ui,sans-serif" font-size="14" fill="#cbd5e1">spec/ 全局设计 + openspec/changes/ 逐任务变更 · SpecCoding 七阶段工作流</text>
+    <text x="100" y="668" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">每个变更可追溯 · 不分析不设计 · 不设计不开发</text>
+
+    <!-- L2 -->
+    <polygon points="400,682 392,694 408,694" fill="#475569"/>
+    <rect x="80" y="700" width="640" height="95" rx="12" fill="#1e293b"/>
+    <rect x="80" y="700" width="6" height="95" rx="3" fill="#34d399"/>
+    <text x="100" y="732" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#34d399">L2</text>
+    <text x="130" y="732" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#e2e8f0">检索增强层</text>
+    <text x="230" y="732" font-family="system-ui,sans-serif" font-size="14" fill="#94a3b8">Retrieval Layer</text>
+    <text x="100" y="768" font-family="system-ui,sans-serif" font-size="14" fill="#cbd5e1">BM25 + CJK 分词 → nano-graphrag → LightRAG · 按规模自适应三档切换</text>
+    <text x="100" y="786" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">零外部数据库依赖 · 纯 Python + 文件系统</text>
+
+    <!-- L1 -->
+    <polygon points="400,800 392,812 408,812" fill="#475569"/>
+    <rect x="80" y="818" width="640" height="95" rx="12" fill="#1e293b"/>
+    <rect x="80" y="818" width="6" height="95" rx="3" fill="#06b6d4"/>
+    <text x="100" y="850" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#06b6d4">L1</text>
+    <text x="130" y="850" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#e2e8f0">知识编译层</text>
+    <text x="230" y="850" font-family="system-ui,sans-serif" font-size="14" fill="#94a3b8">Knowledge Compile Layer</text>
+    <text x="100" y="886" font-family="system-ui,sans-serif" font-size="14" fill="#cbd5e1">raw/ (只读源文件) + wiki/ (AI 编译维护) + 00_首页/ (人类 MOC 导航)</text>
+    <text x="100" y="904" font-family="system-ui,sans-serif" font-size="12" fill="#64748b">继承 Karpathy LLM Wiki 核心架构 · 双索引 · 机器走 index 人类走 6 板块</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="400" y="960" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#475569">★ = FlowWiki 独有创新  |  github.com/xiejianjun000/FlowWiki</text>
+</svg>

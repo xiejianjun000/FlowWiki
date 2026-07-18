@@ -1,0 +1,10 @@
+{
+  "id": "gap-20260718-084125-b09",
+  "timestamp": "2026-07-18T08:41:25.863640",
+  "status": "open",
+  "query": "核电站放射性废物处理标准是什么？",
+  "missing_domain": "未识别领域",
+  "suggested_sources": [],
+  "action": "human_review",
+  "notes": "知识库缺失: 未识别领域。建议补充  到 raw/。"
+}

@@ -37,6 +37,8 @@ cache_enabled = true
 cache_ttl = "1h"
 
 [hermes]
+# Hermes AI 框架 API — 用于知识库输出质量验证
+# 填入你的 API key 后，每日测试将自动调用 Hermes 做质量评分
 api_url = "https://api.hermes.ai"
 api_key = ""
 timeout = 30
@@ -54,3 +56,6 @@ switch_enabled = true
 path = "./storage"
 backup_enabled = true
 backup_interval = "24h"
+[locale]
+lang = "zh"
+auto_detect = true

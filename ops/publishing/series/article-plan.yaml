@@ -1,0 +1,140 @@
+# FlowWiki 掘金文章系列计划
+# 紧扣第一篇文章的主题，从总览 → 逐层深入 → 实战 → 进阶
+
+series:
+  title: "FlowWiki 从零到一：AI 知识库编译器的完整构建之路"
+  first_article: "Karpathy 提出了 LLM Wiki 的构想，我把 6 个致命缺口全补上了──FlowWiki 开源首发"
+  first_article_date: "2026-07-17"
+  status: active
+
+articles:
+  - id: article-01
+    seq: 1
+    title: "Karpathy 提出了 LLM Wiki 的构想，我把 6 个致命缺口全补上了──FlowWiki 开源首发"
+    topic: "FlowWiki 总览，6 gaps → 7 layers → 3 innovations"
+    status: published
+    published_date: "2026-07-17"
+
+  - id: article-02
+    seq: 2
+    title: "让 AI 互相吵架然后裁决──FlowWiki 的 ACE 反思循环如何拦截幻觉"
+    topic: "ACE Generator→Reflector→Curator 三 agent 防幻觉机制深度拆解"
+    status: draft
+    relations: ["article-01 提到 ACE 是三大创新之首"]
+    key_points:
+      - "为什么单个 LLM 不可信──RAG 的 9-40% 幻觉率真相"
+      - "ACE 论文原理：Generator 生成 → Reflector 批判 → Curator 裁决"
+      - "FlowWiki 如何把 ACE 嵌入 ingest 管道──不是事后 lint，是事前拦截"
+      - "真实案例：一次法律条文分析中 ACE 拦下了什么"
+      - "与竞品的防幻觉方案对比（atomicstrata review policy、Karpathy lint）"
+
+  - id: article-03
+    seq: 3
+    title: "你的 AI 助手总在「失忆」？FlowWiki 的 A-MEM 卡片记忆系统来了"
+    topic: "A-MEM Zettelkasten 卡片──跨会话持久化记忆"
+    status: draft
+    relations: ["article-01 提到 A-MEM 是三大创新之二"]
+    key_points:
+      - "无状态 AI 的致命问题──每次新会话 = 新生儿"
+      - "A-MEM 论文的 Zettelkasten 方法──卡片、关联、推理链"
+      - "FlowWiki 的实现：纯 Markdown 卡片，零数据库依赖"
+      - "卡片如何跨会话被新 agent 读取──相关链路分析"
+      - "vs agentmemory/mem0──轻量 vs 重量级记忆方案"
+
+  - id: article-04
+    seq: 4
+    title: "知识不应该只躺着等被查──FlowWiki 的「任务→知识→Skill」三元组"
+    topic: "Skill 化层──知识如何自动变成可调用的能力"
+    status: draft
+    relations: ["article-01 提到 Skill 是三大创新之三"]
+    key_points:
+      - "Karpathy 的 raw→wiki 两层够吗？知识复利的深水区在哪"
+      - "Prompt 到 Skill 的升级路径：探索 → 标准化 → O(1) 调用"
+      - "真实演进案例：判据匹配从手动到自动的三次迭代"
+      - "Skill 双部署机制：.agents/skills/ + .claude/skills/ 同步策略"
+      - "已有 27 个 Skill 的完整分类：通用 4 操作 vs 行业 23 专属"
+
+  - id: article-05
+    seq: 5
+    title: "AI 看 index.md，人类看 6 板块──FlowWiki 的双索引人机协作架构"
+    topic: "双索引──兼具 AI 效率与人类可读性的知识入口设计"
+    status: draft
+    relations: ["article-01 提到双索引是解决人类 UX 缺口的方案"]
+    key_points:
+      - "AI 和人类的信息消费方式根本不同──为什么单索引不够"
+      - "机器索引：wiki/index.md 的紧凑设计（1000 页仅 50KB）"
+      - "人类入口：00_首页/ 6 板块 MOC + Dataview 看板"
+      - "双索引同步机制──两套视图同一份知识"
+      - "Obsidian 前端体验：Graph View + backlinks 可视化"
+
+  - id: article-06
+    seq: 6
+    title: "知识库也需要 CI/CD──FlowWiki 的 SpecCoding 变更管理体系"
+    topic: "SpecCoding 七阶段 + OpenSpec──让知识库变更像代码一样可追溯"
+    status: draft
+    relations: ["article-01 提到变更追溯是 6 缺口之一"]
+    key_points:
+      - "为什么知识库越用越像黑箱──无追溯的代价"
+      - "SpecCoding：接任务 → spec → execute → archive → 复利"
+      - "OpenSpec 目录结构：changes/ → design.md → specs/ → plan.md → archive/"
+      - "每个变更的时间线：谁改了什么、为什么改、谁审查的"
+      - "Git 版本控制作为底层保障──任何时候都可以回滚"
+
+  - id: article-07
+    seq: 7
+    title: "换 AI 助手不换知识库──FlowWiki 的多 Agent 兼容架构"
+    topic: "5 家 Agent 通吃──CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md"
+    status: draft
+    relations: ["article-01 提到多 agent 兼容是 6 缺口之一"]
+    key_points:
+      - "供应商锁定──AI 基础设施的最大风险"
+      - "Bootstrap 文件对比：CLAUDE.md vs AGENTS.md vs CODEX.md vs WORKBUDDY.md"
+      - "Skill 多格式兼容：同一 Skill 如何适配不同 agent 的语法"
+      - "实测：同一套知识库在 Claude Code 和 Codex 上的表现对比"
+      - "未来：Gemini CLI 和 Amp 的兼容性测试结果"
+
+  - id: article-08
+    seq: 8
+    title: "同一个架构，不同的行业──FlowWiki 的 L7 场景可插拔设计"
+    topic: "场景层──通用骨架 + industry.yaml 业务变量分离"
+    status: draft
+    relations: ["article-01 提到场景可插拔是差异化特性"]
+    key_points:
+      - "为什么知识库不能一套模板打天下──行业的差异性在哪"
+      - "骨肉分离设计：L2-L6 通用骨架，L1+L7 行业专属"
+      - "industry.yaml 驱动：一个文件切换整个知识库的主题"
+      - "7 个已有场景的实际内容对比"
+      - "如何添加自定场景──3 步扩展流程"
+
+  - id: article-09
+    seq: 9
+    title: "100 页用 BM25、500 页上 GraphRAG──FlowWiki 的自适应检索策略"
+    topic: "L2 检索增强层──规模自适应的三级切换"
+    status: draft
+    relations: ["article-01 提到三档切换是独特设计"]
+    key_points:
+      - "为什么小规模不需要向量数据库──BM25+CJK 分词就够了"
+      - "中等规模：nano-graphrag 的图谱检索原理"
+      - "大规模：LightRAG 实体抽取 + 图谱增强"
+      - "config.toml 一键切换──零代码改检索策略"
+      - "性能实测：100 页 / 500 页 / 2000 页的检索耗时和精度"
+
+  - id: article-10
+    seq: 10
+    title: "从 v0.1.0 到 v0.2.0──FlowWiki 是如何让 AI Agent 一句话操作知识库的"
+    topic: "MCP Server + Docker 实战──FlowWiki 的进化之路"
+    status: draft
+    relations: ["基于 2026-07-18 的实际开发过程"]
+    key_points:
+      - "v0.1.0 的不足：好架构但没有交互入口"
+      - "MCP Server 设计：5 工具暴露给任意 AI Agent"
+      - "Docker 一键部署：docker compose up 就能跑"
+      - "GitHub Topics 优化：14 个标签让项目可被发现"
+      - "竞品监控启示：nashsu 14.8K Stars 的启示──可视化是增长引擎"
+
+  - id: article-N
+    seq: 11
+    title: ""
+    topic: "预留：根据实际开发进度动态生成主题"
+    status: draft
+    relations: ["后续文章紧扣日常 git log 中的实际变更"]
