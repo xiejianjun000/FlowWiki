@@ -2,50 +2,20 @@ name: "执法督察评查"
 slug: "enforcement-review"
 domain: "生态环境执法"
 subdomain: "案卷评查与督察实战"
-perspective: "执法督察评查一体化（SOUL v5.0）"
+perspective: "执法监督与质量管控"
 
   laws:
     - 生态环境法典（2026）
     - 生态环境监测条例（2026）
-    - 行政复议法实施条例修订要点
-    - 中华人民共和国环境保护法（已废止）
-    - 中华人民共和国水污染防治法
-    - 中华人民共和国大气污染防治法
-    - 中华人民共和国固体废物污染环境防治法
-    - 中华人民共和国土壤污染防治法
-    - 中华人民共和国噪声污染防治法
-    - 中华人民共和国海洋环境保护法
-    - 中华人民共和国放射性污染防治法
-
-  standards:
-    - 生态环境行政执法案卷评查细则（2024年版）
-    - 生态环境行政处罚办法（部令第30号）
-    - 执法文书制作指南（环办执法2024-9号）
+    - 行政处罚办法
+    - 行政复议法实施条例
+    - 限产停产办法
     - 规范适用行政处罚自由裁量权指导意见
     - 规范行政处罚自由裁量权若干意见
-    - 湖南省裁量权基准（2021版）
-    - 限产停产办法
 
-  datasets:
-    - 2026年典型案例汇编
-    - 湖南省省级环保督察典型案例
-    - 典型案例_2026-07-06
-    - 典型案例_2026-07-12
-    - 案卷评查实务经验更新_2026-07-09
-    - 实务经验_2026-06-30
-    - 实务经验_2026-07-04
-    - 实务经验_2026-07-10
-    - 实务经验_2026-07-11
-    - 新法更新_2026-07-06
-    - 新法更新_2026-07-02
-    - 2026年06月22日学习记录
-    - 生态环境法典施行倒计时预警_2026-07-09
-    - 生态环境监测条例施行要点_2026-07-09
-    - 行政复议法实施条例修订要点_2026-07-09
-
-  concepts:
-    - 评查标准体系
+  standards:
     - 评查细则全文（2024年版）
+    - 评查标准体系
     - 常见错误与问题
     - 评查实务要点
     - 25项一票否决清单
@@ -54,50 +24,42 @@ perspective: "执法督察评查一体化（SOUL v5.0）"
     - 证据链闭环核验
     - 送达合规审查
     - 采样程序合法性审查
-    - 生态环境法典衔接指南
-    - 法律法规索引
-    - 行政处罚办法解读（说理式执法、助力基层执法效能）
-    - 规范适用行政处罚自由裁量权
-    - 限产停产办法
-    - 典型案例索引
-    - 湖南省省级环保督察体系总览
-    - 政府借力与专报撰写
-    - 9种现场异常信号识别
-    - 企业博弈应对话术
-    - 第一次做案卷评查
-    - 第一次随督察队现场
-    - 评查报告怎么写
-    - 方法论_TRAE任务驱动工作流
-    - 元_设计原则
-    - 元_标签体系
-    - 元_命名规范
-    - 元_审计与版本管理
-    - 图谱质量报告
-    - 运营_对齐母本升级报告
-    - 运营_建库交付报告
-    - 运营_持续运营看板
+
+  datasets:
+    - 2026年典型案例汇编
+    - 湖南省省级环保督察典型案例
+    - 典型案例_2026-07-06
+    - 典型案例_2026-07-12
+    - 案卷评查实务经验更新_2026-07-09
+
+  concepts:
+    - {'name': '评查标准体系', 'slug': 'review-standard-system', 'description': '评查细则框架、合法性零分项、规范性扣分项', 'layer': '01-评查标准', 'type': 'sop'}
+    - {'name': '常见错误与问题', 'slug': 'common-errors', 'description': '步骤缺失、顺序颠倒、程序违法、证据缺陷', 'layer': '01-评查标准', 'type': 'doc'}
+    - {'name': '评查实务要点', 'slug': 'review-practice-points', 'description': '评查流程、零分项筛查优先级、报告写作', 'layer': '01-评查标准', 'type': 'sop'}
+    - {'name': '法律法规索引', 'slug': 'law-index', 'description': '核心法律法规清单、关键条款', 'layer': '02-法律法规', 'type': 'index'}
+    - {'name': '生态环境法典衔接指南', 'slug': 'eco-code-transition-guide', 'description': '法典8月15日施行、10法废止对比', 'layer': '02-法律法规', 'type': 'guide'}
+    - {'name': '典型案例索引', 'slug': 'typical-case-index', 'description': '各地评查活动报道、零分卷原因', 'layer': '04-典型案例', 'type': 'index'}
+    - {'name': '督察实战', 'slug': 'inspection-combat', 'description': '政府借力与专报撰写、现场异常信号识别、企业博弈应对话术', 'layer': '05-督察实战', 'type': 'playbook'}
+    - {'name': '实务经验与学习', 'slug': 'practical-experience', 'description': '学习记录、实务经验更新', 'layer': '06-实务经验', 'type': 'doc'}
+    - {'name': '新法更新与程序法', 'slug': 'new-law-updates', 'description': '生态环境法典施行预警、行政复议法修订要点、监测条例施行要点', 'layer': '07-新法更新', 'type': 'alert'}
+    - {'name': '元文档', 'slug': 'meta-documents', 'description': '设计原则、标签体系、命名规范、审计与版本管理', 'layer': '10-元文档', 'type': 'schema'}
+    - {'name': '持续运营', 'slug': 'continuous-operation', 'description': '图谱质量报告、对齐母本升级报告、建库交付报告、运营看板', 'layer': '99-持续运营', 'type': 'report'}
+    - {'name': '首页与导航', 'slug': 'home-navigation', 'description': '能力地图、MOC总索引', 'layer': '00-导航', 'type': 'moc'}
+    - {'name': '行政处罚自由裁量权', 'slug': 'administrative-discretion', 'description': '规范适用自由裁量权指导意见、裁量基准', 'layer': '03-处罚办法', 'type': 'guide'}
+    - {'name': '说理式执法', 'slug': 'reasoned-enforcement', 'description': '行政处罚办法解读4-说理式执法', 'layer': '03-处罚办法', 'type': 'sop'}
+    - {'name': '证据链闭环核验', 'slug': 'evidence-chain-verification', 'description': '相互印证、单一证据不定案', 'layer': '02-单项SOP', 'type': 'sop'}
 
   playbooks:
-    - 案卷评查全流程SOP
-    - 督察现场检查SOP
-    - 评查报告结构化输出SOP
-    - 新法更新与程序法应对SOP
-    - 典型案例学习与引用SOP
-    - 证据链闭环核验SOP
-    - 程序违法排查SOP
-    - 法律适用正确性审查SOP
-    - 送达合规审查SOP
-    - 采样程序合法性审查SOP
+    - {'name': '第一次做案卷评查', 'slug': 'first-time-review', 'description': '零基础跑通一个评查任务', 'layer': '00-导航', 'type': 'playbook'}
+    - {'name': '第一次随督察队现场', 'slug': 'first-time-inspection', 'description': '督察现场该看什么、记什么', 'layer': '00-导航', 'type': 'playbook'}
+    - {'name': '评查报告怎么写', 'slug': 'how-to-write-review-report', 'description': '结构化输出合规守门报告', 'layer': '00-导航', 'type': 'playbook'}
+    - {'name': '政府借力与专报撰写', 'slug': 'government-leverage-report', 'description': '督察实战中的政府借力策略与专报撰写方法', 'layer': '05-督察实战', 'type': 'playbook'}
+    - {'name': '企业博弈应对话术', 'slug': 'enterprise-negotiation-tactics', 'description': '督察现场与企业博弈的应对话术', 'layer': '05-督察实战', 'type': 'playbook'}
 
   comparisons:
-    - 生态环境法典与旧法（10法废止）对比
-    - 2024年版评查细则与旧版对比
-    - 湖南省裁量权基准与生态环境部指导意见对比
-    - 典型案例与常见错误对比
+    - {'name': '生态环境法典与旧法对比', 'slug': 'eco-code-vs-old-laws', 'description': '法典施行后10法废止的对比分析', 'layer': '02-法律法规', 'type': 'comparison'}
+    - {'name': '裁量权基准版本对比', 'slug': 'discretion-benchmark-comparison', 'description': '2021版湖南省裁量权基准与2019年指导意见对比', 'layer': '03-处罚办法', 'type': 'comparison'}
 
   criteria:
-    - 合法性零分项（25项一票否决）
-    - 规范性扣分项
-    - 步骤缺失、顺序颠倒、程序违法、证据缺陷
-    - 裁量权适用正确性
-    - 文书制作规范性
+    - {'name': '合法性零分项', 'slug': 'legality-zero-score-items', 'description': '25项一票否决重大问题清单', 'layer': '01-评查标准', 'type': 'criteria'}
+    - {'name': '规范性扣分项', 'slug': 'normative-deduction-items', 'description': '规范性评查扣分标准', 'layer': '01-评查标准', 'type': 'criteria'}

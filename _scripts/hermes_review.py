@@ -11,6 +11,11 @@ Usage:
 依赖：配置文件 config.toml [hermes] 段 或 环境变量 DEEPSEEK_API_KEY
 """
 
+# macOS locale workaround
+import locale
+if not hasattr(locale, 'normalize'):
+    locale.normalize = lambda x: x.replace('_','-').lower()
+
 import argparse
 import datetime
 import json
