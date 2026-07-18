@@ -96,14 +96,17 @@ def step_ingest(source_dir, slug):
             text = dst.read_text(encoding="utf-8")
             if text.strip().startswith("---"):
                 fm_end = text.find("---", 3)
-                if fm_end > 0:
+                if fm_end > 0 and "ingested:" not in text[:fm_end]:
+                    # Insert ingested after updated line, before first closing ---
                     fm = text[3:fm_end]
-                    if "ingested:" not in fm:
-                        text = text[:3] + f"\ningested: {now.isoformat()}\n" + text[3:]
-                        dst.write_text(text, encoding="utf-8")
+                    if "updated:" in fm:
+                        fm = fm.replace("updated:", f"ingested: {now.isoformat()}\nupdated:")
+                    else:
+                        fm = f"ingested: {now.isoformat()}\n" + fm
+                    text = "---\n" + fm.strip() + "\n---\n" + text[fm_end+3:].lstrip()
             else:
                 text = f"---\ningested: {now.isoformat()}\n---\n\n{text}"
-                dst.write_text(text, encoding="utf-8")
+            dst.write_text(text, encoding="utf-8")
 
     # Write daily ingest report
     record_dir = PROJECT_ROOT / "00_首页" / "05_采集记录" / slug
