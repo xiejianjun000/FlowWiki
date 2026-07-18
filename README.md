@@ -151,6 +151,30 @@
 
 ---
 
+## 测试用知识库
+
+仓库预置 **enforcement-review（执法督察评查）** 作为测试知识库：
+
+```bash
+# 一键引导（入仓 → 设计 → 入库 → 三验 → 自修复）
+python _scripts/bootstrap.py --source raw/enforcement-review --slug enforcement-review --skip-to 2
+
+# 验收
+python _scripts/hermes_review.py --industry enforcement-review
+python _scripts/graph.py --format stats --industry enforcement-review
+```
+
+| 指标 | 值 |
+|------|-----|
+| raw/ | 155 篇原始资料 |
+| wiki/ | 98 节点知识图 |
+| Hermes | 8-9 / 10 pass |
+| 三验 | lint 0 + graph 0 孤立 + hermes pass |
+
+详见 [TESTING.md](./TESTING.md)
+
+---
+
 ## 快速开始
 
 ### Option 1：从模板克隆（推荐）
