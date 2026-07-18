@@ -199,6 +199,16 @@ def check_and_clean_raw(raw_dir, slug):
         if len(meaningful) < 3:
             issues.append(f"thin_content: only {len(meaningful)} meaningful lines")
 
+        # ── Check 4: LLM routability (trigger word completeness) ──
+        fm_end = text.find("---", 3) if text.startswith("---") else -1
+        fm = text[3:fm_end] if fm_end > 0 else ""
+        empty_fields = []
+        for field in ["触发词", "适用场景", "关联法条"]:
+            if field not in fm or "[]" in fm.split(f"{field}:")[1].split("\n")[0] if f"{field}:" in fm else True:
+                empty_fields.append(field)
+        if len(empty_fields) >= 2:
+            issues.append(f"low_routability: missing {empty_fields}")
+
         # ── Act: rewrite if issues found ──
         if issues:
             if "thin_content" in str(issues) and junk_found == 0:
