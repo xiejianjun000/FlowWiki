@@ -9,14 +9,13 @@ type: schema
 风险等级: 🟡
 version: 1.0
 status: 现行
-updated: 2026-07-18
-  - (入仓日期)
 ingested: 2026-07-18T00:00:00+08:00
 
 updated: 2026-07-16
 tags: [10-元文档, 🟡常规, schema, 现行]
----
 
+updated: 2026-07-18
+---
 # 🛠 SCHEMA.md — 知识库维护约定（人与 LLM 的分工契约）
 
 > 本文件是 Karpathy LLM Wiki 方法论的"Schema 层"。LLM 在每次操作本库前必须读它。

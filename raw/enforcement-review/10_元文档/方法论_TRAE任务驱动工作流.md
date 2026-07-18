@@ -9,14 +9,13 @@ type: concept
 风险等级: 🟡
 version: 1.0
 status: 现行
-updated: 2026-07-18
-  - (入仓日期)
 ingested: 2026-07-18T00:00:00+08:00
 
 updated: 2026-07-16
 tags: [10-元文档, 🟡常规, 方法论, concept, 现行]
----
 
+updated: 2026-07-18
+---
 # 🧭 方法论｜TRAE 任务驱动工作流
 
 > 编译自 `raw/articles/2026-07-16_TRAE_Work知识库上线_微信原文.md`（源真）。
