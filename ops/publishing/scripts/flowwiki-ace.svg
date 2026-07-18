@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="1100" height="856">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/><stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="gen" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#065f46"/><stop offset="100%" stop-color="#047857"/></linearGradient>
+    <linearGradient id="ref" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#78350f"/><stop offset="100%" stop-color="#92400e"/></linearGradient>
+    <linearGradient id="cur" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#1e40af"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.3"/></filter>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#34d399"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#fbbf24"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#60a5fa"/>
+    </marker>
+  </defs>
+  <rect width="900" height="700" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="450" y="50" text-anchor="middle" font-family="system-ui,sans-serif" font-size="34" font-weight="800" fill="#e2e8f0">ACE 反思循环</text>
+  <text x="450" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" fill="#64748b">Generator → Reflector → Curator  三 Agent 交叉审查 · 错误知识不入 Wiki</text>
+
+  <!-- Generator Box (top) -->
+  <g filter="url(#shadow)">
+    <rect x="300" y="120" width="300" height="130" rx="16" fill="url(#gen)"/>
+    <rect x="300" y="120" width="300" height="130" rx="16" fill="none" stroke="#34d399" stroke-width="1.5" opacity="0.5"/>
+    <text x="450" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="800" fill="#d1fae5">Generator</text>
+    <text x="450" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#6ee7b7">生成器</text>
+    <text x="450" y="220" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#d1fae5">读取 raw/ 源文件</text>
+    <text x="450" y="240" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#d1fae5">生成 Wiki 初稿</text>
+  </g>
+
+  <!-- Arrow: Generator → Reflector (right-down) -->
+  <path d="M 600 185 Q 680 185 680 320 L 680 380" stroke="#34d399" stroke-width="2.5" fill="none" marker-end="url(#arrowGreen)" stroke-dasharray="8,4"/>
+
+  <!-- Reflector Box (right) -->
+  <g filter="url(#shadow)">
+    <rect x="580" y="380" width="270" height="130" rx="16" fill="url(#ref)"/>
+    <rect x="580" y="380" width="270" height="130" rx="16" fill="none" stroke="#fbbf24" stroke-width="1.5" opacity="0.5"/>
+    <text x="715" y="420" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="800" fill="#fef3c7">Reflector</text>
+    <text x="715" y="448" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#fcd34d">反思器</text>
+    <text x="715" y="480" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#fef3c7">检验事实一致性</text>
+    <text x="715" y="500" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#fef3c7">找矛盾 · 幻觉 · 过时</text>
+  </g>
+
+  <!-- Arrow: Reflector → Curator (left-down) -->
+  <path d="M 715 510 L 715 560 Q 715 600 600 600 L 380 600" stroke="#fbbf24" stroke-width="2.5" fill="none" marker-end="url(#arrowOrange)" stroke-dasharray="8,4"/>
+
+  <!-- Curator Box (bottom) -->
+  <g filter="url(#shadow)">
+    <rect x="300" y="540" width="300" height="130" rx="16" fill="url(#cur)"/>
+    <rect x="300" y="540" width="300" height="130" rx="16" fill="none" stroke="#60a5fa" stroke-width="1.5" opacity="0.5"/>
+    <text x="450" y="580" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="800" fill="#dbeafe">Curator</text>
+    <text x="450" y="608" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#93c5fd">策展器</text>
+    <text x="450" y="640" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#dbeafe">最终决策 · 通过 / 标待核</text>
+    <text x="450" y="660" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#dbeafe">拒绝 / 触发冲突目录</text>
+  </g>
+
+  <!-- Arrow: Curator → Generator (left-up) - feedback loop -->
+  <path d="M 300 605 Q 200 605 200 450 L 200 185 Q 200 185 300 185" stroke="#60a5fa" stroke-width="2.5" fill="none" marker-end="url(#arrowBlue)"/>
+
+  <!-- Labels on arrows -->
+  <text x="660" y="360" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#34d399" transform="rotate(25,660,360)">提交审查</text>
+  <text x="540" y="590" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#fbbf24">提交裁决</text>
+  <text x="190" y="400" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#60a5fa" transform="rotate(-90,190,400)">反馈修正</text>
+
+  <!-- Ingest trigger badge -->
+  <rect x="50" y="115" width="160" height="36" rx="18" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="130" y="138" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#94a3b8">← Ingest 触发</text>
+
+  <!-- Bottom info -->
+  <text x="450" y="695" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#475569">来源于 LangChain ACE 框架 (NeurIPS 2025)  |  嵌入 ingest 管道，不是事后 lint</text>
+</svg>

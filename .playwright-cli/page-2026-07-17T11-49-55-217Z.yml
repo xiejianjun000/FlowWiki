@@ -1,0 +1,45 @@
+- generic [ref=e2]:
+  - generic [ref=e4]: 登录掘金畅享更多权益
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - generic [ref=e7]:
+        - generic [ref=e8]:
+          - heading "验证码登录 / 注册" [level=1] [ref=e9]
+          - generic [ref=e10]:
+            - generic [ref=e11]:
+              - generic [ref=e13]:
+                - text: +
+                - textbox [ref=e14]: "86"
+                - img [ref=e15] [cursor=pointer]
+              - textbox "请输入手机号" [ref=e16]
+            - generic [ref=e18]:
+              - textbox "请输入验证码" [ref=e19]
+              - button "获取验证码" [ref=e20] [cursor=pointer]
+          - button "登录 / 注册" [ref=e22] [cursor=pointer]
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - generic [ref=e25]: 其它登录：
+            - generic [ref=e26]:
+              - img [ref=e28]
+              - img "微信" [ref=e36] [cursor=pointer]
+              - img "icon_GitHub" [ref=e38]
+          - generic [ref=e44] [cursor=pointer]: 密码登录
+      - generic [ref=e45]:
+        - heading "扫码登录 （6.4.1及以上版本支持）" [level=1] [ref=e46]:
+          - text: 扫码登录
+          - generic [ref=e47]: （6.4.1及以上版本支持）
+        - generic [ref=e48]:
+          - img [ref=e49]
+          - img "juejin-app" [ref=e50]
+        - generic [ref=e51]:
+          - text: 打开
+          - link "稀土掘金APP" [ref=e52] [cursor=pointer]:
+            - /url: /app
+          - generic [ref=e53]: 点击"我-左上角扫一扫"登录
+    - generic [ref=e54]:
+      - text: 注册登录即表示同意
+      - link "用户协议" [ref=e55] [cursor=pointer]:
+        - /url: /terms
+      - text: 和
+      - link "隐私政策" [ref=e56] [cursor=pointer]:
+        - /url: /privacy

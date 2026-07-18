@@ -159,6 +159,9 @@
 git clone https://github.com/xiejianjun000/FlowWiki.git my-wiki
 cd my-wiki
 
+# 自动检测区域 + 生成本地化目录（中文/英文）
+bash _scripts/setup.sh
+
 # 选择你的 agent bootstrap
 # Claude Code → 读 CLAUDE.md
 # Codex / Gemini / WorkBuddy → 读 AGENTS.md
@@ -170,6 +173,8 @@ cp ~/some-article.md raw/articles/
 # 在 agent 中触发 ingest
 > 请按 ingest skill 把 raw/articles/some-article.md 入库
 ```
+
+> 💡 **区域自适应**：`setup.sh` 会自动检测你的 IP 归属地。国内用户看到中文目录（`原始资料/` `知识库/` `首页/`），海外用户保持英文目录。AI Agent 始终走英文路径，互不干扰。
 
 ### Option 2：添加到现有 Obsidian Vault
 

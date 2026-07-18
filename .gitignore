@@ -37,6 +37,19 @@ raw/test_e2e.md
 # WorkBuddy workspace memory (not part of project)
 .workbuddy/
 
+# 本地化目录（由 _scripts/setup.sh 自动生成，不提交到 Git）
+原始资料/
+知识库/
+首页/
+.记忆/
+存储/
+脚本/
+模板/
+运维/
+文档/
+规格/
+变更记录/
+
 # OS
 Thumbs.db
 ehthumbs.db

@@ -1,0 +1,162 @@
+- generic [ref=e4]:
+  - generic [ref=e6]:
+    - banner [ref=e7]:
+      - generic [ref=e8]:
+        - img "稀土掘金" [ref=e10] [cursor=pointer]
+        - navigation [ref=e11]:
+          - list [ref=e12]:
+            - listitem [ref=e13]:
+              - list [ref=e14]:
+                - listitem [ref=e15] [cursor=pointer]:
+                  - link "首页" [ref=e16]:
+                    - /url: /
+                - listitem [ref=e17] [cursor=pointer]:
+                  - link "沸点" [ref=e18]:
+                    - /url: /pins
+                    - text: 沸点
+                - listitem [ref=e19] [cursor=pointer]:
+                  - link "课程" [ref=e20]:
+                    - /url: /course
+                - listitem [ref=e21] [cursor=pointer]:
+                  - link "更多" [ref=e22]:
+                    - /url: javascript:void(0);
+            - list [ref=e23]:
+              - listitem [ref=e24]:
+                - list [ref=e25]:
+                  - listitem [ref=e26]:
+                    - search [ref=e27]:
+                      - searchbox "探索稀土掘金" [ref=e28]
+                      - img [ref=e30]
+                  - listitem [ref=e32]:
+                    - generic [ref=e33] [cursor=pointer]:
+                      - button "创作者中心" [ref=e34]
+                      - img [ref=e36]
+              - listitem [ref=e38]:
+                - button "登录 注册" [ref=e40] [cursor=pointer]:
+                  - text: 登录
+                  - generic [ref=e41]: 注册
+    - main [ref=e43]:
+      - generic [ref=e44]:
+        - navigation [ref=e46]:
+          - link "关注" [ref=e49] [cursor=pointer]:
+            - /url: /following
+            - img [ref=e50]
+            - generic [ref=e53]: 关注
+          - link "综合" [ref=e56] [cursor=pointer]:
+            - /url: /recommended
+            - img [ref=e57]
+            - generic [ref=e59]: 综合
+          - link "后端" [ref=e62] [cursor=pointer]:
+            - /url: /backend
+            - img [ref=e63]
+            - generic [ref=e66]: 后端
+          - link "前端" [ref=e69] [cursor=pointer]:
+            - /url: /frontend
+            - img [ref=e70]
+            - generic [ref=e72]: 前端
+          - link "Android" [ref=e75] [cursor=pointer]:
+            - /url: /android
+            - img [ref=e76]
+            - generic [ref=e82]: Android
+          - link "iOS" [ref=e85] [cursor=pointer]:
+            - /url: /ios
+            - img [ref=e86]
+            - generic [ref=e88]: iOS
+          - link "人工智能" [ref=e91] [cursor=pointer]:
+            - /url: /ai
+            - img [ref=e92]
+            - generic [ref=e98]: 人工智能
+          - link "开发工具" [ref=e101] [cursor=pointer]:
+            - /url: /freebie
+            - img [ref=e102]
+            - generic [ref=e105]: 开发工具
+          - link "代码人生" [ref=e108] [cursor=pointer]:
+            - /url: /career
+            - img [ref=e109]
+            - generic [ref=e111]: 代码人生
+          - link "阅读" [ref=e114] [cursor=pointer]:
+            - /url: /article
+            - img [ref=e115]
+            - generic [ref=e118]: 阅读
+          - generic [ref=e121] [cursor=pointer]:
+            - img [ref=e122]
+            - generic [ref=e126]: 排行榜
+        - generic [ref=e128]:
+          - navigation [ref=e132]:
+            - list [ref=e133]:
+              - listitem [ref=e134] [cursor=pointer]:
+                - link "推荐" [ref=e135]:
+                  - /url: /
+              - listitem [ref=e136] [cursor=pointer]:
+                - link "最新" [ref=e137]:
+                  - /url: /?sort=newest
+          - complementary [ref=e146]:
+            - generic [ref=e148]:
+              - generic [ref=e149]:
+                - generic [ref=e150]: 晚上好！
+                - generic [ref=e151]: 点亮在社区的每一天
+              - button "去签到" [ref=e152] [cursor=pointer]:
+                - generic [ref=e153]: 去签到
+            - paragraph [ref=e155]:
+              - text: 推荐话题
+              - generic [ref=e156] [cursor=pointer]:
+                - img [ref=e157]
+                - text: 换一换
+            - generic [ref=e167]:
+              - list [ref=e168]:
+                - listitem [ref=e169]:
+                  - link "用户协议" [ref=e170] [cursor=pointer]:
+                    - /url: /terms
+                - listitem [ref=e171]:
+                  - link "营业执照" [ref=e172] [cursor=pointer]:
+                    - /url: /license
+                - listitem [ref=e173]:
+                  - link "隐私政策" [ref=e174] [cursor=pointer]:
+                    - /url: /privacy
+                - listitem [ref=e175]:
+                  - link "关于我们" [ref=e176] [cursor=pointer]:
+                    - /url: /about
+              - list [ref=e177]:
+                - listitem [ref=e178]:
+                  - link "使用指南" [ref=e179] [cursor=pointer]:
+                    - /url: /book/5c90640c5188252d7941f5bb
+                - listitem [ref=e180]:
+                  - link "友情链接" [ref=e181] [cursor=pointer]:
+                    - /url: /links
+                - listitem [ref=e182]:
+                  - link "更多文章" [ref=e183] [cursor=pointer]:
+                    - /url: /more_posts
+              - list [ref=e184]:
+                - listitem [ref=e185]:
+                  - generic [ref=e186]:
+                    - text: 举报邮箱：
+                    - link "juejin@bytedance.com" [ref=e187] [cursor=pointer]:
+                      - /url: mailto:juejin@bytedance.com
+              - list [ref=e188]:
+                - listitem [ref=e189]:
+                  - generic [ref=e190]:
+                    - text: 座机电话：
+                    - link "010-83434395" [ref=e191] [cursor=pointer]:
+                      - /url: tel:010-83434395
+              - list [ref=e192]:
+                - listitem [ref=e193]:
+                  - link "京ICP备：18012699号-3" [ref=e194] [cursor=pointer]:
+                    - /url: https://beian.miit.gov.cn
+              - list [ref=e195]:
+                - listitem [ref=e196]:
+                  - link "京ICP证：京B2-20191272" [ref=e197] [cursor=pointer]:
+                    - /url: https://lf3-static.bytednsdoc.com/obj/eden-cn/ulojuhieh7plmhfps/jujin/20240606-112720.png
+              - list [ref=e198]:
+                - listitem [ref=e199]:
+                  - link "police 京公网安备11010802026719号" [ref=e200] [cursor=pointer]:
+                    - /url: http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802026719
+                    - img "police" [ref=e201]
+                    - text: 京公网安备11010802026719号
+              - list [ref=e202]:
+                - listitem [ref=e203]: ©2026 稀土掘金
+  - generic [ref=e204]:
+    - text: AI 助 手
+    - button "建议反馈" [ref=e205] [cursor=pointer]:
+      - img [ref=e206]
+    - button "更多" [ref=e210] [cursor=pointer]:
+      - img [ref=e211]

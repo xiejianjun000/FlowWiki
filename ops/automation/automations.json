@@ -1,0 +1,26 @@
+{
+  "automations": [
+    {
+      "id": "automation-1784287880606",
+      "name": "FlowWiki 每日数据监控",
+      "description": "每天 9:00 拉取 stars/forks/traffic/issues/PRs 数据，写入 ~/.workbuddy/monitoring/flowwiki/daily-YYYY-MM-DD.md",
+      "schedule": "FREQ=DAILY;BYHOUR=9;BYMINUTE=0",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "automation-1784287892702",
+      "name": "FlowWiki Issue/PR 巡检与回复",
+      "description": "工作日 9:00 + 17:00 检测未回应项，草拟回复到 ~/.workbuddy/monitoring/flowwiki/draft-reply-<N>.md",
+      "schedule": "FREQ=DAILY;BYHOUR=9,17;BYDAY=MO,TU,WE,TH,FR",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "automation-1784287902610",
+      "name": "FlowWiki 每周增长周报",
+      "description": "每周一 9:00 环比分析 stars/forks/views/clones，生成周报",
+      "schedule": "FREQ=WEEKLY;BYDAY=MO;BYHOUR=9;BYMINUTE=0",
+      "status": "ACTIVE"
+    }
+  ],
+  "updated": "2026-07-17T19:40:00+08:00"
+}

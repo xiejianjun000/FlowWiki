@@ -37,9 +37,13 @@ cache_enabled = true
 cache_ttl = "1h"
 
 [hermes]
-api_url = "https://api.hermes.ai"
+# Hermes AI 框架 — 知识库质量验证
+# 使用本地 Hermes 主模型（DeepSeek）做 LLM 级别质量评审
+# api_key 留空则自动从环境变量 DEEPSEEK_API_KEY 读取
+api_url = "https://api.deepseek.com/v1/chat/completions"
 api_key = ""
-timeout = 30
+model = "deepseek-chat"
+timeout = 60
 
 [logging]
 level = "INFO"
@@ -49,6 +53,12 @@ file = "flowwiki.log"
 [industry]
 default = "root-cause"
 switch_enabled = true
+
+[locale]
+# 语言设置：zh=中文目录名，en=英文目录名（默认）
+# 首次运行 _scripts/setup.sh 会自动检测并设置
+lang = "zh"
+auto_detect = true
 
 [storage]
 path = "./storage"

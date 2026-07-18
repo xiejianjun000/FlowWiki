@@ -1,0 +1,10 @@
+{
+  "id": "gap-20260718-084740-a13",
+  "timestamp": "2026-07-18T08:47:40.988804",
+  "status": "open",
+  "query": "核电站放射性废物处理标准？",
+  "missing_domain": "核电站放射性废物处理标准",
+  "suggested_sources": [],
+  "action": "human_review",
+  "notes": "知识库缺失: 核电站放射性废物处理标准。建议补充  到 raw/。"
+}

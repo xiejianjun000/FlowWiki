@@ -1,0 +1,791 @@
+- generic [ref=e4]:
+  - generic [ref=e6]:
+    - banner [ref=e7]:
+      - generic [ref=e8]:
+        - img "稀土掘金" [ref=e10] [cursor=pointer]
+        - navigation [ref=e11]:
+          - list [ref=e12]:
+            - listitem [ref=e13]:
+              - list [ref=e14]:
+                - listitem [ref=e15] [cursor=pointer]:
+                  - link "首页" [ref=e16]:
+                    - /url: /
+                - listitem [ref=e17] [cursor=pointer]:
+                  - link "沸点" [ref=e18]:
+                    - /url: /pins
+                    - text: 沸点
+                - listitem [ref=e19] [cursor=pointer]:
+                  - link "课程" [ref=e20]:
+                    - /url: /course
+                - listitem [ref=e21] [cursor=pointer]:
+                  - link "更多" [ref=e22]:
+                    - /url: javascript:void(0);
+            - list [ref=e23]:
+              - listitem [ref=e24]:
+                - list [ref=e25]:
+                  - listitem [ref=e26]:
+                    - search [ref=e27]:
+                      - searchbox "探索稀土掘金" [ref=e28]
+                      - img [ref=e30]
+                  - listitem [ref=e32]:
+                    - generic [ref=e33] [cursor=pointer]:
+                      - button "创作者中心" [ref=e34]
+                      - img [ref=e36]
+              - listitem [ref=e38]:
+                - button "登录 注册" [ref=e40] [cursor=pointer]:
+                  - text: 登录
+                  - generic [ref=e41]: 注册
+    - main [ref=e43]:
+      - generic [ref=e44]:
+        - navigation [ref=e46]:
+          - link "关注" [ref=e49] [cursor=pointer]:
+            - /url: /following
+            - img [ref=e50]
+            - generic [ref=e53]: 关注
+          - link "综合" [ref=e56] [cursor=pointer]:
+            - /url: /recommended
+            - img [ref=e57]
+            - generic [ref=e59]: 综合
+          - link "后端" [ref=e62] [cursor=pointer]:
+            - /url: /backend
+            - img [ref=e63]
+            - generic [ref=e66]: 后端
+          - link "前端" [ref=e69] [cursor=pointer]:
+            - /url: /frontend
+            - img [ref=e70]
+            - generic [ref=e72]: 前端
+          - link "Android" [ref=e75] [cursor=pointer]:
+            - /url: /android
+            - img [ref=e76]
+            - generic [ref=e82]: Android
+          - link "iOS" [ref=e85] [cursor=pointer]:
+            - /url: /ios
+            - img [ref=e86]
+            - generic [ref=e88]: iOS
+          - link "人工智能" [ref=e91] [cursor=pointer]:
+            - /url: /ai
+            - img [ref=e92]
+            - generic [ref=e98]: 人工智能
+          - link "开发工具" [ref=e101] [cursor=pointer]:
+            - /url: /freebie
+            - img [ref=e102]
+            - generic [ref=e105]: 开发工具
+          - link "代码人生" [ref=e108] [cursor=pointer]:
+            - /url: /career
+            - img [ref=e109]
+            - generic [ref=e111]: 代码人生
+          - link "阅读" [ref=e114] [cursor=pointer]:
+            - /url: /article
+            - img [ref=e115]
+            - generic [ref=e118]: 阅读
+          - generic [ref=e121] [cursor=pointer]:
+            - img [ref=e122]
+            - generic [ref=e126]: 排行榜
+        - generic [ref=e128]:
+          - generic [ref=e130]:
+            - navigation [ref=e132]:
+              - list [ref=e133]:
+                - listitem [ref=e134] [cursor=pointer]:
+                  - link "推荐" [ref=e135]:
+                    - /url: /
+                - listitem [ref=e136] [cursor=pointer]:
+                  - link "最新" [ref=e137]:
+                    - /url: /?sort=newest
+            - generic [ref=e215]:
+              - listitem [ref=e216]:
+                - generic [ref=e219] [cursor=pointer]:
+                  - link "Cursor 转 Codex 大半个月，聊聊我的真实感受" [ref=e221]:
+                    - /url: /post/7637856870833635343
+                  - link "Cursor 让我第一次强烈感受到 AI 编程的震撼，Codex 则让我第一次真正感觉到，AI 不只是编程助手，而是一个真正的超级Agent，Codex 明显更接近下一阶段的形态。" [ref=e223]:
+                    - /url: /post/7637856870833635343
+                    - generic [ref=e224]: Cursor 让我第一次强烈感受到 AI 编程的震撼，Codex 则让我第一次真正感觉到，AI 不只是编程助手，而是一个真正的超级Agent，Codex 明显更接近下一阶段的形态。
+                  - generic [ref=e225]:
+                    - list [ref=e226]:
+                      - listitem [ref=e227]:
+                        - link "深小乐" [ref=e228]:
+                          - /url: /user/1204720475313342
+                          - generic [ref=e229]: 深小乐
+                      - listitem [ref=e231]:
+                        - img [ref=e232]
+                        - generic [ref=e235]: 52k
+                      - listitem [ref=e236]:
+                        - img [ref=e238]
+                        - generic [ref=e240]: "202"
+                      - listitem
+                    - link "人工智能" [ref=e242]:
+                      - /url: /tag/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD
+              - listitem [ref=e243]:
+                - generic [ref=e245] [cursor=pointer]:
+                  - generic [ref=e246]:
+                    - link "Skill学习指南🧑‍💻" [ref=e248]:
+                      - /url: /post/7620262637797408808
+                    - link "Skill就是AI的\"专项操作手册\"，把特定领域的知识、流程和工具打包成一个模块。当AI需要处理专业任务时，就调用对应的Skill，让它像专家一样按规范工作。本文主要介绍Skill的基础入门知识。" [ref=e250]:
+                      - /url: /post/7620262637797408808
+                      - generic [ref=e251]: Skill就是AI的"专项操作手册"，把特定领域的知识、流程和工具打包成一个模块。当AI需要处理专业任务时，就调用对应的Skill，让它像专家一样按规范工作。本文主要介绍Skill的基础入门知识。
+                    - generic [ref=e252]:
+                      - list [ref=e253]:
+                        - listitem [ref=e254]:
+                          - link "岛雨AI" [ref=e255]:
+                            - /url: /user/2450147377416414
+                            - generic [ref=e256]: 岛雨AI
+                        - listitem [ref=e258]:
+                          - img [ref=e259]
+                          - generic [ref=e262]: 11k
+                        - listitem [ref=e263]:
+                          - img [ref=e265]
+                          - generic [ref=e267]: "95"
+                        - listitem
+                      - generic [ref=e268]:
+                        - link "人工智能" [ref=e269]:
+                          - /url: /tag/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD
+                        - link "Agent" [ref=e270]:
+                          - /url: /tag/Agent
+                        - link "AI编程" [ref=e271]:
+                          - /url: /tag/AI%E7%BC%96%E7%A8%8B
+                  - img "Skill学习指南🧑‍💻" [ref=e272]
+              - listitem [ref=e273]:
+                - generic [ref=e275] [cursor=pointer]:
+                  - generic [ref=e276]:
+                    - link "小程序上线半年我赚了多少钱？" [ref=e278]:
+                      - /url: /post/7593338828196626472
+                    - link "1. 开发历程 时间过得真快，转眼间福猪记账小程序上线已经有半年时间了，从v1.0.0 版本做到了 v1.6.1 版本。今天整理了开发日志，真的不敢相信自己在工作之余能够把它做出来并上线。 2.用户积" [ref=e280]:
+                      - /url: /post/7593338828196626472
+                      - generic [ref=e281]: 1. 开发历程 时间过得真快，转眼间福猪记账小程序上线已经有半年时间了，从v1.0.0 版本做到了 v1.6.1 版本。今天整理了开发日志，真的不敢相信自己在工作之余能够把它做出来并上线。 2.用户积
+                    - generic [ref=e282]:
+                      - list [ref=e283]:
+                        - listitem [ref=e284]:
+                          - link "是江迪呀" [ref=e285]:
+                            - /url: /user/4468854131529624
+                            - generic [ref=e286]: 是江迪呀
+                        - listitem [ref=e288]:
+                          - img [ref=e289]
+                          - generic [ref=e292]: 60k
+                        - listitem [ref=e293]:
+                          - img [ref=e295]
+                          - generic [ref=e297]: "257"
+                        - listitem
+                      - generic [ref=e298]:
+                        - link "微信小程序" [ref=e299]:
+                          - /url: /tag/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F
+                        - link "产品" [ref=e300]:
+                          - /url: /tag/%E4%BA%A7%E5%93%81
+                        - link "创业" [ref=e301]:
+                          - /url: /tag/%E5%88%9B%E4%B8%9A
+                  - img "小程序上线半年我赚了多少钱？" [ref=e302]
+              - listitem [ref=e303]:
+                - generic [ref=e306] [cursor=pointer]:
+                  - link "用 Kimi K3 交付一个真实项目后：很强，但还有不足" [ref=e308]:
+                    - /url: /post/7663313773420462118
+                  - link "大家好，我是孟健。 Kimi K3 正式发布了。这个结果，我终于可以公开说了：发布之前，我已经把 ShipSolo 微信小程序这个真实项目整个交给它，从需求梳理到部署验证走完全程，最终完整交付。 交付" [ref=e310]:
+                    - /url: /post/7663313773420462118
+                    - generic [ref=e311]: 大家好，我是孟健。 Kimi K3 正式发布了。这个结果，我终于可以公开说了：发布之前，我已经把 ShipSolo 微信小程序这个真实项目整个交给它，从需求梳理到部署验证走完全程，最终完整交付。 交付
+                  - generic [ref=e312]:
+                    - list [ref=e313]:
+                      - listitem [ref=e314]:
+                        - link "孟健AI编程" [ref=e315]:
+                          - /url: /user/4212984287073895
+                          - generic [ref=e316]: 孟健AI编程
+                      - listitem [ref=e318]:
+                        - img [ref=e319]
+                        - generic [ref=e322]: "197"
+                      - listitem [ref=e323]:
+                        - img [ref=e325]
+                        - generic [ref=e327]: "1"
+                      - listitem
+                    - link "AI编程" [ref=e329]:
+                      - /url: /tag/AI%E7%BC%96%E7%A8%8B
+              - listitem [ref=e330]:
+                - generic [ref=e332] [cursor=pointer]:
+                  - generic [ref=e333]:
+                    - link "写给年轻程序员的几点建议-2" [ref=e335]:
+                      - /url: /post/7612479947865669675
+                    - link "现在互联网红利已经消失了，深知年轻程序员的不易，下面就浅薄地谈几点建议。中国人口基数比较大，要培养自己的 商业嗅觉。你能卖爆一个商品，就能获得巨大的财富。微信公众号如果能写出 几万 浏览量的文章，就有" [ref=e337]:
+                      - /url: /post/7612479947865669675
+                      - generic [ref=e338]: 现在互联网红利已经消失了，深知年轻程序员的不易，下面就浅薄地谈几点建议。中国人口基数比较大，要培养自己的 商业嗅觉。你能卖爆一个商品，就能获得巨大的财富。微信公众号如果能写出 几万 浏览量的文章，就有
+                    - generic [ref=e339]:
+                      - list [ref=e340]:
+                        - listitem [ref=e341]:
+                          - link "程序员大卫" [ref=e342]:
+                            - /url: /user/1961184474695213
+                            - generic [ref=e343]: 程序员大卫
+                        - listitem [ref=e345]:
+                          - img [ref=e346]
+                          - generic [ref=e349]: 17k
+                        - listitem [ref=e350]:
+                          - img [ref=e352]
+                          - generic [ref=e354]: "168"
+                        - listitem
+                      - link "前端" [ref=e356]:
+                        - /url: /tag/%E5%89%8D%E7%AB%AF
+                  - img "写给年轻程序员的几点建议-2" [ref=e357]
+              - listitem [ref=e358]:
+                - generic [ref=e361] [cursor=pointer]:
+                  - link "曾经人手一个的Superpowers，为什么现在都在卸" [ref=e363]:
+                    - /url: /post/7662691781214437412
+                  - link "一个GitHub上有超过25万星标的项目，用户正在集体卸载它。 这个项目叫Superpowers，是Claude Code生态里最火的skill插件，没有之一。装上之后，它会给你的Agent注入14个" [ref=e365]:
+                    - /url: /post/7662691781214437412
+                    - generic [ref=e366]: 一个GitHub上有超过25万星标的项目，用户正在集体卸载它。 这个项目叫Superpowers，是Claude Code生态里最火的skill插件，没有之一。装上之后，它会给你的Agent注入14个
+                  - generic [ref=e367]:
+                    - list [ref=e368]:
+                      - listitem [ref=e369]:
+                        - link "卡卡罗特学AI" [ref=e370]:
+                          - /url: /user/59799755827562
+                          - generic [ref=e371]: 卡卡罗特学AI
+                      - listitem [ref=e373]:
+                        - img [ref=e374]
+                        - generic [ref=e377]: 1.3k
+                      - listitem [ref=e378]:
+                        - img [ref=e380]
+                        - generic [ref=e382]: "14"
+                      - listitem
+                    - generic [ref=e383]:
+                      - link "人工智能" [ref=e384]:
+                        - /url: /tag/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD
+                      - link "程序员" [ref=e385]:
+                        - /url: /tag/%E7%A8%8B%E5%BA%8F%E5%91%98
+              - listitem [ref=e386]:
+                - generic [ref=e388] [cursor=pointer]:
+                  - generic [ref=e389]:
+                    - link "别再裸用 Claude Code 了！32 个亲测Skills + 8 个 MCP，开发效率直接拉满！" [ref=e391]:
+                      - /url: /post/7620060655607857178
+                    - link "别再裸用 Claude Code 了！32 个亲测技能 + 8 个 MCP 服务器，开发效率直接拉满！ 先晒一下我装完的效果（见下图），所有技能均实测可用。" [ref=e393]:
+                      - /url: /post/7620060655607857178
+                      - generic [ref=e394]: 别再裸用 Claude Code 了！32 个亲测技能 + 8 个 MCP 服务器，开发效率直接拉满！ 先晒一下我装完的效果（见下图），所有技能均实测可用。
+                    - generic [ref=e395]:
+                      - list [ref=e396]:
+                        - listitem [ref=e397]:
+                          - link "蝎子莱莱爱打怪" [ref=e398]:
+                            - /url: /user/1239904847403927
+                            - generic [ref=e399]: 蝎子莱莱爱打怪
+                        - listitem [ref=e401]:
+                          - img [ref=e402]
+                          - generic [ref=e405]: 79k
+                        - listitem [ref=e406]:
+                          - img [ref=e408]
+                          - generic [ref=e410]: "799"
+                        - listitem
+                      - generic [ref=e411]:
+                        - link "后端" [ref=e412]:
+                          - /url: /tag/%E5%90%8E%E7%AB%AF
+                        - link "Claude" [ref=e413]:
+                          - /url: /tag/Claude
+                        - link "Java" [ref=e414]:
+                          - /url: /tag/Java
+                  - img "别再裸用 Claude Code 了！32 个亲测Skills + 8 个 MCP，开发效率直接拉满！" [ref=e415]
+              - listitem [ref=e416]:
+                - generic [ref=e419] [cursor=pointer]:
+                  - link "前后端一起消失：2026 年 7 月，前端正在被彻底“重新定义”" [ref=e421]:
+                    - /url: /post/7660367518163746852
+                  - link "前后端一起消失：2026 年 7 月，前端正在被彻底“重新定义” 一、谷歌憋了两个月的王牌，专攻前端 2026 年 7 月，全网被 Gemini 3.5 Pro 的泄露刷屏了。 谷歌在 I/O 大会上" [ref=e423]:
+                    - /url: /post/7660367518163746852
+                    - generic [ref=e424]: 前后端一起消失：2026 年 7 月，前端正在被彻底“重新定义” 一、谷歌憋了两个月的王牌，专攻前端 2026 年 7 月，全网被 Gemini 3.5 Pro 的泄露刷屏了。 谷歌在 I/O 大会上
+                  - generic [ref=e425]:
+                    - list [ref=e426]:
+                      - listitem [ref=e427]:
+                        - link "涛涛ing" [ref=e428]:
+                          - /url: /user/3831141854615655
+                          - generic [ref=e429]: 涛涛ing
+                      - listitem [ref=e431]:
+                        - img [ref=e432]
+                        - generic [ref=e435]: 9.5k
+                      - listitem [ref=e436]:
+                        - img [ref=e438]
+                        - generic [ref=e440]: "33"
+                      - listitem
+                    - link "前端" [ref=e442]:
+                      - /url: /tag/%E5%89%8D%E7%AB%AF
+              - listitem [ref=e443]:
+                - generic [ref=e445] [cursor=pointer]:
+                  - generic [ref=e446]:
+                    - link "基于AI的前端全链路开发工作流" [ref=e448]:
+                      - /url: /post/7621393797453365258
+                    - link "一、前言 1.开发需求背景 现在aiCoding对开发的帮助越来越大，我们也可以用ai对自己平时的各个工作环节或流程提效。在研究各个流程后，我发现可以将前端开发的所有流程都跑通了，将各流程串联起来已经" [ref=e450]:
+                      - /url: /post/7621393797453365258
+                      - generic [ref=e451]: 一、前言 1.开发需求背景 现在aiCoding对开发的帮助越来越大，我们也可以用ai对自己平时的各个工作环节或流程提效。在研究各个流程后，我发现可以将前端开发的所有流程都跑通了，将各流程串联起来已经
+                    - generic [ref=e452]:
+                      - list [ref=e453]:
+                        - listitem [ref=e454]:
+                          - link "左江涛" [ref=e455]:
+                            - /url: /user/1269275723831751
+                            - generic [ref=e456]: 左江涛
+                        - listitem [ref=e458]:
+                          - img [ref=e459]
+                          - generic [ref=e462]: 10k
+                        - listitem [ref=e463]:
+                          - img [ref=e465]
+                          - generic [ref=e467]: "119"
+                        - listitem
+                      - generic [ref=e468]:
+                        - link "AI编程" [ref=e469]:
+                          - /url: /tag/AI%E7%BC%96%E7%A8%8B
+                        - link "前端" [ref=e470]:
+                          - /url: /tag/%E5%89%8D%E7%AB%AF
+                        - link "Cursor" [ref=e471]:
+                          - /url: /tag/Cursor
+                  - img "基于AI的前端全链路开发工作流" [ref=e472]
+                - generic [ref=e474]:
+                  - generic [ref=e475] [cursor=pointer]: 登录 / 注册
+                  - generic [ref=e476]: 可定制个人专属的推荐内容列表
+              - listitem [ref=e477]:
+                - generic [ref=e480] [cursor=pointer]:
+                  - link "白嫖DeepSeek V4 Pro！免费无限用，还能接入Claude-Code" [ref=e482]:
+                    - /url: /post/7650882103059939337
+                  - link "先放个结论：按星哥的步骤配置完，你就能在本地工具里直接调用 DeepSeek V4 Pro 的免费额度，不用充值，不用复杂操作，5 步就能搞定！ 免费的模型： 一、准备工作 想薅这个羊毛，提前准备好这" [ref=e484]:
+                    - /url: /post/7650882103059939337
+                    - generic [ref=e485]: 先放个结论：按星哥的步骤配置完，你就能在本地工具里直接调用 DeepSeek V4 Pro 的免费额度，不用充值，不用复杂操作，5 步就能搞定！ 免费的模型： 一、准备工作 想薅这个羊毛，提前准备好这
+                  - generic [ref=e486]:
+                    - list [ref=e487]:
+                      - listitem [ref=e488]:
+                        - link "神奇小汤圆" [ref=e489]:
+                          - /url: /user/1151943919285431
+                          - generic [ref=e490]: 神奇小汤圆
+                      - listitem [ref=e492]:
+                        - img [ref=e493]
+                        - generic [ref=e496]: 16k
+                      - listitem [ref=e497]:
+                        - img [ref=e499]
+                        - generic [ref=e501]: "43"
+                      - listitem
+                    - link "后端" [ref=e503]:
+                      - /url: /tag/%E5%90%8E%E7%AB%AF
+              - listitem [ref=e504]:
+                - generic [ref=e506] [cursor=pointer]:
+                  - generic [ref=e507]:
+                    - link "🚀 2026 年 6 月 GitHub 十大热门项目排行榜 🔥" [ref=e509]:
+                      - /url: /post/7657794899357761570
+                    - link "欢迎来到 2026 年 6 月 GitHub 热门开源项目排行榜！聚焦 Agent 感知 + 技能市场 + 视频生产 + 代码智能 + 并行编排五大主线！" [ref=e511]:
+                      - /url: /post/7657794899357761570
+                      - generic [ref=e512]: 欢迎来到 2026 年 6 月 GitHub 热门开源项目排行榜！聚焦 Agent 感知 + 技能市场 + 视频生产 + 代码智能 + 并行编排五大主线！
+                    - generic [ref=e513]:
+                      - list [ref=e514]:
+                        - listitem [ref=e515]:
+                          - link "一点一木" [ref=e516]:
+                            - /url: /user/1063982986187486
+                            - generic [ref=e517]: 一点一木
+                        - listitem [ref=e519]:
+                          - img [ref=e520]
+                          - generic [ref=e523]: 5.3k
+                        - listitem [ref=e524]:
+                          - img [ref=e526]
+                          - generic [ref=e528]: "51"
+                        - listitem
+                      - generic [ref=e529]:
+                        - link "GitHub" [ref=e530]:
+                          - /url: /tag/GitHub
+                        - link "人工智能" [ref=e531]:
+                          - /url: /tag/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD
+                  - img "🚀 2026 年 6 月 GitHub 十大热门项目排行榜 🔥" [ref=e532]
+                - generic [ref=e533]:
+                  - generic [ref=e534]:
+                    - generic [ref=e535]: 基于你的阅读偏好，推荐以下作者
+                    - generic [ref=e536] [cursor=pointer]: 换一换
+                  - list
+              - listitem [ref=e537]:
+                - generic [ref=e540] [cursor=pointer]:
+                  - link "那个号称\"对标 Spring\"的国产框架 Solon，到底行不行？" [ref=e542]:
+                    - /url: /post/7663075794353209371
+                  - link "SpringBoot借助Spring生态占据了Java开发的半壁江山。面试的时候，可能总会碰到\"SpringBoot为什么启动慢？\"、“怎么提高SpringBoot的并发”等。" [ref=e544]:
+                    - /url: /post/7663075794353209371
+                    - generic [ref=e545]: SpringBoot借助Spring生态占据了Java开发的半壁江山。面试的时候，可能总会碰到"SpringBoot为什么启动慢？"、“怎么提高SpringBoot的并发”等。
+                  - generic [ref=e546]:
+                    - list [ref=e547]:
+                      - listitem [ref=e548]:
+                        - link "SimonKing" [ref=e549]:
+                          - /url: /user/4001878056904584
+                          - generic [ref=e550]: SimonKing
+                      - listitem [ref=e552]:
+                        - img [ref=e553]
+                        - generic [ref=e556]: "167"
+                      - listitem [ref=e557]:
+                        - img [ref=e559]
+                        - generic [ref=e561]: "1"
+                      - listitem
+                    - generic [ref=e562]:
+                      - link "后端" [ref=e563]:
+                        - /url: /tag/%E5%90%8E%E7%AB%AF
+                      - link "Java" [ref=e564]:
+                        - /url: /tag/Java
+                      - link "程序员" [ref=e565]:
+                        - /url: /tag/%E7%A8%8B%E5%BA%8F%E5%91%98
+              - listitem [ref=e566]:
+                - generic [ref=e569] [cursor=pointer]:
+                  - link "2026年，程序员面临的转型之路" [ref=e571]:
+                    - /url: /post/7629997042786336768
+                  - link "2026年，程序员面临的转型之路 。编码方式已经改变 ChatGPT刚推出时，大家还在质疑\"AI到底行不行\"，现在不会质疑了。前端页面、后端接口、测试脚本、SQL、运维脚本、文档整理，AI又快又好。" [ref=e573]:
+                    - /url: /post/7629997042786336768
+                    - generic [ref=e574]: 2026年，程序员面临的转型之路 。编码方式已经改变 ChatGPT刚推出时，大家还在质疑"AI到底行不行"，现在不会质疑了。前端页面、后端接口、测试脚本、SQL、运维脚本、文档整理，AI又快又好。
+                  - generic [ref=e575]:
+                    - list [ref=e576]:
+                      - listitem [ref=e577]:
+                        - link "刀法如飞" [ref=e578]:
+                          - /url: /user/96412755834734
+                          - generic [ref=e579]: 刀法如飞
+                      - listitem [ref=e581]:
+                        - img [ref=e582]
+                        - generic [ref=e585]: 9.0k
+                      - listitem [ref=e586]:
+                        - img [ref=e588]
+                        - generic [ref=e590]: "73"
+                      - listitem
+                    - generic [ref=e591]:
+                      - link "程序员" [ref=e592]:
+                        - /url: /tag/%E7%A8%8B%E5%BA%8F%E5%91%98
+                      - link "AI编程" [ref=e593]:
+                        - /url: /tag/AI%E7%BC%96%E7%A8%8B
+                      - link "Agent" [ref=e594]:
+                        - /url: /tag/Agent
+              - listitem [ref=e595]:
+                - generic [ref=e597] [cursor=pointer]:
+                  - generic [ref=e598]:
+                    - link "我用AI做了个微信小游戏-上线了" [ref=e600]:
+                      - /url: /post/7641048219231010862
+                    - link "真实的 AI 开发微信小游戏全流程记录：技术栈、prompt、踩坑清单、成本明细全公开。文末有彩蛋。" [ref=e602]:
+                      - /url: /post/7641048219231010862
+                      - generic [ref=e603]: 真实的 AI 开发微信小游戏全流程记录：技术栈、prompt、踩坑清单、成本明细全公开。文末有彩蛋。
+                    - generic [ref=e604]:
+                      - list [ref=e605]:
+                        - listitem [ref=e606]:
+                          - link "前端阿彬" [ref=e607]:
+                            - /url: /user/994399097982728
+                            - generic [ref=e608]: 前端阿彬
+                        - listitem [ref=e610]:
+                          - img [ref=e611]
+                          - generic [ref=e614]: 21k
+                        - listitem [ref=e615]:
+                          - img [ref=e617]
+                          - generic [ref=e619]: "267"
+                        - listitem
+                      - generic [ref=e620]:
+                        - link "AI编程" [ref=e621]:
+                          - /url: /tag/AI%E7%BC%96%E7%A8%8B
+                        - link "GPT" [ref=e622]:
+                          - /url: /tag/GPT
+                        - link "Gemini" [ref=e623]:
+                          - /url: /tag/Gemini
+                  - img "我用AI做了个微信小游戏-上线了" [ref=e624]
+              - listitem [ref=e625]:
+                - generic [ref=e627] [cursor=pointer]:
+                  - generic [ref=e628]:
+                    - link "全面封禁 Cursor！又一家大厂出手了" [ref=e630]:
+                      - /url: /post/7584110439933100078
+                    - link "最近，有网友爆料称：快手的研发线发布通知，收紧了对第三方编程软件的使用权限。 不少同学发现，只要在自己办公电脑上点开 Cursor，就直接闪退，压根儿用不了。" [ref=e632]:
+                      - /url: /post/7584110439933100078
+                      - generic [ref=e633]: 最近，有网友爆料称：快手的研发线发布通知，收紧了对第三方编程软件的使用权限。 不少同学发现，只要在自己办公电脑上点开 Cursor，就直接闪退，压根儿用不了。
+                    - generic [ref=e634]:
+                      - list [ref=e635]:
+                        - listitem [ref=e636]:
+                          - link "程序员鱼皮" [ref=e637]:
+                            - /url: /user/2444938365386621
+                            - generic [ref=e638]: 程序员鱼皮
+                        - listitem [ref=e640]:
+                          - img [ref=e641]
+                          - generic [ref=e644]: 196k
+                        - listitem [ref=e645]:
+                          - img [ref=e647]
+                          - generic [ref=e649]: "687"
+                        - listitem
+                      - generic [ref=e650]:
+                        - link "Cursor" [ref=e651]:
+                          - /url: /tag/Cursor
+                        - link "AI编程" [ref=e652]:
+                          - /url: /tag/AI%E7%BC%96%E7%A8%8B
+                        - link "程序员" [ref=e653]:
+                          - /url: /tag/%E7%A8%8B%E5%BA%8F%E5%91%98
+                  - img "全面封禁 Cursor！又一家大厂出手了" [ref=e654]
+              - listitem [ref=e655]:
+                - generic [ref=e658] [cursor=pointer]:
+                  - link "2026编程圈很火的10个Skills" [ref=e660]:
+                    - /url: /post/7660712622825144374
+                  - link "前言 最近编程圈最火的一个词，非 Skills 莫属。 不是指程序员的技术能力，而是指 AI 编程助手的“技能包” 。 一套让 AI 从“随缘写代码”变成“按流程交付”的标准化工作流模块。 今天这篇文" [ref=e662]:
+                    - /url: /post/7660712622825144374
+                    - generic [ref=e663]: 前言 最近编程圈最火的一个词，非 Skills 莫属。 不是指程序员的技术能力，而是指 AI 编程助手的“技能包” 。 一套让 AI 从“随缘写代码”变成“按流程交付”的标准化工作流模块。 今天这篇文
+                  - generic [ref=e664]:
+                    - list [ref=e665]:
+                      - listitem [ref=e666]:
+                        - link "苏三说技术" [ref=e667]:
+                          - /url: /user/465848661970824
+                          - generic [ref=e668]: 苏三说技术
+                      - listitem [ref=e670]:
+                        - img [ref=e671]
+                        - generic [ref=e674]: 5.7k
+                      - listitem [ref=e675]:
+                        - img [ref=e677]
+                        - generic [ref=e679]: "41"
+                      - listitem
+                    - link "后端" [ref=e681]:
+                      - /url: /tag/%E5%90%8E%E7%AB%AF
+              - listitem [ref=e682]:
+                - generic [ref=e685] [cursor=pointer]:
+                  - link "Kimi K3 综合能力处于全球第一梯队" [ref=e687]:
+                    - /url: /post/7663016955565621263
+                  - link "Arena.AI 最新的前端代码榜单更新后，Kimi-K3 直接拿了第一，1679 分的成绩甩开一众海外模型一截。" [ref=e689]:
+                    - /url: /post/7663016955565621263
+                    - generic [ref=e690]: Arena.AI 最新的前端代码榜单更新后，Kimi-K3 直接拿了第一，1679 分的成绩甩开一众海外模型一截。
+                  - generic [ref=e691]:
+                    - list [ref=e692]:
+                      - listitem [ref=e693]:
+                        - link "程序员_小雨" [ref=e694]:
+                          - /url: /user/220360279590862
+                          - generic [ref=e695]: 程序员_小雨
+                      - listitem [ref=e697]:
+                        - img [ref=e698]
+                        - generic [ref=e701]: "683"
+                      - listitem [ref=e702]:
+                        - img [ref=e704]
+                        - generic [ref=e706]: "1"
+                      - listitem
+                    - generic [ref=e707]:
+                      - link "前端" [ref=e708]:
+                        - /url: /tag/%E5%89%8D%E7%AB%AF
+                      - link "后端" [ref=e709]:
+                        - /url: /tag/%E5%90%8E%E7%AB%AF
+                      - link "Android" [ref=e710]:
+                        - /url: /tag/Android
+              - listitem [ref=e711]:
+                - generic [ref=e713] [cursor=pointer]:
+                  - generic [ref=e714]:
+                    - link "停更的这一年，All In AI、陪媳妇生娃、还考了个研" [ref=e716]:
+                      - /url: /post/7662691781214470180
+                    - link "停更的这一年，All In AI、陪媳妇生娃、还考了个研 打开掘金 App，看了一眼自己的最近更新——停在了整整一年前。 不是不想写，是这一年确实被塞得太满了。如果非要用几个关键词来概括，那就是： A" [ref=e718]:
+                      - /url: /post/7662691781214470180
+                      - generic [ref=e719]: 停更的这一年，All In AI、陪媳妇生娃、还考了个研 打开掘金 App，看了一眼自己的最近更新——停在了整整一年前。 不是不想写，是这一年确实被塞得太满了。如果非要用几个关键词来概括，那就是： A
+                    - generic [ref=e720]:
+                      - list [ref=e721]:
+                        - listitem [ref=e722]:
+                          - link "我是Allen" [ref=e723]:
+                            - /url: /user/2966947126319867
+                            - generic [ref=e724]: 我是Allen
+                        - listitem [ref=e726]:
+                          - img [ref=e727]
+                          - generic [ref=e730]: 3.3k
+                        - listitem [ref=e731]:
+                          - img [ref=e733]
+                          - generic [ref=e735]: "51"
+                        - listitem
+                      - generic [ref=e736]:
+                        - link "前端" [ref=e737]:
+                          - /url: /tag/%E5%89%8D%E7%AB%AF
+                        - link "后端" [ref=e738]:
+                          - /url: /tag/%E5%90%8E%E7%AB%AF
+                        - link "产品经理" [ref=e739]:
+                          - /url: /tag/%E4%BA%A7%E5%93%81%E7%BB%8F%E7%90%86
+                  - img "停更的这一年，All In AI、陪媳妇生娃、还考了个研" [ref=e740]
+              - listitem [ref=e741]:
+                - generic [ref=e743] [cursor=pointer]:
+                  - generic [ref=e744]:
+                    - link "为啥说男生找对象尽量在25岁前找到？" [ref=e746]:
+                      - /url: /post/7661546154107519016
+                    - link "先说说结论，催婚的长辈是不可能讲明白为啥要 25 岁前。我替他们算一遍。 把”一个男生认真考虑恋爱”的窗口期粗略设成 18~35 岁，共 17 年。 代入 1960 年由数学家的公式" [ref=e748]:
+                      - /url: /post/7661546154107519016
+                      - generic [ref=e749]: 先说说结论，催婚的长辈是不可能讲明白为啥要 25 岁前。我替他们算一遍。 把”一个男生认真考虑恋爱”的窗口期粗略设成 18~35 岁，共 17 年。 代入 1960 年由数学家的公式
+                    - generic [ref=e750]:
+                      - list [ref=e751]:
+                        - listitem [ref=e752]:
+                          - link "AsherJ" [ref=e753]:
+                            - /url: /user/1504566307460702
+                            - generic [ref=e754]: AsherJ
+                        - listitem [ref=e756]:
+                          - img [ref=e757]
+                          - generic [ref=e760]: 1.4k
+                        - listitem [ref=e761]:
+                          - img [ref=e763]
+                          - generic [ref=e765]: "5"
+                        - listitem
+                      - link "算法" [ref=e767]:
+                        - /url: /tag/%E7%AE%97%E6%B3%95
+                  - img "为啥说男生找对象尽量在25岁前找到？" [ref=e768]
+              - listitem [ref=e769]:
+                - generic [ref=e772] [cursor=pointer]:
+                  - link "Codex 最佳实践（超级长文）：先搞懂 AI，再用好 AI" [ref=e774]:
+                    - /url: /post/7654140424869855282
+                  - link "你会学到什么 很多人开始使用 AI 工具时，会很快遇到几个问题： 明明模型很强，结果做出来的东西却不稳定。 同一个任务，换一种说法以后效果差很多。 对话越长，AI 越容易跑偏。 工具功能很多，却不知道" [ref=e776]:
+                    - /url: /post/7654140424869855282
+                    - generic [ref=e777]: 你会学到什么 很多人开始使用 AI 工具时，会很快遇到几个问题： 明明模型很强，结果做出来的东西却不稳定。 同一个任务，换一种说法以后效果差很多。 对话越长，AI 越容易跑偏。 工具功能很多，却不知道
+                  - generic [ref=e778]:
+                    - list [ref=e779]:
+                      - listitem [ref=e780]:
+                        - link "oil欧哟" [ref=e781]:
+                          - /url: /user/2384177081367998
+                          - generic [ref=e782]: oil欧哟
+                      - listitem [ref=e784]:
+                        - img [ref=e785]
+                        - generic [ref=e788]: 4.1k
+                      - listitem [ref=e789]:
+                        - img [ref=e791]
+                        - generic [ref=e793]: "61"
+                      - listitem
+                    - generic [ref=e794]:
+                      - link "前端" [ref=e795]:
+                        - /url: /tag/%E5%89%8D%E7%AB%AF
+                      - link "后端" [ref=e796]:
+                        - /url: /tag/%E5%90%8E%E7%AB%AF
+                      - link "人工智能" [ref=e797]:
+                        - /url: /tag/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD
+          - complementary [ref=e146]:
+            - generic [ref=e148]:
+              - generic [ref=e149]:
+                - generic [ref=e150]: 晚上好！
+                - generic [ref=e151]: 点亮在社区的每一天
+              - button "去签到" [ref=e152] [cursor=pointer]:
+                - generic [ref=e153]: 去签到
+            - generic [ref=e154]:
+              - paragraph [ref=e155]:
+                - text: 推荐话题
+                - generic [ref=e156] [cursor=pointer]:
+                  - img [ref=e157]
+                  - text: 换一换
+              - generic [ref=e798]:
+                - 'link "#我的第一个网名 # 310k" [ref=e799] [cursor=pointer]':
+                  - /url: /pin/topic/7661626988419498022
+                  - paragraph [ref=e800]:
+                    - generic [ref=e802]: "#我的第一个网名 #"
+                  - paragraph [ref=e803]: 310k
+                - link "#VibeLaunch 沸点秀# 59k" [ref=e804] [cursor=pointer]:
+                  - /url: /pin/topic/7662229855023988763
+                  - paragraph [ref=e805]:
+                    - generic [ref=e807]: "#VibeLaunch 沸点秀#"
+                  - paragraph [ref=e808]: 59k
+                - link "#程序员脱单到底有多难# 72k" [ref=e809] [cursor=pointer]:
+                  - /url: /pin/topic/7659262428547973129
+                  - paragraph [ref=e810]:
+                    - generic [ref=e812]: "#程序员脱单到底有多难#"
+                  - paragraph [ref=e813]: 72k
+                - link "#每日快讯# 11.0m" [ref=e814] [cursor=pointer]:
+                  - /url: /pin/topic/7210228048107896891
+                  - paragraph [ref=e815]: "#每日快讯#"
+                  - paragraph [ref=e816]: 11.0m
+                - link "#每日精选文章# 8.8m" [ref=e817] [cursor=pointer]:
+                  - /url: /theme/detail/7275231252674773028?contentType=0
+                  - paragraph [ref=e818]: "#每日精选文章#"
+                  - paragraph [ref=e819]: 8.8m
+                - link "#日新计划# 12.1m" [ref=e820] [cursor=pointer]:
+                  - /url: /theme/detail/7148258259923959846?contentType=0
+                  - paragraph [ref=e821]: "#日新计划#"
+                  - paragraph [ref=e822]: 12.1m
+                - link "#每天一个知识点# 58.7m" [ref=e823] [cursor=pointer]:
+                  - /url: /theme/detail/7243698841848348730?contentType=0
+                  - paragraph [ref=e824]: "#每天一个知识点#"
+                  - paragraph [ref=e825]: 58.7m
+                - link "#沸点周刊# 2.3m" [ref=e826] [cursor=pointer]:
+                  - /url: /theme/detail/7476000490959044659?contentType=0
+                  - paragraph [ref=e827]: "#沸点周刊#"
+                  - paragraph [ref=e828]: 2.3m
+                - link "#五一计划抢先晒# 439k" [ref=e829] [cursor=pointer]:
+                  - /url: /pin/topic/7628070531568894003
+                  - paragraph [ref=e830]: "#五一计划抢先晒#"
+                  - paragraph [ref=e831]: 439k
+                - link "#国产龙虾谁能打过OpenClaw# 213k" [ref=e832] [cursor=pointer]:
+                  - /url: /pin/topic/7622854358892871706
+                  - paragraph [ref=e833]:
+                    - generic [ref=e835]: "#国产龙虾谁能打过OpenClaw#"
+                  - paragraph [ref=e836]: 213k
+              - link "查看更多" [ref=e837] [cursor=pointer]:
+                - /url: /pin/topics
+                - text: 查看更多
+                - img [ref=e838]
+            - generic [ref=e167]:
+              - list [ref=e168]:
+                - listitem [ref=e169]:
+                  - link "用户协议" [ref=e170] [cursor=pointer]:
+                    - /url: /terms
+                - listitem [ref=e171]:
+                  - link "营业执照" [ref=e172] [cursor=pointer]:
+                    - /url: /license
+                - listitem [ref=e173]:
+                  - link "隐私政策" [ref=e174] [cursor=pointer]:
+                    - /url: /privacy
+                - listitem [ref=e175]:
+                  - link "关于我们" [ref=e176] [cursor=pointer]:
+                    - /url: /about
+              - list [ref=e177]:
+                - listitem [ref=e178]:
+                  - link "使用指南" [ref=e179] [cursor=pointer]:
+                    - /url: /book/5c90640c5188252d7941f5bb
+                - listitem [ref=e180]:
+                  - link "友情链接" [ref=e181] [cursor=pointer]:
+                    - /url: /links
+                - listitem [ref=e182]:
+                  - link "更多文章" [ref=e183] [cursor=pointer]:
+                    - /url: /more_posts
+              - list [ref=e184]:
+                - listitem [ref=e185]:
+                  - generic [ref=e186]:
+                    - text: 举报邮箱：
+                    - link "juejin@bytedance.com" [ref=e187] [cursor=pointer]:
+                      - /url: mailto:juejin@bytedance.com
+              - list [ref=e188]:
+                - listitem [ref=e189]:
+                  - generic [ref=e190]:
+                    - text: 座机电话：
+                    - link "010-83434395" [ref=e191] [cursor=pointer]:
+                      - /url: tel:010-83434395
+              - list [ref=e192]:
+                - listitem [ref=e193]:
+                  - link "京ICP备：18012699号-3" [ref=e194] [cursor=pointer]:
+                    - /url: https://beian.miit.gov.cn
+              - list [ref=e195]:
+                - listitem [ref=e196]:
+                  - link "京ICP证：京B2-20191272" [ref=e197] [cursor=pointer]:
+                    - /url: https://lf3-static.bytednsdoc.com/obj/eden-cn/ulojuhieh7plmhfps/jujin/20240606-112720.png
+              - list [ref=e198]:
+                - listitem [ref=e199]:
+                  - link "police 京公网安备11010802026719号" [ref=e200] [cursor=pointer]:
+                    - /url: http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802026719
+                    - img "police" [ref=e201]
+                    - text: 京公网安备11010802026719号
+              - list [ref=e202]:
+                - listitem [ref=e203]: ©2026 稀土掘金
+  - generic:
+    - generic [ref=e204]:
+      - text: AI 助 手
+      - button "建议反馈" [ref=e205] [cursor=pointer]:
+        - img [ref=e206]
+      - button "更多" [ref=e210] [cursor=pointer]:
+        - img [ref=e211]
+    - generic [ref=e841]:
+      - generic [ref=e842]:
+        - generic [ref=e843]: 登录掘金畅享更多权益
+        - img [ref=e844] [cursor=pointer]
+      - generic [ref=e847]:
+        - generic [ref=e848]:
+          - generic [ref=e849]:
+            - generic [ref=e850]:
+              - heading "验证码登录 / 注册" [level=1] [ref=e851]
+              - generic [ref=e852]:
+                - generic [ref=e853]:
+                  - generic [ref=e855]:
+                    - text: +
+                    - textbox [ref=e856]: "86"
+                    - img [ref=e857] [cursor=pointer]
+                  - textbox "请输入手机号" [active] [ref=e858]
+                - generic [ref=e860]:
+                  - textbox "请输入验证码" [ref=e861]
+                  - button "获取验证码" [ref=e862] [cursor=pointer]
+              - button "登录 / 注册" [ref=e864] [cursor=pointer]
+            - generic [ref=e865]:
+              - generic [ref=e866]:
+                - generic [ref=e867]: 其它登录：
+                - generic [ref=e868]:
+                  - img [ref=e870]
+                  - img "微信" [ref=e878] [cursor=pointer]
+                  - img "icon_GitHub" [ref=e880]
+              - generic [ref=e886] [cursor=pointer]: 密码登录
+          - generic [ref=e887]:
+            - heading "扫码登录 （6.4.1及以上版本支持）" [level=1] [ref=e888]:
+              - text: 扫码登录
+              - generic [ref=e889]: （6.4.1及以上版本支持）
+            - generic [ref=e890]:
+              - img [ref=e891]
+              - img "juejin-app" [ref=e892]
+            - generic [ref=e893]:
+              - text: 打开
+              - link "稀土掘金APP" [ref=e894] [cursor=pointer]:
+                - /url: /app
+              - generic [ref=e895]: 点击"我-左上角扫一扫"登录
+        - generic [ref=e896]:
+          - text: 注册登录即表示同意
+          - link "用户协议" [ref=e897] [cursor=pointer]:
+            - /url: /terms
+          - text: 和
+          - link "隐私政策" [ref=e898] [cursor=pointer]:
+            - /url: /privacy

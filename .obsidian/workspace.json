@@ -1,0 +1,60 @@
+{
+  "main": {
+    "type": "split",
+    "children": [
+      {
+        "type": "tabs",
+        "children": [
+          {
+            "type": "graph",
+            "state": {
+              "state": {
+                "collapse-filter": true,
+                "search": "path:wiki/enforcement-review",
+                "showTags": false,
+                "showAttachments": false,
+                "hideUnresolved": false,
+                "showOrphans": true,
+                "collapse-color-groups": true,
+                "colorGroups": [
+                  {
+                    "query": "path:wiki/enforcement-review/concepts",
+                    "color": {"a": 1, "rgb": 6172605}
+                  },
+                  {
+                    "query": "path:wiki/enforcement-review/playbooks",
+                    "color": {"a": 1, "rgb": 2043238}
+                  },
+                  {
+                    "query": "path:wiki/enforcement-review/entities",
+                    "color": {"a": 1, "rgb": 15678325}
+                  },
+                  {
+                    "query": "path:wiki/enforcement-review/comparisons",
+                    "color": {"a": 1, "rgb": 1982464}
+                  },
+                  {
+                    "query": "path:wiki/enforcement-review/meta",
+                    "color": {"a": 1, "rgb": 888780}
+                  }
+                ],
+                "collapse-display": false,
+                "showArrow": false,
+                "textFadeMultiplier": 0,
+                "nodeSizeMultiplier": 1,
+                "lineSizeMultiplier": 1,
+                "collapse-forces": false,
+                "centerStrength": 1.2,
+                "repelStrength": 0.15,
+                "linkStrength": 1.0,
+                "linkDistance": 50,
+                "scale": 1.2
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  }
+}
