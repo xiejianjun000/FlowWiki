@@ -19,6 +19,22 @@ status: {{ status | default("draft") }}
 
 {{ content }}
 
+{% if type == "playbook" %}
+## 验证清单
+
+{% for item in checklist | default(["- [ ] 每一步都有法律/标准支撑", "- [ ] 无模糊表述", "- [ ] 关键术语有定义"]) %}
+{{ item }}
+{% endfor %}
+
+## 迭代记录
+
+| 版本 | 日期 | 修改内容 |
+|------|------|---------|
+| v1.0 | {{ created | default("2026-07-19") }} | 初版 |
+{% if iterations %}{% for iter in iterations %}| {{ iter.version }} | {{ iter.date }} | {{ iter.change }} |{% endfor %}{% endif %}
+
+{% endif %}
+
 ## 原文指针
 
 - 全文路径：`../raw/{{ raw_path | default("<subdir>/<file>.md") }}`

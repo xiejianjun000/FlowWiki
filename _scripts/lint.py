@@ -266,6 +266,36 @@ def check_dangling_links(links: list[tuple[str, str, str]], filepath: Path) -> l
     return issues
 
 
+def _suggest_playbook_type(raw_path: str) -> str:
+    """根据 raw 文件名关键词推断建议的 playbook 类型。
+
+    关键词 → 建议 playbook 映射（扩展即可支持更多领域）。
+    """
+    keywords = [
+        ("水污染防治", "水污染防治执法要点"),
+        ("土壤污染防治", "土壤污染防治执法要点"),
+        ("海洋环境", "海洋环境保护执法要点"),
+        ("固体废物", "危废与固废规范化管理"),
+        ("危险废物", "危废与固废规范化管理"),
+        ("噪声污染", "噪声污染执法要点"),
+        ("放射性污染", "放射性污染防治执法要点"),
+        ("环境影响评价", "环评文件技术审查"),
+        ("大气污染", "大气污染防治执法要点"),
+        ("生态环境监测", "生态环境监测执法要点"),
+        ("裁量权基准", "行政处罚裁量基准适用"),
+        ("排污许可", "排污许可证后监管流程"),
+        ("行政处罚", "行政处罚案件办理流程"),
+        ("行政复议", "行政复议与应诉要点"),
+        ("督察", "督察整改工作流程"),
+        ("已废止", "已废止 — 无需创建 playbook"),
+        ("评查细则", "案卷评查操作指南"),
+    ]
+    for kw, suggestion in keywords:
+        if kw in raw_path:
+            return f"`type: playbook` **{suggestion}**"
+    return "`type: playbook` （需人工确定具体工作流名称）"
+
+
 def check_coverage(raw_dir: Path = None, wiki_dir: Path = None) -> str:
     """知识缺口发现：raw/ 中完整性高的文件是否被 wiki/ 引用。
 
@@ -380,18 +410,19 @@ def check_coverage(raw_dir: Path = None, wiki_dir: Path = None) -> str:
         f"- ⚠️ 未被引用的: {len(orphaned)}",
         f"- 覆盖率: {(len(high_completeness) - len(orphaned)) / max(len(high_completeness), 1) * 100:.1f}%",
         "",
-        "## 未被利用的资源（按完整度降序）",
+        "## 未被利用的资源 → 建议 playbook 类型",
         "",
     ]
     orphaned.sort(key=lambda x: x[1], reverse=True)
     for path, line_count in orphaned:
-        lines.append(f"- `{path}` ({line_count} 行) — 未被任何 wiki 页引用")
+        suggestion = _suggest_playbook_type(path)
+        lines.append(f"- `{path}` ({line_count} 行)")
+        lines.append(f"  → 建议: {suggestion}")
 
     lines.extend([
         "",
         "---",
-        "*建议：这些 raw/ 文件已包含较完整的内容，",
-        "可创建对应的 wiki 页（概念/操作手册/对比分析）来覆盖。*",
+        "*用法: 创建 `wiki/playbooks/<建议名称>.md`，模板已内置验证清单段。*",
     ])
 
     return "\n".join(lines) + "\n"
