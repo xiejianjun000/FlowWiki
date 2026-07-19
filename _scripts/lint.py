@@ -20,6 +20,21 @@ VALID_CONFIDENCE = {"low", "medium", "high"}
 VALID_STATUS = {"draft", "reviewed", "archived", "active"}
 REQUIRED_FIELDS = ["type", "title", "created", "updated", "confidence", "sources", "tags", "status"]
 
+# 法典取代映射文件路径
+REPEAL_MAP_FILE = Path("storage/enforcement-review/法典取代映射.yaml")
+
+# 旧字段名 → 应迁移到的字段名（残留会让 AI 困惑"用哪个"）
+LEGACY_FIELD_MAP = {
+    "category": "type",
+    "priority": "风险等级",
+    "severity": "风险等级",
+    "weight": "(已废弃)",
+    "score": "(已废弃)",
+    "level": "layer",
+    "author": "(已废弃)",
+    "version_date": "updated",
+}
+
 # 合法文件名: 允许中文、英文、数字、连字符、下划线
 VALID_FILENAME_RE = re.compile(r"^[\w\u4e00-\u9fff\u3400-\u4dbf\-]+\.md$")
 
@@ -83,6 +98,99 @@ def check_tags(data: dict) -> list[str]:
     tags = data.get("tags", [])
     if isinstance(tags, list) and "flow-wiki" not in tags:
         issues.append("tags 缺少 flow-wiki")
+    return issues
+
+
+def check_legacy_fields(data: dict) -> list[str]:
+    """检查 frontmatter 是否残留旧字段（应已迁移到新字段名）。
+
+    旧字段残留会让 AI 困惑"用哪个"，lint 必须报警。
+    依据：用户报告"Frontmatter 残留旧字段"问题。
+    """
+    issues = []
+    for legacy, new_field in LEGACY_FIELD_MAP.items():
+        if legacy in data:
+            issues.append(f"残留旧字段: '{legacy}' → 应迁移到 '{new_field}'")
+    return issues
+
+
+def _load_repeal_map() -> dict | None:
+    """加载法典取代映射表。返回 {被废止法律名: {code_location, note, aliases}} 或 None。"""
+    if not REPEAL_MAP_FILE.exists():
+        return None
+    try:
+        data = yaml.safe_load(REPEAL_MAP_FILE.read_text(encoding="utf-8"))
+        return data.get("repealed_laws", {})
+    except Exception as e:
+        logger.warning(f"法典取代映射加载失败: {e}")
+        return None
+
+
+def check_obsolete_references(filepath: Path, text: str) -> list[str]:
+    """检查 wiki 页面是否引用了已被法典废止的法律。
+
+    依据：用户报告"概念页正文还在引用已废止的法律条文"问题。
+    2026.8.15 前为过渡期（warning），之后为 error。
+    """
+    issues = []
+    repeal_map = _load_repeal_map()
+    if not repeal_map:
+        return issues  # 无映射表则跳过
+
+    # 构建被废止法律名 + 别名的扁平列表
+    obsolete_names = {}
+    for law_name, info in repeal_map.items():
+        obsolete_names[law_name] = info
+        for alias in info.get("common_aliases", []):
+            obsolete_names[alias] = info
+
+    # 扫描 wikilink [[xxx]]
+    for m in re.finditer(r"\[\[([^\]]+)\]\]", text):
+        target = m.group(1).split("|")[0].strip()
+        # 检查是否匹配已废止法律名或别名
+        for obsolete_name, info in obsolete_names.items():
+            if obsolete_name in target:
+                code_loc = info.get("code_location", "?")
+                issues.append(
+                    f"时效性引用: [[{target}]] 引用了已废止法律（{obsolete_name}），"
+                    f"应改为 [[生态环境法典]] {code_loc}"
+                )
+                break  # 一个 wikilink 只报一次
+    return issues
+
+
+def check_standard_limits_table(data: dict, text: str) -> list[str]:
+    """检查标准页是否含"核心限值表"段且非空。
+
+    依据：用户报告"GB18597-2023 的核心限值表是空的。标准页最刚需的就是限值数值，反而是缺的"。
+    标准页 = frontmatter type 含 'standard' 或 '标准'。
+    """
+    issues = []
+    page_type = str(data.get("type", "")).lower()
+    is_standard = ("standard" in page_type) or ("标准" in str(data.get("type", "")))
+
+    if not is_standard:
+        return issues  # 非标准页不检查
+
+    # 检查 ## 核心限值表 段是否存在
+    if "## 核心限值表" not in text:
+        issues.append("标准页缺少 '## 核心限值表' 段（lint 强制项）")
+        return issues
+
+    # 检查段内容是否为空或全是占位符
+    section_start = text.find("## 核心限值表") + len("## 核心限值表")
+    next_h2 = text.find("\n## ", section_start)
+    section_body = text[section_start:next_h2 if next_h2 > 0 else len(text)].strip()
+
+    # 空内容
+    if len(section_body) < 10:
+        issues.append("'## 核心限值表' 段为空（标准页必须填写限值数值）")
+        return issues
+
+    # 检查是否全是"待补充"占位符
+    if "待补充" in section_body and section_body.count("待补充") >= 2:
+        issues.append("'## 核心限值表' 段全是占位符（需填写真实限值数值）")
+
     return issues
 
 
@@ -156,6 +264,14 @@ def lint_file(filepath: Path) -> list[str]:
     issues.extend(check_status(data))
     issues.extend(check_sources(data))
     issues.extend(check_tags(data))
+    issues.extend(check_legacy_fields(data))
+
+    # 时效性引用检查（扫描已废止法律的 wikilink）
+    text = filepath.read_text(encoding="utf-8")
+    issues.extend(check_obsolete_references(filepath, text))
+
+    # 标准页限值表检查
+    issues.extend(check_standard_limits_table(data, text))
 
     # 断链检查
     links = find_internal_links(filepath)

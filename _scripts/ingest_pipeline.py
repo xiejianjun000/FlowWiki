@@ -2,10 +2,15 @@
 
 import os
 import re
+import sys
 import datetime
 import yaml
 import logging
 from pathlib import Path
+
+# 让本脚本可导入同目录下的 reindex 模块
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import reindex
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -29,59 +34,47 @@ def compile_to_wiki(raw_files: list, industry_config: dict):
     wiki_dir = Path("wiki")
     wiki_dir.mkdir(exist_ok=True)
 
-    index_content = "# Wiki 索引\n\n"
-    index_content += f"## 行业：{industry_config.get('name', '未知')}\n\n"
+    # —— 创建骨架文件（index 由 reindex.py 统一重建） ——
 
     concepts = industry_config.get("wiki_structure", {}).get("concepts", [])
-    if concepts:
-        index_content += "### 核心概念\n"
-        for concept in concepts:
-            concept_file = wiki_dir / "concepts" / f"{concept.lower().replace(' ', '-')}.md"
-            concept_file.parent.mkdir(exist_ok=True)
-            if not concept_file.exists():
-                concept_content = f"---\ntype: concept\ntitle: {concept}\ncreated: 2026-07-17\nupdated: 2026-07-17\nconfidence: medium\nsources: []\ntags: [flow-wiki, concept]\nstatus: draft\n---\n\n"
-                concept_content += f"# {concept}\n\n"
-                concept_content += f"## 定义\n\n待补充\n\n"
-                concept_content += f"## 相关资料\n\n"
-                concept_content += f"## 关联概念\n\n"
-                concept_file.write_text(concept_content, encoding="utf-8")
-            index_content += f"- [{concept}](concepts/{concept_file.name})\n"
-        index_content += "\n"
+    for concept in concepts:
+        concept_file = wiki_dir / "concepts" / f"{concept.lower().replace(' ', '-')}.md"
+        concept_file.parent.mkdir(exist_ok=True)
+        if not concept_file.exists():
+            concept_content = f"---\ntype: concept\ntitle: {concept}\ncreated: 2026-07-17\nupdated: 2026-07-17\nconfidence: medium\nsources: []\ntags: [flow-wiki, concept]\nstatus: draft\n---\n\n"
+            concept_content += f"# {concept}\n\n"
+            concept_content += f"## 定义\n\n待补充\n\n"
+            concept_content += f"## 相关资料\n\n"
+            concept_content += f"## 关联概念\n\n"
+            concept_file.write_text(concept_content, encoding="utf-8")
 
     playbooks = industry_config.get("wiki_structure", {}).get("playbooks", [])
-    if playbooks:
-        index_content += "### 操作手册\n"
-        for playbook in playbooks:
-            playbook_file = wiki_dir / "playbooks" / f"{playbook.lower().replace(' ', '-')}.md"
-            playbook_file.parent.mkdir(exist_ok=True)
-            if not playbook_file.exists():
-                playbook_content = f"---\ntype: playbook\ntitle: {playbook}\ncreated: 2026-07-17\nupdated: 2026-07-17\nconfidence: medium\nsources: []\ntags: [flow-wiki, playbook]\nstatus: draft\n---\n\n"
-                playbook_content += f"# {playbook}\n\n"
-                playbook_content += f"## 概述\n\n待补充\n\n"
-                playbook_content += f"## 步骤\n\n"
-                playbook_content += f"## 注意事项\n\n"
-                playbook_file.write_text(playbook_content, encoding="utf-8")
-            index_content += f"- [{playbook}](playbooks/{playbook_file.name})\n"
-        index_content += "\n"
+    for playbook in playbooks:
+        playbook_file = wiki_dir / "playbooks" / f"{playbook.lower().replace(' ', '-')}.md"
+        playbook_file.parent.mkdir(exist_ok=True)
+        if not playbook_file.exists():
+            playbook_content = f"---\ntype: playbook\ntitle: {playbook}\ncreated: 2026-07-17\nupdated: 2026-07-17\nconfidence: medium\nsources: []\ntags: [flow-wiki, playbook]\nstatus: draft\n---\n\n"
+            playbook_content += f"# {playbook}\n\n"
+            playbook_content += f"## 概述\n\n待补充\n\n"
+            playbook_content += f"## 步骤\n\n"
+            playbook_content += f"## 注意事项\n\n"
+            playbook_file.write_text(playbook_content, encoding="utf-8")
 
     comparisons = industry_config.get("wiki_structure", {}).get("comparisons", [])
-    if comparisons:
-        index_content += "### 对比分析\n"
-        for comparison in comparisons:
-            comp_file = wiki_dir / "comparisons" / f"{comparison.lower().replace(' ', '-').replace('vs', 'vs')}.md"
-            comp_file.parent.mkdir(exist_ok=True)
-            if not comp_file.exists():
-                comp_content = f"---\ntype: comparison\ntitle: {comparison}\ncreated: 2026-07-17\nupdated: 2026-07-17\nconfidence: medium\nsources: []\ntags: [flow-wiki, comparison]\nstatus: draft\n---\n\n"
-                comp_content += f"# {comparison}\n\n"
-                comp_content += f"## 对比维度\n\n待补充\n\n"
-                comp_content += f"## 结论\n\n"
-                comp_file.write_text(comp_content, encoding="utf-8")
-            index_content += f"- [{comparison}](comparisons/{comp_file.name})\n"
-        index_content += "\n"
+    for comparison in comparisons:
+        comp_file = wiki_dir / "comparisons" / f"{comparison.lower().replace(' ', '-').replace('vs', 'vs')}.md"
+        comp_file.parent.mkdir(exist_ok=True)
+        if not comp_file.exists():
+            comp_content = f"---\ntype: comparison\ntitle: {comparison}\ncreated: 2026-07-17\nupdated: 2026-07-17\nconfidence: medium\nsources: []\ntags: [flow-wiki, comparison]\nstatus: draft\n---\n\n"
+            comp_content += f"# {comparison}\n\n"
+            comp_content += f"## 对比维度\n\n待补充\n\n"
+            comp_content += f"## 结论\n\n"
+            comp_file.write_text(comp_content, encoding="utf-8")
 
-    index_file = wiki_dir / "index.md"
-    index_file.write_text(index_content, encoding="utf-8")
-    logger.info(f"Generated wiki/index.md with {len(concepts)} concepts, {len(playbooks)} playbooks, {len(comparisons)} comparisons")
+    # —— 统一重建 index.md（扫描 wiki/ 实际文件，幂等） ——
+    # 解决"加了页面但 index.md 不更新"的问题（lint #5）
+    reindex.main()
+    logger.info(f"Compiled {len(concepts)} concepts, {len(playbooks)} playbooks, {len(comparisons)} comparisons; index auto-synced via reindex")
 
 def run_ace_review(wiki_content: str, raw_root: Path = None) -> dict:
     """ACE 反思循环：检查 wiki 内容是否符合宪法要求（SCHEMA §4.2 / §5.1）。

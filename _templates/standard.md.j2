@@ -1,0 +1,49 @@
+---
+type: standard
+title: {{ title }}
+created: {{ created | default("2026-07-19") }}
+updated: {{ updated | default("2026-07-19") }}
+confidence: {{ confidence | default("medium") }}
+sources: [{% for s in sources %}"[[raw/{{ s }}]]"{% if not loop.last %}, {% endif %}{% endfor %}]
+tags: [flow-wiki, standard{% for t in tags %}, {{ t }}{% endfor %}]
+status: {{ status | default("draft") }}
+standard_number: {{ standard_number | default("GB/T XXXXX-XXXX") }}
+issue_date: {{ issue_date | default("YYYY-MM-DD") }}
+implement_date: {{ implement_date | default("YYYY-MM-DD") }}
+---
+
+# {{ title }}
+
+## 摘要
+
+{{ overview | default("标准编号、发布日期、实施日期、适用范围、核心要求一句话概括") }}
+
+## 核心限值表
+
+> ⚠️ 此段为 lint 强制项，不得为空。标准页最核心的价值就是限值数值。
+
+| 污染物 / 项目 | 限值 | 单位 | 适用条件 | 引用条款 |
+|---------------|------|------|---------|---------|
+| {{ item.name | default("待补充") }} | {{ item.value | default("待补充") }} | {{ item.unit | default("—") }} | {{ item.condition | default("—") }} | 第{{ item.article | default("X") }}条 |
+
+## 适用范围
+
+{{ scope | default("本标准适用于……") }}
+
+## 原文指针
+
+- 全文路径：`../raw/{{ raw_path | default("enforcement-review/standards/<file>.md") }}`
+- 引用规则：逐字引用到条/款/项，引用后回链本页
+- 加载方式：通过 `/fulltext` skill 按需 read
+
+## 相关资料
+
+{% for source in sources %}
+- [{{ source }}]({{ source }})
+{% endfor %}
+
+## 关联知识
+
+{% for related in related %}
+- [{{ related.name }}]({{ related.path }})
+{% endfor %}
