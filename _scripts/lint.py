@@ -17,15 +17,17 @@ logger = logging.getLogger(__name__)
 
 WIKI_DIR = Path("wiki")
 VALID_CONFIDENCE = {"low", "medium", "high"}
-VALID_STATUS = {"draft", "reviewed", "archived", "active"}
+VALID_STATUS = {"draft", "reviewed", "archived", "active", "现行", "inbox", "deprecated", "已废止"}
 REQUIRED_FIELDS = ["type", "title", "created", "updated", "confidence", "sources", "tags", "status"]
 
 # 法典取代映射文件路径
 REPEAL_MAP_FILE = Path("storage/enforcement-review/法典取代映射.yaml")
 
 # 旧字段名 → 应迁移到的字段名（残留会让 AI 困惑"用哪个"）
+# 合并自 AI 使用反馈 + 历史字段漂移记录
 LEGACY_FIELD_MAP = {
     "category": "type",
+    "subcategory": "(已废弃)",
     "priority": "风险等级",
     "severity": "风险等级",
     "weight": "(已废弃)",
@@ -33,6 +35,15 @@ LEGACY_FIELD_MAP = {
     "level": "layer",
     "author": "(已废弃)",
     "version_date": "updated",
+    "source": "sources",        # 单数形式 → 复数形式
+    "generated": "(已废弃)",
+    "last_updated": "updated",
+}
+
+# 严格模式：绝对禁止的字段（永不应出现在 frontmatter 中）
+FORBIDDEN_FIELDS = {
+    "category", "subcategory", "priority", "severity", "weight", "score",
+    "source", "generated", "last_updated", "author",
 }
 
 # 合法文件名: 允许中文、英文、数字、连字符、下划线
@@ -101,16 +112,27 @@ def check_tags(data: dict) -> list[str]:
     return issues
 
 
-def check_legacy_fields(data: dict) -> list[str]:
-    """检查 frontmatter 是否残留旧字段（应已迁移到新字段名）。
+def check_legacy_fields(data: dict, strict: bool = False) -> list[str]:
+    """检查 frontmatter 是否残留旧字段。
 
     旧字段残留会让 AI 困惑"用哪个"，lint 必须报警。
-    依据：用户报告"Frontmatter 残留旧字段"问题。
+    strict 模式：旧字段从 warning 升为 error，输出级别标记。
+
+    依据：用户报告"Frontmatter 残留旧字段"问题 + AI 反馈"FI 漂移"。
     """
     issues = []
+    prefix = "[禁止字段] " if strict else ""
+
     for legacy, new_field in LEGACY_FIELD_MAP.items():
         if legacy in data:
-            issues.append(f"残留旧字段: '{legacy}' → 应迁移到 '{new_field}'")
+            issues.append(f"{prefix}残留旧字段: '{legacy}' → 应迁移到 '{new_field}'")
+
+    # strict 模式：额外检查绝对禁止字段（即使不在 LEGACY_FIELD_MAP 中）
+    if strict:
+        for field in FORBIDDEN_FIELDS:
+            if field in data and field not in LEGACY_FIELD_MAP:
+                issues.append(f"[禁止字段] 非法字段 '{field}'（已废止，请删除）")
+
     return issues
 
 
@@ -244,8 +266,139 @@ def check_dangling_links(links: list[tuple[str, str, str]], filepath: Path) -> l
     return issues
 
 
-def lint_file(filepath: Path) -> list[str]:
-    """对单个文件执行所有检查。"""
+def check_coverage(raw_dir: Path = None, wiki_dir: Path = None) -> str:
+    """知识缺口发现：raw/ 中完整性高的文件是否被 wiki/ 引用。
+
+    逆方向覆盖检查——不只检"wiki→raw"，还检"raw→wiki"。
+    扫描 raw/ 中行数 >100 且有章节结构的文件，检查是否被至少一个 wiki 页引用。
+    输出"未被利用的资源"清单。
+
+    依据：AI 反馈——raw/ 有 32 标准、170 文件，多少没被 wiki 覆盖？
+    """
+    raw_dir = raw_dir or Path("raw")
+    wiki_dir = wiki_dir or WIKI_DIR
+
+    # 1. 找 raw/ 中完整性高的文件（行数 > 100）
+    high_completeness: list[tuple[Path, int]] = []  # (文件, 行数)
+    for raw_file in sorted(raw_dir.rglob("*.md")):
+        try:
+            lines = raw_file.read_text(encoding="utf-8").split("\n")
+            if len(lines) > 100:
+                rel = raw_file.relative_to(raw_dir)
+                high_completeness.append((rel, len(lines)))
+        except Exception:
+            continue
+
+    # 2. 收集 wiki/ 中所有对 raw/ 的引用
+    referenced_raw: set[str] = set()
+    for wiki_file in sorted(wiki_dir.rglob("*.md")):
+        if wiki_file.name in ("index.md", "log.md", "README.md"):
+            continue
+        try:
+            text = wiki_file.read_text(encoding="utf-8")
+            # 从 frontmatter sources 字段
+            fm_match = re.match(r"^---\s*\n(.*?)\n---", text, re.DOTALL)
+            if fm_match:
+                try:
+                    fm = yaml.safe_load(fm_match.group(1)) or {}
+                    sources = fm.get("sources", [])
+                    for src in (sources if isinstance(sources, list) else []):
+                        src = str(src).strip()
+                        referenced_raw.add(src)
+                except yaml.YAMLError:
+                    pass
+            # 从 全文路径 / 旧库权威全文路径 字段（兼容老格式）
+            for m in re.finditer(r"全文[路经]径[：:]\s*`?(?:\.\.\/)?(raw/[^\s`]+)`?", text):
+                referenced_raw.add(m.group(1))
+            for m in re.finditer(r"旧库[^：:\n]*路径[：:]\s*`?(?:\.\.\/)?(raw/[^\s`]+)`?", text):
+                referenced_raw.add(m.group(1))
+            # 从正文中直接引用的 raw/ 路径（如 [[../raw/xxx]]）
+            for m in re.finditer(r"raw/[^\s\[\]`\)]+\.md", text):
+                referenced_raw.add(m.group(0))
+        except Exception:
+            continue
+
+    # 3. 找出未被引用的 raw 文件
+    # 宽松匹配（三级）：
+    #   L1: 精确路径匹配
+    #   L2: 文件名匹配
+    #   L3: 词级模糊匹配（source 关键词中的实词是否出现在 raw 文件名中）
+    orphaned: list[tuple[str, int]] = []
+
+    # 提取 source 名称中的关键词（拆分为词级片段）
+    source_keywords: set[str] = set()
+    for ref in referenced_raw:
+        # 去除路径前缀和引号
+        clean = ref.replace("raw/", "").replace("../", "").strip("`\"'[]")
+        # 拆分为关键词片段（非空、长度 > 2、非纯数字）
+        parts = re.split(r"[/\\_.\-—]+", clean)
+        for part in parts:
+            part = part.strip().rstrip(".md")
+            # 进一步拆中文词（取 3-4 字以上的连续中文字段）
+            chinese_words = re.findall(r"[\u4e00-\u9fff]{3,}", part)
+            for cw in chinese_words:
+                source_keywords.add(cw)
+            # 也保留数字+中文组合（如 "2024"、"GB18597"）
+            if re.search(r"[\u4e00-\u9fff]", part) and len(part) >= 3:
+                source_keywords.add(part)
+
+    for rel, line_count in high_completeness:
+        rel_str = str(rel)
+        rel_name = Path(rel_str).name
+        rel_stem = Path(rel_str).stem
+
+        # L1 + L2
+        direct_match = (
+            any(rel_str in ref for ref in referenced_raw) or
+            any(ref in rel_str for ref in referenced_raw) or
+            rel_name in referenced_raw or
+            any(rel_name in ref for ref in referenced_raw)
+        )
+        # L3: 词级匹配——至少一个 source 实词出现在 raw 文件名中
+        fuzzy_match = any(
+            kw in rel_stem for kw in source_keywords
+            if len(kw) >= 4 and re.search(r"[\u4e00-\u9fff]", kw)
+        )
+
+        if not direct_match and not fuzzy_match:
+            orphaned.append((rel_str, line_count))
+
+    # 4. 生成报告
+    if not orphaned:
+        return (
+            "# 知识缺口报告\n\n"
+            f"raw/ 中完整度 >100 行的文件: {len(high_completeness)}\n"
+            "✨ 全部被至少一个 wiki 页引用。\n"
+        )
+
+    lines = [
+        "# 知识缺口报告（raw→wiki 反向覆盖）",
+        "",
+        f"## 概要",
+        f"- raw/ 中完整度 >100 行的文件: {len(high_completeness)}",
+        f"- 被 wiki/ 引用的: {len(high_completeness) - len(orphaned)}",
+        f"- ⚠️ 未被引用的: {len(orphaned)}",
+        f"- 覆盖率: {(len(high_completeness) - len(orphaned)) / max(len(high_completeness), 1) * 100:.1f}%",
+        "",
+        "## 未被利用的资源（按完整度降序）",
+        "",
+    ]
+    orphaned.sort(key=lambda x: x[1], reverse=True)
+    for path, line_count in orphaned:
+        lines.append(f"- `{path}` ({line_count} 行) — 未被任何 wiki 页引用")
+
+    lines.extend([
+        "",
+        "---",
+        "*建议：这些 raw/ 文件已包含较完整的内容，",
+        "可创建对应的 wiki 页（概念/操作手册/对比分析）来覆盖。*",
+    ])
+
+    return "\n".join(lines) + "\n"
+
+
+def lint_file(filepath: Path, strict: bool = False) -> list[str]:
+    """对单个文件执行所有检查。strict=True 时旧字段检测升为 error 级别。"""
     issues = []
 
     # 文件名检查
@@ -264,7 +417,7 @@ def lint_file(filepath: Path) -> list[str]:
     issues.extend(check_status(data))
     issues.extend(check_sources(data))
     issues.extend(check_tags(data))
-    issues.extend(check_legacy_fields(data))
+    issues.extend(check_legacy_fields(data, strict=strict))
 
     # 时效性引用检查（扫描已废止法律的 wikilink）
     text = filepath.read_text(encoding="utf-8")
@@ -284,7 +437,20 @@ def main():
     parser = argparse.ArgumentParser(description="Wiki lint 体检工具")
     parser.add_argument("--json", action="store_true", help="JSON 格式输出")
     parser.add_argument("--output", type=str, help="输出报告到文件")
+    parser.add_argument("--strict", action="store_true", help="严格模式：旧字段/禁用字段视为错误，非零退出码")
+    parser.add_argument("--check-coverage", action="store_true", help="知识缺口发现：raw/ 裸资源检查")
+
     args = parser.parse_args()
+
+    # 知识缺口检查是独立模式，不走常规 lint 流程
+    if args.check_coverage:
+        report = check_coverage()
+        if args.output:
+            Path(args.output).write_text(report, encoding="utf-8")
+            logger.info(f"报告已保存到: {args.output}")
+        else:
+            print(report)
+        return
 
     logger.info("开始 wiki 体检...")
 
@@ -295,16 +461,19 @@ def main():
     results: dict[str, list[str]] = {}
     total_issues = 0
     total_files = 0
+    strict_violations = 0
 
     for md_file in sorted(WIKI_DIR.rglob("*.md")):
         if md_file.name in ("index.md", "log.md", "README.md"):
             continue
         total_files += 1
-        issues = lint_file(md_file)
+        issues = lint_file(md_file, strict=args.strict)
         if issues:
             rel = str(md_file.relative_to(WIKI_DIR))
             results[rel] = issues
             total_issues += len(issues)
+            if args.strict:
+                strict_violations += sum(1 for i in issues if "[禁止字段]" in i)
 
     # 输出报告
     if args.json:
@@ -341,6 +510,11 @@ def main():
         logger.warning(f"发现 {total_issues} 个问题")
     else:
         logger.info("lint 通过，未发现问题")
+
+    # 严格模式：非法字段 → 非零退出码
+    if args.strict and strict_violations > 0:
+        logger.error(f"严格模式: {strict_violations} 个禁止字段违规，退出码 1")
+        exit(1)
 
 
 if __name__ == "__main__":

@@ -8,6 +8,7 @@
 import argparse
 import logging
 import re
+import yaml
 from pathlib import Path
 from collections import defaultdict
 
@@ -328,9 +329,81 @@ sim.on("tick",()=>{{
 </script></body></html>"""
 
 
+def check_timeliness(graph: dict[str, dict], wiki_dir: Path = None) -> str:
+    """时效性验证（第零验）。
+
+    扫描 wiki/ 中所有 status=deprecated（或"已废止"）的页面，
+    反向找到所有引用它们的页面，输出"受影响页面"清单。
+
+    依据：AI 使用反馈——10 部法律被法典废止后，60+ 页面正文引用未自动标记。
+    """
+    wiki_dir = wiki_dir or WIKI_DIR
+
+    # 1. 找所有 deprecated 节点
+    deprecated_nodes: dict[str, str] = {}  # node_id → status 值
+    for md_file in sorted(wiki_dir.rglob("*.md")):
+        if md_file.name in ("index.md", "log.md", "README.md"):
+            continue
+        text = md_file.read_text(encoding="utf-8")
+        status_match = re.search(r"^status:\s*(.+)$", text, re.MULTILINE)
+        if status_match:
+            status_val = status_match.group(1).strip()
+            if status_val in ("deprecated", "已废止"):
+                node_id = str(md_file.relative_to(wiki_dir))
+                deprecated_nodes[node_id] = status_val
+
+    if not deprecated_nodes:
+        return "✨ 未发现 status=deprecated 的页面。\n"
+
+    # 2. 构建反向邻接：谁引用了我
+    backlinks: dict[str, list[str]] = defaultdict(list)
+    for node_id, info in graph.items():
+        for link in info["links"]:
+            if link in deprecated_nodes:
+                backlinks[link].append(node_id)
+
+    # 3. 汇总报告
+    lines = [
+        "# 时效性验证报告（第零验）",
+        "",
+        f"## 已废止页面: {len(deprecated_nodes)}",
+    ]
+    for nid, status in sorted(deprecated_nodes.items()):
+        title = graph.get(nid, {}).get("title", nid)
+        lines.append(f"- [{title}]({nid}) — status: {status}")
+
+    total_affected = sum(len(refs) for refs in backlinks.values())
+    lines.extend([
+        "",
+        f"## 受影响页面: {total_affected}",
+    ])
+
+    for nid, status in sorted(deprecated_nodes.items()):
+        refs = backlinks.get(nid, [])
+        if not refs:
+            title = graph.get(nid, {}).get("title", nid)
+            lines.append(f"  ✅ {title}: 无页面引用，可安全删除")
+            continue
+        title = graph.get(nid, {}).get("title", nid)
+        lines.append(f"### 引用 [{title}]({nid}) 的页面 ({len(refs)})")
+        lines.append("  ⚠️ 以下页面引用了已废止的法律/标准，建议标注为\"待审查\"：")
+        for ref in sorted(refs):
+            ref_title = graph.get(ref, {}).get("title", ref)
+            lines.append(f"  - [{ref_title}]({ref})")
+
+    lines.extend([
+        "",
+        "---",
+        "*建议：将上述受影响页面的 status 改为 draft 或添加 tag: 需审查，",
+        "并在正文中更新对已废止法律的引用。*",
+    ])
+
+    return "\n".join(lines) + "\n"
+
+
 def main():
     parser = argparse.ArgumentParser(description="知识图谱可视化")
-    parser.add_argument("--format", choices=["mindmap", "flowchart", "edgelist", "stats", "force-graph"],
+    parser.add_argument("--format", choices=["mindmap", "flowchart", "edgelist", "stats", "force-graph", "check-timeliness"],
                         default="mindmap", help="输出格式")
     parser.add_argument("--output", type=str, help="输出到文件")
     parser.add_argument("--industry", type=str, help="限定行业 (如 enforcement-review)")
@@ -351,6 +424,8 @@ def main():
         output = generate_stats(graph)
     elif args.format == "force-graph":
         output = generate_force_graph(graph)
+    elif args.format == "check-timeliness":
+        output = check_timeliness(graph, wiki_scope)
     else:
         output = generate_mindmap(graph)
 
