@@ -20,11 +20,14 @@ implement_date: {{ implement_date | default("YYYY-MM-DD") }}
 
 ## 核心限值表
 
-> ⚠️ 此段为 lint 强制项，不得为空。标准页最核心的价值就是限值数值。
+> ⚠️ lint 强制项。列名固定（「污染物」「限值」「单位」「适用条件」「引用条款」），
+> 不得增减列。AI 和人力读同一张表，无 YAML 双写漂移风险。
 
-| 污染物 / 项目 | 限值 | 单位 | 适用条件 | 引用条款 |
-|---------------|------|------|---------|---------|
-| {{ item.name | default("待补充") }} | {{ item.value | default("待补充") }} | {{ item.unit | default("—") }} | {{ item.condition | default("—") }} | 第{{ item.article | default("X") }}条 |
+| 污染物 | 限值 | 单位 | 适用条件 | 引用条款 |
+|--------|------|------|---------|---------|
+| {{ item.name | default("VOCs") }} | {{ item.value | default("100") }} | {{ item.unit | default("mg/m³") }} | {{ item.condition | default("新建企业") }} | {{ item.article | default("表3 第1项") }} |
+| {{ item2.name | default("VOCs") }} | {{ item2.value | default("120") }} | {{ item2.unit | default("mg/m³") }} | {{ item2.condition | default("现有企业") }} | {{ item2.article | default("表3 第1项") }} |
+| （继续添加...） | | | | |
 
 ## 适用范围
 

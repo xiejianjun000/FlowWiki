@@ -182,10 +182,17 @@ def check_obsolete_references(filepath: Path, text: str) -> list[str]:
 
 
 def check_standard_limits_table(data: dict, text: str) -> list[str]:
-    """检查标准页是否含"核心限值表"段且非空。
+    """检查标准页是否含规范的核心限值表。
 
-    依据：用户报告"GB18597-2023 的核心限值表是空的。标准页最刚需的就是限值数值，反而是缺的"。
+    依据：AI 反馈——"标准页限值数据不完整"。
     标准页 = frontmatter type 含 'standard' 或 '标准'。
+
+    检查项（渐进）：
+    1. ## 核心限值表 段存在
+    2. 段内容非空
+    3. 有 Markdown 表格（| 分隔）
+    4. 列名符合规范（5 列）
+    5. 至少一行数据（非仅表头）
     """
     issues = []
     page_type = str(data.get("type", "")).lower()
@@ -194,24 +201,55 @@ def check_standard_limits_table(data: dict, text: str) -> list[str]:
     if not is_standard:
         return issues  # 非标准页不检查
 
-    # 检查 ## 核心限值表 段是否存在
+    # 1. 段存在
     if "## 核心限值表" not in text:
         issues.append("标准页缺少 '## 核心限值表' 段（lint 强制项）")
         return issues
 
-    # 检查段内容是否为空或全是占位符
+    # 2. 段非空
     section_start = text.find("## 核心限值表") + len("## 核心限值表")
     next_h2 = text.find("\n## ", section_start)
     section_body = text[section_start:next_h2 if next_h2 > 0 else len(text)].strip()
 
-    # 空内容
     if len(section_body) < 10:
         issues.append("'## 核心限值表' 段为空（标准页必须填写限值数值）")
         return issues
 
-    # 检查是否全是"待补充"占位符
-    if "待补充" in section_body and section_body.count("待补充") >= 2:
-        issues.append("'## 核心限值表' 段全是占位符（需填写真实限值数值）")
+    # 3. 检查是否有 Markdown 表格
+    table_lines = [l for l in section_body.split("\n") if l.strip().startswith("|")]
+    if len(table_lines) < 2:
+        issues.append("'## 核心限值表' 段缺少 Markdown 表格（需 | 分隔列）")
+        return issues
+
+    # 4. 列名规范检查（表头行第一行）
+    header_line = table_lines[0]
+    # 要求列名: 污染物 | 限值 | 单位 | 适用条件 | 引用条款
+    header_cols = [c.strip() for c in header_line.split("|")[1:-1]]  # 去除首尾空列
+    canonical_cols = ["污染物", "限值", "单位", "适用条件", "引用条款"]
+
+    if len(header_cols) != 5:
+        issues.append(
+            f"'## 核心限值表' 列数异常: 期望 5 列"
+            f"（污染物|限值|单位|适用条件|引用条款），实际 {len(header_cols)} 列"
+        )
+    else:
+        mismatched = []
+        for i, (actual, expected) in enumerate(zip(header_cols, canonical_cols)):
+            if actual != expected:
+                mismatched.append(f"第{i+1}列 '{actual}' → 应为 '{expected}'")
+        if mismatched:
+            issues.append(f"'## 核心限值表' 列名不规范: {'; '.join(mismatched)}")
+
+    # 5. 数据行检查（跳过表头 + 分隔行 |---|---|）
+    data_rows = [l for l in table_lines[2:] if not all(c.strip() in ("", "---", ":-", "-:", ":--") for c in l.split("|")[1:-1])]
+    if len(data_rows) == 0:
+        issues.append("'## 核心限值表' 无数据行（仅有表头，需添加具体限值数值）")
+        return issues
+
+    # 检查数据行中是否有"待补充"占位符
+    placeholder_count = sum(1 for row in data_rows for cell in row.split("|")[1:-1] if "待补充" in cell)
+    if placeholder_count > 0:
+        issues.append(f"'## 核心限值表' 有 {placeholder_count} 处'待补充'占位符（需填写真实限值）")
 
     return issues
 
@@ -264,6 +302,121 @@ def check_dangling_links(links: list[tuple[str, str, str]], filepath: Path) -> l
         if resolved is None:
             issues.append(f"悬空链接: {target}")
     return issues
+
+
+def check_routing(storage_dir: Path = None, wiki_dir: Path = None) -> str:
+    """行业路由完整性校验（第零验之行业路由）。
+
+    遍历 storage/*/industry.yaml 中引用的标准，
+    检查 wiki/criteria/ 对应页面是否存在。
+    提前发现"行业路由断链"——用户跟着行业路由走但碰到死胡同。
+
+    依据：5 行业测试——GB28663-2012 等 10 个标准页不存在。
+    """
+    storage_dir = storage_dir or Path("storage")
+    wiki_dir = wiki_dir or WIKI_DIR
+
+    # 收集所有 industry.yaml 引用的标准
+    industry_standards: dict[str, list[str]] = {}  # slug → [标准名]
+    for ind_yaml in sorted(storage_dir.glob("*/industry.yaml")):
+        slug = ind_yaml.parent.name
+        try:
+            data = yaml.safe_load(ind_yaml.read_text(encoding="utf-8")) or {}
+        except yaml.YAMLError:
+            continue
+
+        refs = []
+        # 格式 1: standards: [名称, ...]
+        standards = data.get("standards", [])
+        if isinstance(standards, list):
+            refs.extend(str(s) for s in standards)
+        # 格式 2: standard_criterion: [代码, ...] (多行业)
+        std_criteria = data.get("standard_criterion", [])
+        if isinstance(std_criteria, list):
+            refs.extend(str(s) for s in std_criteria)
+        # 格式 3: industries[].standard (多行业嵌套)
+        for ind in data.get("industries", []):
+            if isinstance(ind, dict) and "standard" in ind:
+                refs.append(str(ind["standard"]))
+
+        if refs:
+            industry_standards[slug] = refs
+
+    if not industry_standards:
+        return "✨ 所有 industry.yaml 均未引用标准（无需路由检查）。\n"
+
+    # 检查每个标准是否存在对应 wiki 页
+    gaps: list[tuple[str, str, str]] = []  # (slug, 标准名, 应存在的路径)
+    for slug, refs in sorted(industry_standards.items()):
+        for ref in refs:
+            # 尝试多种查找方式
+            found = False
+            ref_clean = ref.strip()
+            # 标准化：去空格/连字符 → 用于模糊匹配
+            ref_no_delim = re.sub(r"[\s\-\.]+", "", ref_clean)
+
+            # 1. 精确匹配
+            if (wiki_dir / "criteria" / f"{ref_clean}.md").exists():
+                found = True
+            # 2. 标准化匹配（去分隔符后模糊 glob）
+            if not found:
+                for criteria_dir in [wiki_dir / "criteria", wiki_dir / slug / "criteria"]:
+                    if criteria_dir.is_dir():
+                        matches = list(criteria_dir.glob(f"{ref_no_delim}*.md"))
+                        if matches:
+                            found = True
+                            break
+            # 3. 宽松匹配（任意分隔符变体）
+            if not found and re.match(r"^[A-Z]+\d", ref_no_delim):
+                for criteria_dir in [wiki_dir / "criteria", wiki_dir / slug / "criteria"]:
+                    if criteria_dir.is_dir():
+                        for f in criteria_dir.glob("*.md"):
+                            f_clean = re.sub(r"[\s\-\.]+", "", f.stem)
+                            if ref_no_delim in f_clean or f_clean in ref_no_delim:
+                                found = True
+                                break
+                        if found:
+                            break
+
+            if not found:
+                expected = f"wiki/criteria/{ref}.md"
+                gaps.append((slug, ref, expected))
+
+    # 生成报告
+    if not gaps:
+        total_refs = sum(len(refs) for refs in industry_standards.values())
+        return f"# 行业路由完整性报告\n\n✅ {len(industry_standards)} 个行业，{total_refs} 个标准引用全部可路由。\n"
+
+    lines = [
+        "# 行业路由完整性报告",
+        "",
+        f"## 概要",
+        f"- 检查行业: {len(industry_standards)}",
+        f"- 标准引用总数: {sum(len(refs) for refs in industry_standards.values())}",
+        f"- ⚠️ 路由断链: {len(gaps)}",
+        "",
+        f"## 断链清单",
+        "",
+    ]
+    # 按行业分组
+    from collections import defaultdict
+    by_slug = defaultdict(list)
+    for slug, ref, expected in gaps:
+        by_slug[slug].append((ref, expected))
+
+    for slug in sorted(by_slug):
+        items = by_slug[slug]
+        lines.append(f"### {slug} ({len(items)} 断链)")
+        for ref, expected in items:
+            lines.append(f"- `{ref}` → 缺失 `{expected}`")
+        lines.append("")
+
+    lines.extend([
+        "---",
+        "*创建对应页面：`_templates/standard.md.j2` 已提供限值表模板。*",
+    ])
+
+    return "\n".join(lines) + "\n"
 
 
 def _suggest_playbook_type(raw_path: str) -> str:
@@ -470,12 +623,23 @@ def main():
     parser.add_argument("--output", type=str, help="输出报告到文件")
     parser.add_argument("--strict", action="store_true", help="严格模式：旧字段/禁用字段视为错误，非零退出码")
     parser.add_argument("--check-coverage", action="store_true", help="知识缺口发现：raw/ 裸资源检查")
+    parser.add_argument("--check-routing", action="store_true", help="行业路由完整性：industry.yaml 引用标准是否可路由")
 
     args = parser.parse_args()
 
     # 知识缺口检查是独立模式，不走常规 lint 流程
     if args.check_coverage:
         report = check_coverage()
+        if args.output:
+            Path(args.output).write_text(report, encoding="utf-8")
+            logger.info(f"报告已保存到: {args.output}")
+        else:
+            print(report)
+        return
+
+    # 行业路由检查是独立模式
+    if args.check_routing:
+        report = check_routing()
         if args.output:
             Path(args.output).write_text(report, encoding="utf-8")
             logger.info(f"报告已保存到: {args.output}")
