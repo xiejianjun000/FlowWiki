@@ -1,18 +1,38 @@
 ---
-sources: [raw/enforcement-review/README.md]
-
+sources:
+- raw/enforcement-review/README.md
 title: 旧法 vs 法典条文对照
 layer: 05-对照工具
 type: comparison
-触发词: [旧法, 法典, 条文对照, 新旧对比, 法律适用, 时效]
+触发词:
+- 旧法
+- 法典
+- 条文对照
+- 新旧对比
+- 法律适用
+- 时效
 适用场景: 案卷评查中判断法律适用是否正确、新旧法衔接是否合规
-关联法条: [《生态环境法典》第X条, 《环境保护法》第X条, 《水污染防治法》第X条, 《大气污染防治法》第X条, 《固体废物污染环境防治法》第X条]
-调用skill: [eco-review-kb, 法律适用审查]
+关联法条:
+- 《生态环境法典》第X条
+- 《环境保护法》第X条
+- 《水污染防治法》第X条
+- 《大气污染防治法》第X条
+- 《固体废物污染环境防治法》第X条
+调用skill:
+- eco-review-kb
+- 法律适用审查
 风险等级: 🟡
 version: 1.2
-status: 现行
-updated: 2026-07-16
-tags: [05-对照工具, 🟡常规, 新旧对照, 现行]
+status: draft
+updated: '2026-07-19'
+tags:
+- 05-对照工具
+- 🟡常规
+- 新旧对照
+- 现行
+- flow-wiki
+created: '2026-07-19'
+confidence: medium
 ---
 
 # 旧法 vs 法典条文对照

@@ -1,17 +1,28 @@
 ---
-sources: [raw/enforcement-review/README.md]
-
+sources:
+- raw/enforcement-review/README.md
 title: 常见错误与问题
 slug: common-errors
 description: 步骤缺失、顺序颠倒、程序违法、证据缺陷
 layer: 01-评查标准
 type: sop
-tags: [01-评查标准, sop, 常见错误, 程序违法, 证据缺陷]
-关联法条: ["《行政处罚法》", "《生态环境行政处罚办法》", "《生态环境行政执法案卷评查细则（2024年版）》"]
+tags:
+- 01-评查标准
+- sop
+- 常见错误
+- 程序违法
+- 证据缺陷
+- flow-wiki
+关联法条:
+- 《行政处罚法》
+- 《生态环境行政处罚办法》
+- 《生态环境行政执法案卷评查细则（2024年版）》
 风险等级: 🟡
 version: 1.0
-status: 现行
-updated: 2026-07-16
+status: draft
+updated: '2026-07-19'
+created: '2026-07-19'
+confidence: medium
 ---
 
 # 常见错误与问题

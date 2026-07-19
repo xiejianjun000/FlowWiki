@@ -1,29 +1,32 @@
 ---
-sources: [raw/enforcement-review/README.md]
-
-title: '证据链闭环核验'
-slug: 'evidence-chain-verification'
-description: '核验证据是否相互印证，是否形成闭环，避免单一证据定案。'
-layer: '02-单项SOP'
-type: 'sop'
+sources:
+- raw/enforcement-review/README.md
+title: 证据链闭环核验
+slug: evidence-chain-verification
+description: 核验证据是否相互印证，是否形成闭环，避免单一证据定案。
+layer: 02-单项SOP
+type: sop
 tags:
-  - 02-单项SOP
-  - sop
-  - 证据链
-  - 闭环核验
-  - 证据规则
+- 02-单项SOP
+- sop
+- 证据链
+- 闭环核验
+- 证据规则
+- flow-wiki
 关联法条:
-  - 生态环境行政处罚办法
-  - 行政诉讼法
-  - 最高人民法院关于行政诉讼证据若干问题的规定
-  - 生态环境行政执法案卷评查细则（2024年版）
+- 生态环境行政处罚办法
+- 行政诉讼法
+- 最高人民法院关于行政诉讼证据若干问题的规定
+- 生态环境行政执法案卷评查细则（2024年版）
 调用skill:
-  - eco-review-kb
-  - evidence-analysis
+- eco-review-kb
+- evidence-analysis
 风险等级: 🟡
 version: 1.0
-status: 现行
-updated: 2026-07-16
+status: draft
+updated: '2026-07-19'
+created: '2026-07-19'
+confidence: medium
 ---
 
 # 证据链闭环核验 SOP

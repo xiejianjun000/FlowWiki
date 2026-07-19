@@ -1,0 +1,317 @@
+{
+  "date": "2026-07-19",
+  "duration_sec": 4.424065,
+  "phase1": [
+    {
+      "script": "ingest_pipeline",
+      "status": "pass"
+    },
+    {
+      "script": "ace_review",
+      "status": "pass"
+    },
+    {
+      "script": "a_mem_card",
+      "status": "pass"
+    },
+    {
+      "script": "lint",
+      "status": "pass"
+    },
+    {
+      "script": "graph",
+      "status": "pass"
+    },
+    {
+      "script": "sync_dual_index",
+      "status": "pass"
+    },
+    {
+      "script": "reindex",
+      "status": "pass"
+    },
+    {
+      "script": "normalize",
+      "status": "pass"
+    },
+    {
+      "script": "build_match_index",
+      "status": "pass"
+    },
+    {
+      "script": "gen_criteria_pages",
+      "status": "pass"
+    },
+    {
+      "script": "fix_dangling",
+      "status": "pass"
+    },
+    {
+      "script": "e2e_test",
+      "status": "pass"
+    },
+    {
+      "script": "mcp_server",
+      "status": "pass"
+    }
+  ],
+  "phase2": {
+    "status": "pass",
+    "errors": [],
+    "stats": {
+      "pages": 132,
+      "with_frontmatter": 132,
+      "orphan_pages": 0
+    }
+  },
+  "phase3": [
+    {
+      "industry": "根因分析",
+      "slug": "root-cause",
+      "steps": {
+        "wiki_count": 141,
+        "lint": {
+          "status": "pass",
+          "output": "=== Wiki Lint 报告 ===\n扫描文件数: 137\n有问题的文件: 137\n问题总数: 993\n\n--- comparisons/定量分析-vs-定性分析.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- comparisons/自上而下-vs-自下而上.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/异常检测方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/数据溯源链路.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/数据重构方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/趋势分析方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- criteria/化学组分.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- criteINFO:__main__:开始 wiki 体检...\nWARNING:__main__:发现 993 个问题"
+        },
+        "ingest": {
+          "status": "pass",
+          "output": ""
+        }
+      },
+      "overall": "pass"
+    },
+    {
+      "industry": "合规审查",
+      "slug": "compliance-review",
+      "steps": {
+        "wiki_count": 141,
+        "lint": {
+          "status": "pass",
+          "output": "=== Wiki Lint 报告 ===\n扫描文件数: 137\n有问题的文件: 137\n问题总数: 993\n\n--- comparisons/定量分析-vs-定性分析.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- comparisons/自上而下-vs-自下而上.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/异常检测方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/数据溯源链路.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/数据重构方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/趋势分析方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- criteria/化学组分.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- criteINFO:__main__:开始 wiki 体检...\nWARNING:__main__:发现 993 个问题"
+        },
+        "ingest": {
+          "status": "pass",
+          "output": ""
+        }
+      },
+      "overall": "pass"
+    },
+    {
+      "industry": "证照管理",
+      "slug": "license-management",
+      "steps": {
+        "wiki_count": 141,
+        "lint": {
+          "status": "pass",
+          "output": "=== Wiki Lint 报告 ===\n扫描文件数: 137\n有问题的文件: 137\n问题总数: 993\n\n--- comparisons/定量分析-vs-定性分析.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- comparisons/自上而下-vs-自下而上.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/异常检测方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/数据溯源链路.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/数据重构方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/趋势分析方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- criteria/化学组分.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- criteINFO:__main__:开始 wiki 体检...\nWARNING:__main__:发现 993 个问题"
+        },
+        "ingest": {
+          "status": "pass",
+          "output": ""
+        }
+      },
+      "overall": "pass"
+    },
+    {
+      "industry": "企业合规AI管家",
+      "slug": "enterprise-compliance",
+      "steps": {
+        "wiki_count": 141,
+        "lint": {
+          "status": "pass",
+          "output": "=== Wiki Lint 报告 ===\n扫描文件数: 137\n有问题的文件: 137\n问题总数: 993\n\n--- comparisons/定量分析-vs-定性分析.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- comparisons/自上而下-vs-自下而上.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/异常检测方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/数据溯源链路.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/数据重构方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/趋势分析方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- criteria/化学组分.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- criteINFO:__main__:开始 wiki 体检...\nWARNING:__main__:发现 993 个问题"
+        },
+        "ingest": {
+          "status": "pass",
+          "output": ""
+        }
+      },
+      "overall": "pass"
+    },
+    {
+      "industry": "执法督察评查（测试用）",
+      "slug": "enforcement-review",
+      "steps": {
+        "wiki_count": 141,
+        "lint": {
+          "status": "pass",
+          "output": "=== Wiki Lint 报告 ===\n扫描文件数: 137\n有问题的文件: 137\n问题总数: 993\n\n--- comparisons/定量分析-vs-定性分析.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- comparisons/自上而下-vs-自下而上.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/异常检测方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/数据溯源链路.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/数据重构方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- concepts/趋势分析方法.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- criteria/化学组分.md ---\n  ✗ sources 为空（建议至少引用一个 raw/ 源）\n\n--- criteINFO:__main__:开始 wiki 体检...\nWARNING:__main__:发现 993 个问题"
+        },
+        "ingest": {
+          "status": "pass",
+          "output": ""
+        }
+      },
+      "overall": "pass"
+    }
+  ],
+  "phase4": {
+    "mode": "llm",
+    "status": "api_error",
+    "error": "HTTP 402: {\"error\":{\"message\":\"Insufficient Balance\",\"type\":\"unknown_error\",\"param\":null,\"code\":\"invalid_request_error\"}}",
+    "fallback_checks": {
+      "root-cause": {
+        "concept_count": 4,
+        "issues": [],
+        "verdict": "ok"
+      },
+      "compliance-review": {
+        "concept_count": 0,
+        "issues": [
+          "No concepts found for compliance-review"
+        ],
+        "verdict": "needs_attention"
+      },
+      "license-management": {
+        "concept_count": 0,
+        "issues": [
+          "No concepts found for license-management"
+        ],
+        "verdict": "needs_attention"
+      },
+      "enterprise-compliance": {
+        "concept_count": 0,
+        "issues": [
+          "No concepts found for enterprise-compliance"
+        ],
+        "verdict": "needs_attention"
+      },
+      "enforcement-review": {
+        "concept_count": 0,
+        "issues": [
+          "No concepts found for enforcement-review"
+        ],
+        "verdict": "needs_attention"
+      }
+    }
+  },
+  "phase5": {
+    "status": "fail",
+    "output": "nstall the buildx component to build images with BuildKit:\n            https://docs.docker.com/go/buildx/\n\nfailed to connect to the docker API at unix:///var/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /var/run/docker.sock: connect: no such file or directory"
+  },
+  "phase6": {
+    "status": "pass",
+    "total_nodes": 137,
+    "total_edges": 441,
+    "density": 3.22,
+    "isolated_nodes": 12,
+    "isolated_pct": 8.8,
+    "broken_links": 0,
+    "isolated_list": [
+      "comparisons/定量分析-vs-定性分析",
+      "comparisons/自上而下-vs-自下而上",
+      "meta/lint-report",
+      "meta/agent-compatibility",
+      "meta/e2e-test-report",
+      "playbooks/局部分析工作流",
+      "playbooks/跨域分析工作流",
+      "playbooks/根因分析五步法",
+      "criteria/环境条件",
+      "criteria/数据质量",
+      "criteria/化学组分",
+      "criteria/气象条件"
+    ],
+    "quality_checks": {
+      "density": {
+        "value": 3.22,
+        "threshold": 0.3,
+        "pass": true
+      },
+      "isolation": {
+        "value": 8.8,
+        "threshold": 40.0,
+        "pass": true
+      },
+      "broken_links": {
+        "value": 0,
+        "threshold": 3,
+        "pass": true
+      }
+    },
+    "industry_coverage": [
+      {
+        "industry": "根因分析",
+        "slug": "root-cause",
+        "expected_count": 9,
+        "found_count": 7,
+        "coverage_pct": 77.8,
+        "missing": [
+          "自上而下 vs 自下而上",
+          "定量分析 vs 定性分析"
+        ],
+        "inter_density": 0.0,
+        "verdict": "needs_attention"
+      },
+      {
+        "industry": "合规审查",
+        "slug": "compliance-review",
+        "expected_count": 8,
+        "found_count": 1,
+        "coverage_pct": 12.5,
+        "missing": [
+          "案卷评查标准",
+          "证据链完整性",
+          "案卷评查操作流程",
+          "程序审查五步法",
+          "证据链审核指南",
+          "行政处罚 vs 行政强制",
+          "一般程序 vs 简易程序"
+        ],
+        "inter_density": 0.0,
+        "verdict": "needs_attention"
+      },
+      {
+        "industry": "证照管理",
+        "slug": "license-management",
+        "expected_count": 9,
+        "found_count": 0,
+        "coverage_pct": 0.0,
+        "missing": [
+          "行政许可",
+          "资质证书",
+          "合规边界",
+          "审批条件",
+          "证照审批工作流",
+          "许可证核发流程",
+          "许可后监管",
+          "许可 vs 备案",
+          "报告书 vs 报告表 vs 登记表"
+        ],
+        "inter_density": 0,
+        "verdict": "needs_attention"
+      },
+      {
+        "industry": "企业合规AI管家",
+        "slug": "enterprise-compliance",
+        "expected_count": 9,
+        "found_count": 0,
+        "coverage_pct": 0.0,
+        "missing": [
+          "合规管理体系",
+          "风险评估",
+          "合规审计",
+          "合规培训",
+          "合规清单生成流程",
+          "合规风险评估工作流",
+          "合规检查程序",
+          "合规 vs 内控",
+          "ISO 19600 vs GB/T 35770"
+        ],
+        "inter_density": 0,
+        "verdict": "needs_attention"
+      },
+      {
+        "industry": "执法督察评查（测试用）",
+        "slug": "enforcement-review",
+        "expected_count": 0,
+        "found_count": 0,
+        "coverage_pct": 0,
+        "missing": [],
+        "inter_density": 0,
+        "verdict": "skipped"
+      }
+    ],
+    "issues": []
+  }
+}

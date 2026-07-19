@@ -2,9 +2,18 @@
 title: 采样程序合法性审查SOP
 layer: playbooks
 type: playbook
-tags: [执法评查, 生态环境, 采样, 程序合法性]
-status: 现行
-sources: [raw/01_评查标准与细则/01_评查标准体系.md]
+tags:
+- 执法评查
+- 生态环境
+- 采样
+- 程序合法性
+- flow-wiki
+status: draft
+sources:
+- raw/01_评查标准与细则/01_评查标准体系.md
+created: '2026-07-19'
+updated: '2026-07-19'
+confidence: medium
 ---
 
 # 采样程序合法性审查SOP

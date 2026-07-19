@@ -19,7 +19,7 @@ articles:
     seq: 2
     title: "让 AI 互相吵架然后裁决──FlowWiki 的 ACE 反思循环如何拦截幻觉"
     topic: "ACE Generator→Reflector→Curator 三 agent 防幻觉机制深度拆解"
-    status: draft
+    status: ready_for_review
     relations: ["article-01 提到 ACE 是三大创新之首"]
     key_points:
       - "为什么单个 LLM 不可信──RAG 的 9-40% 幻觉率真相"

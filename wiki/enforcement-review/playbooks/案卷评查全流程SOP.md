@@ -2,9 +2,18 @@
 title: 案卷评查全流程SOP
 layer: playbooks
 type: playbook
-tags: [执法评查, 生态环境, 全流程, SOP]
-status: 现行
-sources: [raw/01_评查标准与细则/01_评查标准体系.md]
+tags:
+- 执法评查
+- 生态环境
+- 全流程
+- SOP
+- flow-wiki
+status: draft
+sources:
+- raw/01_评查标准与细则/01_评查标准体系.md
+created: '2026-07-19'
+updated: '2026-07-19'
+confidence: medium
 ---
 
 # 案卷评查全流程SOP

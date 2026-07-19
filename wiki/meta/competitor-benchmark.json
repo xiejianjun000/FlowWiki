@@ -1,0 +1,898 @@
+{
+  "timestamp": "2026-07-19T10:22:46.019459",
+  "competitor_count": 12,
+  "competitors": [
+    {
+      "full_name": "nashsu/llm_wiki",
+      "description": "LLM Wiki is a cross-platform desktop application that turns your documents into an organized, interlinked knowledge base — automatically. Instead of traditional RAG (retrieve-and-answer from scratch every time), the LLM incrementally builds and maintains a persistent wiki from your sources。",
+      "stars": 14852,
+      "forks": 1762,
+      "language": "TypeScript",
+      "created_at": "2026-04-08T11:24:01Z",
+      "updated_at": "2026-07-19T02:15:49Z",
+      "open_issues": 207,
+      "license": "NOASSERTION",
+      "dimensions": {
+        "anti_hallucination": {
+          "level": "ace",
+          "score": 1,
+          "has_feature": true
+        },
+        "cross_session_memory": {
+          "level": "vector_db",
+          "score": 2,
+          "has_feature": true
+        },
+        "multi_agent": {
+          "level": "claude_only",
+          "score": 1,
+          "has_feature": true
+        },
+        "human_ux": {
+          "level": "gui",
+          "score": 2,
+          "has_feature": true
+        },
+        "business_pluggable": {
+          "level": "scenario_layer",
+          "score": 1,
+          "has_feature": true
+        },
+        "change_traceability": {
+          "level": "git_only",
+          "score": 2,
+          "has_feature": true
+        },
+        "compound_skill": {
+          "level": "skill_layer",
+          "score": 1,
+          "has_feature": true
+        },
+        "adaptive_retrieval": {
+          "level": "hybrid",
+          "score": 1,
+          "has_feature": true
+        },
+        "conflict_tracking": {
+          "level": "mark_only",
+          "score": 2,
+          "has_feature": true
+        }
+      },
+      "readme_length": 30345
+    },
+    {
+      "full_name": "AgriciDaniel/claude-obsidian",
+      "description": "Self-organizing AI second brain for Obsidian + Claude Code. Drop any source and Claude reads, links, and files it into one connected knowledge graph of plain Markdown you own. AI note-taking, personal knowledge management (PKM), and an open-source Notion alternative. Based on Karpathy's LLM Wiki pattern.",
+      "stars": 9588,
+      "forks": 1122,
+      "language": "Python",
+      "created_at": "2026-04-07T08:59:37Z",
+      "updated_at": "2026-07-19T02:11:29Z",
+      "open_issues": 103,
+      "license": "MIT",
+      "dimensions": {
+        "anti_hallucination": {
+          "level": "ace",
+          "score": 1,
+          "has_feature": true
+        },
+        "cross_session_memory": {
+          "level": "hot_cache",
+          "score": 2,
+          "has_feature": true
+        },
+        "multi_agent": {
+          "level": "multi_platform",
+          "score": 1,
+          "has_feature": true
+        },
+        "human_ux": {
+          "level": "obsidian_native",
+          "score": 3,
+          "has_feature": true
+        },
+        "business_pluggable": {
+          "level": "plugin",
+          "score": 1,
+          "has_feature": true
+        },
+        "change_traceability": {
+          "level": "git_only",
+          "score": 2,
+          "has_feature": true
+        },
+        "compound_skill": {
+          "level": "skill_layer",
+          "score": 2,
+          "has_feature": true
+        },
+        "adaptive_retrieval": {
+          "level": "multi_tier",
+          "score": 1,
+          "has_feature": true
+        },
+        "conflict_tracking": {
+          "level": "mark_only",
+          "score": 1,
+          "has_feature": true
+        }
+      },
+      "readme_length": 36643
+    },
+    {
+      "full_name": "SamurAIGPT/llm-wiki-agent",
+      "description": "A personal knowledge base that builds and maintains itself. Drop in sources — Claude (or Codex/Gemini) reads them, extracts knowledge, and maintains a persistent interlinked wiki. Works with Claude Code, Codex, OpenCode, Gemini CLI. No API key needed.",
+      "stars": 3229,
+      "forks": 374,
+      "language": "Python",
+      "created_at": "2023-04-21T08:31:00Z",
+      "updated_at": "2026-07-19T00:11:36Z",
+      "open_issues": 2,
+      "license": "MIT",
+      "dimensions": {
+        "anti_hallucination": {
+          "level": "ace",
+          "score": 1,
+          "has_feature": true
+        },
+        "cross_session_memory": {
+          "level": "hot_cache",
+          "score": 1,
+          "has_feature": true
+        },
+        "multi_agent": {
+          "level": "claude_only",
+          "score": 1,
+          "has_feature": true
+        },
+        "human_ux": {
+          "level": "obsidian_native",
+          "score": 3,
+          "has_feature": true
+        },
+        "business_pluggable": {
+          "level": "plugin",
+          "score": 1,
+          "has_feature": true
+        },
+        "change_traceability": {
+          "level": "git_only",
+          "score": 2,
+          "has_feature": true
+        },
+        "compound_skill": {
+          "level": "skill_layer",
+          "score": 2,
+          "has_feature": true
+        },
+        "adaptive_retrieval": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "conflict_tracking": {
+          "level": "mark_only",
+          "score": 1,
+          "has_feature": true
+        }
+      },
+      "readme_length": 12952
+    },
+    {
+      "full_name": "inkeep/open-knowledge",
+      "description": "Beautiful, AI-native markdown IDE and LLM wiki",
+      "stars": 3004,
+      "forks": 191,
+      "language": "TypeScript",
+      "created_at": "2026-06-03T11:12:40Z",
+      "updated_at": "2026-07-19T02:17:48Z",
+      "open_issues": 30,
+      "license": "GPL-3.0",
+      "dimensions": {
+        "anti_hallucination": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "cross_session_memory": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "multi_agent": {
+          "level": "claude_only",
+          "score": 1,
+          "has_feature": true
+        },
+        "human_ux": {
+          "level": "gui",
+          "score": 2,
+          "has_feature": true
+        },
+        "business_pluggable": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "change_traceability": {
+          "level": "speccoding",
+          "score": 1,
+          "has_feature": true
+        },
+        "compound_skill": {
+          "level": "skill_layer",
+          "score": 1,
+          "has_feature": true
+        },
+        "adaptive_retrieval": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "conflict_tracking": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        }
+      },
+      "readme_length": 3896
+    },
+    {
+      "full_name": "Ar9av/obsidian-wiki",
+      "description": "Framework for AI agents to build and maintain a digital brain through Obsidian wiki using Karpathy's LLM Wiki pattern",
+      "stars": 2919,
+      "forks": 295,
+      "language": "Python",
+      "created_at": "2026-04-06T06:20:10Z",
+      "updated_at": "2026-07-19T00:48:54Z",
+      "open_issues": 6,
+      "license": "MIT",
+      "dimensions": {
+        "anti_hallucination": {
+          "level": "conflict_mark",
+          "score": 2,
+          "has_feature": true
+        },
+        "cross_session_memory": {
+          "level": "hot_cache",
+          "score": 2,
+          "has_feature": true
+        },
+        "multi_agent": {
+          "level": "multi_platform",
+          "score": 1,
+          "has_feature": true
+        },
+        "human_ux": {
+          "level": "gui",
+          "score": 2,
+          "has_feature": true
+        },
+        "business_pluggable": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "change_traceability": {
+          "level": "git_only",
+          "score": 2,
+          "has_feature": true
+        },
+        "compound_skill": {
+          "level": "skill_layer",
+          "score": 1,
+          "has_feature": true
+        },
+        "adaptive_retrieval": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "conflict_tracking": {
+          "level": "mark_only",
+          "score": 1,
+          "has_feature": true
+        }
+      },
+      "readme_length": 37235
+    },
+    {
+      "full_name": "sdyckjq-lab/llm-wiki-skill",
+      "description": "基于 Karpathy llm-wiki 方法论的个人知识库构建 Skill，支持多平台！",
+      "stars": 2183,
+      "forks": 266,
+      "language": "TypeScript",
+      "created_at": "2026-04-05T05:27:07Z",
+      "updated_at": "2026-07-18T17:13:32Z",
+      "open_issues": 27,
+      "license": "",
+      "dimensions": {
+        "anti_hallucination": {
+          "level": "conflict_mark",
+          "score": 1,
+          "has_feature": true
+        },
+        "cross_session_memory": {
+          "level": "hot_cache",
+          "score": 2,
+          "has_feature": true
+        },
+        "multi_agent": {
+          "level": "multi_platform",
+          "score": 1,
+          "has_feature": true
+        },
+        "human_ux": {
+          "level": "gui",
+          "score": 1,
+          "has_feature": true
+        },
+        "business_pluggable": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "change_traceability": {
+          "level": "git_only",
+          "score": 2,
+          "has_feature": true
+        },
+        "compound_skill": {
+          "level": "skill_layer",
+          "score": 2,
+          "has_feature": true
+        },
+        "adaptive_retrieval": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "conflict_tracking": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        }
+      },
+      "readme_length": 12239
+    },
+    {
+      "full_name": "atomicstrata/llm-wiki-compiler",
+      "description": "The knowledge compiler. Raw sources in, interlinked wiki out. Inspired by Karpathy's LLM Wiki pattern.",
+      "stars": 1789,
+      "forks": 170,
+      "language": "TypeScript",
+      "created_at": "2026-04-05T19:53:06Z",
+      "updated_at": "2026-07-18T20:50:37Z",
+      "open_issues": 6,
+      "license": "MIT",
+      "dimensions": {
+        "anti_hallucination": {
+          "level": "ace",
+          "score": 2,
+          "has_feature": true
+        },
+        "cross_session_memory": {
+          "level": "vector_db",
+          "score": 2,
+          "has_feature": true
+        },
+        "multi_agent": {
+          "level": "claude_only",
+          "score": 1,
+          "has_feature": true
+        },
+        "human_ux": {
+          "level": "gui",
+          "score": 1,
+          "has_feature": true
+        },
+        "business_pluggable": {
+          "level": "plugin",
+          "score": 1,
+          "has_feature": true
+        },
+        "change_traceability": {
+          "level": "speccoding",
+          "score": 1,
+          "has_feature": true
+        },
+        "compound_skill": {
+          "level": "skill_layer",
+          "score": 1,
+          "has_feature": true
+        },
+        "adaptive_retrieval": {
+          "level": "multi_tier",
+          "score": 1,
+          "has_feature": true
+        },
+        "conflict_tracking": {
+          "level": "mark_only",
+          "score": 1,
+          "has_feature": true
+        }
+      },
+      "readme_length": 24454
+    },
+    {
+      "full_name": "skyllwt/AutoSci",
+      "description": "Karpathy's LLM-Wiki vision, fully realized — wiki-centric full-lifecycle AI research platform powered by Claude Code",
+      "stars": 1551,
+      "forks": 205,
+      "language": "Python",
+      "created_at": "2026-04-09T14:10:46Z",
+      "updated_at": "2026-07-18T16:34:49Z",
+      "open_issues": 3,
+      "license": "MIT",
+      "dimensions": {
+        "anti_hallucination": {
+          "level": "ace",
+          "score": 1,
+          "has_feature": true
+        },
+        "cross_session_memory": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "multi_agent": {
+          "level": "claude_only",
+          "score": 1,
+          "has_feature": true
+        },
+        "human_ux": {
+          "level": "gui",
+          "score": 1,
+          "has_feature": true
+        },
+        "business_pluggable": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "change_traceability": {
+          "level": "git_only",
+          "score": 2,
+          "has_feature": true
+        },
+        "compound_skill": {
+          "level": "skill_layer",
+          "score": 2,
+          "has_feature": true
+        },
+        "adaptive_retrieval": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "conflict_tracking": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        }
+      },
+      "readme_length": 30405
+    },
+    {
+      "full_name": "Astro-Han/karpathy-llm-wiki",
+      "description": "Agent Skills-compatible LLM wiki for Claude Code, Cursor, and Codex. Build a Karpathy-style knowledge base from raw sources, citations, and linting.",
+      "stars": 1546,
+      "forks": 179,
+      "language": null,
+      "created_at": "2026-04-05T06:17:20Z",
+      "updated_at": "2026-07-18T23:57:41Z",
+      "open_issues": 3,
+      "license": "MIT",
+      "dimensions": {
+        "anti_hallucination": {
+          "level": "conflict_mark",
+          "score": 1,
+          "has_feature": true
+        },
+        "cross_session_memory": {
+          "level": "vector_db",
+          "score": 1,
+          "has_feature": true
+        },
+        "multi_agent": {
+          "level": "claude_only",
+          "score": 1,
+          "has_feature": true
+        },
+        "human_ux": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "business_pluggable": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "change_traceability": {
+          "level": "speccoding",
+          "score": 1,
+          "has_feature": true
+        },
+        "compound_skill": {
+          "level": "skill_layer",
+          "score": 2,
+          "has_feature": true
+        },
+        "adaptive_retrieval": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "conflict_tracking": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        }
+      },
+      "readme_length": 5867
+    },
+    {
+      "full_name": "lucasastorian/llmwiki",
+      "description": "Open Source Implementation of Karpathy's LLM Wiki. Upload documents, connect your Claude account via MCP, and have it write your wiki ! ",
+      "stars": 1385,
+      "forks": 212,
+      "language": "Python",
+      "created_at": "2026-04-04T17:10:02Z",
+      "updated_at": "2026-07-18T18:52:40Z",
+      "open_issues": 19,
+      "license": "Apache-2.0",
+      "dimensions": {
+        "anti_hallucination": {
+          "level": "ace",
+          "score": 1,
+          "has_feature": true
+        },
+        "cross_session_memory": {
+          "level": "hot_cache",
+          "score": 1,
+          "has_feature": true
+        },
+        "multi_agent": {
+          "level": "claude_only",
+          "score": 1,
+          "has_feature": true
+        },
+        "human_ux": {
+          "level": "gui",
+          "score": 2,
+          "has_feature": true
+        },
+        "business_pluggable": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "change_traceability": {
+          "level": "git_only",
+          "score": 1,
+          "has_feature": true
+        },
+        "compound_skill": {
+          "level": "skill_layer",
+          "score": 1,
+          "has_feature": true
+        },
+        "adaptive_retrieval": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "conflict_tracking": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        }
+      },
+      "readme_length": 11700
+    },
+    {
+      "full_name": "kytmanov/obsidian-llm-wiki-local",
+      "description": "Karpathy’s LLM Wiki, 100% local with Ollama. Drop Markdown notes → AI extracts concepts → your Obsidian wiki auto-links and grows. Zero sharing. Your notes stay yours.",
+      "stars": 778,
+      "forks": 123,
+      "language": "Python",
+      "created_at": "2026-04-07T06:57:15Z",
+      "updated_at": "2026-07-18T21:19:58Z",
+      "open_issues": 2,
+      "license": "MIT",
+      "dimensions": {
+        "anti_hallucination": {
+          "level": "ace",
+          "score": 1,
+          "has_feature": true
+        },
+        "cross_session_memory": {
+          "level": "vector_db",
+          "score": 2,
+          "has_feature": true
+        },
+        "multi_agent": {
+          "level": "multi_platform",
+          "score": 1,
+          "has_feature": true
+        },
+        "human_ux": {
+          "level": "obsidian_native",
+          "score": 3,
+          "has_feature": true
+        },
+        "business_pluggable": {
+          "level": "none",
+          "score": 0,
+          "has_feature": false
+        },
+        "change_traceability": {
+          "level": "git_only",
+          "score": 2,
+          "has_feature": true
+        },
+        "compound_skill": {
+          "level": "skill_layer",
+          "score": 1,
+          "has_feature": true
+        },
+        "adaptive_retrieval": {
+          "level": "vector_only",
+          "score": 1,
+          "has_feature": true
+        },
+        "conflict_tracking": {
+          "level": "mark_only",
+          "score": 2,
+          "has_feature": true
+        }
+      },
+      "readme_length": 33737
+    },
+    {
+      "full_name": "swarmclawai/swarmvault",
+      "description": "The local-first LLM Wiki: open-source knowledge graph builder, RAG knowledge base, and agent memory store. Built on Andrej Karpathy's pattern. An Obsidian alternative for personal knowledge management, AI second brain, and durable Claude Code / Codex / OpenClaw memory.",
+      "stars": 616,
+      "forks": 77,
+      "language": "TypeScript",
+      "created_at": "2026-04-06T20:52:30Z",
+      "updated_at": "2026-07-18T15:15:47Z",
+      "open_issues": 3,
+      "license": "MIT",
+      "dimensions": {
+        "anti_hallucination": {
+          "level": "conflict_mark",
+          "score": 2,
+          "has_feature": true
+        },
+        "cross_session_memory": {
+          "level": "vector_db",
+          "score": 1,
+          "has_feature": true
+        },
+        "multi_agent": {
+          "level": "claude_only",
+          "score": 1,
+          "has_feature": true
+        },
+        "human_ux": {
+          "level": "obsidian_native",
+          "score": 3,
+          "has_feature": true
+        },
+        "business_pluggable": {
+          "level": "plugin",
+          "score": 1,
+          "has_feature": true
+        },
+        "change_traceability": {
+          "level": "git_only",
+          "score": 2,
+          "has_feature": true
+        },
+        "compound_skill": {
+          "level": "skill_layer",
+          "score": 2,
+          "has_feature": true
+        },
+        "adaptive_retrieval": {
+          "level": "hybrid",
+          "score": 1,
+          "has_feature": true
+        },
+        "conflict_tracking": {
+          "level": "mark_only",
+          "score": 2,
+          "has_feature": true
+        }
+      },
+      "readme_length": 48521
+    }
+  ],
+  "nine_dimensions": [
+    {
+      "key": "anti_hallucination",
+      "name": "防幻觉机制",
+      "weight": 1.5,
+      "flowwiki_level": "ace_tri_agent",
+      "flowwiki_desc": "ACE Generator→Reflector→Curator 三 agent 制约"
+    },
+    {
+      "key": "cross_session_memory",
+      "name": "跨会话记忆",
+      "weight": 1.3,
+      "flowwiki_level": "a_mem_zettelkasten",
+      "flowwiki_desc": "A-MEM Zettelkasten 卡片，零数据库依赖"
+    },
+    {
+      "key": "multi_agent",
+      "name": "多 agent 兼容",
+      "weight": 1.2,
+      "flowwiki_level": "five_agents",
+      "flowwiki_desc": "Claude Code / Codex / Gemini / Amp / WorkBuddy 五家"
+    },
+    {
+      "key": "human_ux",
+      "name": "人类 UX",
+      "weight": 1.1,
+      "flowwiki_level": "dual_index_six_sections",
+      "flowwiki_desc": "双索引（机器 index + 人类 6 板块 MOC）"
+    },
+    {
+      "key": "business_pluggable",
+      "name": "业务可插拔",
+      "weight": 1.4,
+      "flowwiki_level": "l7_scenarios",
+      "flowwiki_desc": "L7 场景层外壳，industry.yaml 适配器"
+    },
+    {
+      "key": "change_traceability",
+      "name": "变更追溯",
+      "weight": 1.0,
+      "flowwiki_level": "speccoding",
+      "flowwiki_desc": "SpecCoding 七阶段 + openspec/changes/"
+    },
+    {
+      "key": "compound_skill",
+      "name": "知识复利到能力",
+      "weight": 1.5,
+      "flowwiki_level": "task_knowledge_skill",
+      "flowwiki_desc": "任务→知识→Skill 三元组，O(1) 调用"
+    },
+    {
+      "key": "adaptive_retrieval",
+      "name": "自适应检索",
+      "weight": 1.0,
+      "flowwiki_level": "bm25_graphrag_lightrag",
+      "flowwiki_desc": "BM25 → nano-graphrag → LightRAG 三档"
+    },
+    {
+      "key": "conflict_tracking",
+      "name": "矛盾追踪",
+      "weight": 1.0,
+      "flowwiki_level": "conflict_dir",
+      "flowwiki_desc": "conflict/ 目录显式记录，不静默覆盖"
+    }
+  ],
+  "gap_suggestions": [
+    {
+      "dimension": "知识复利到能力",
+      "dimension_key": "compound_skill",
+      "flowwiki_level": "task_knowledge_skill",
+      "flowwiki_desc": "任务→知识→Skill 三元组，O(1) 调用",
+      "competitor_penetration": 1.0,
+      "competitors_with_feature": 12,
+      "top_competitor_with_feature": "nashsu/llm_wiki",
+      "top_competitor_stars": 14852,
+      "urgency": "high",
+      "gap_pressure": 1.5,
+      "comment": "100% 竞品已具备，属基础标配，不能落后"
+    },
+    {
+      "dimension": "防幻觉机制",
+      "dimension_key": "anti_hallucination",
+      "flowwiki_level": "ace_tri_agent",
+      "flowwiki_desc": "ACE Generator→Reflector→Curator 三 agent 制约",
+      "competitor_penetration": 0.917,
+      "competitors_with_feature": 11,
+      "top_competitor_with_feature": "nashsu/llm_wiki",
+      "top_competitor_stars": 14852,
+      "urgency": "high",
+      "gap_pressure": 1.38,
+      "comment": "92% 竞品已具备，属基础标配，不能落后"
+    },
+    {
+      "dimension": "多 agent 兼容",
+      "dimension_key": "multi_agent",
+      "flowwiki_level": "five_agents",
+      "flowwiki_desc": "Claude Code / Codex / Gemini / Amp / WorkBuddy 五家",
+      "competitor_penetration": 1.0,
+      "competitors_with_feature": 12,
+      "top_competitor_with_feature": "nashsu/llm_wiki",
+      "top_competitor_stars": 14852,
+      "urgency": "high",
+      "gap_pressure": 1.2,
+      "comment": "100% 竞品已具备，属基础标配，不能落后"
+    },
+    {
+      "dimension": "跨会话记忆",
+      "dimension_key": "cross_session_memory",
+      "flowwiki_level": "a_mem_zettelkasten",
+      "flowwiki_desc": "A-MEM Zettelkasten 卡片，零数据库依赖",
+      "competitor_penetration": 0.833,
+      "competitors_with_feature": 10,
+      "top_competitor_with_feature": "nashsu/llm_wiki",
+      "top_competitor_stars": 14852,
+      "urgency": "high",
+      "gap_pressure": 1.08,
+      "comment": "83% 竞品已具备，属基础标配，不能落后"
+    },
+    {
+      "dimension": "人类 UX",
+      "dimension_key": "human_ux",
+      "flowwiki_level": "dual_index_six_sections",
+      "flowwiki_desc": "双索引（机器 index + 人类 6 板块 MOC）",
+      "competitor_penetration": 0.917,
+      "competitors_with_feature": 11,
+      "top_competitor_with_feature": "nashsu/llm_wiki",
+      "top_competitor_stars": 14852,
+      "urgency": "high",
+      "gap_pressure": 1.01,
+      "comment": "92% 竞品已具备，属基础标配，不能落后"
+    },
+    {
+      "dimension": "变更追溯",
+      "dimension_key": "change_traceability",
+      "flowwiki_level": "speccoding",
+      "flowwiki_desc": "SpecCoding 七阶段 + openspec/changes/",
+      "competitor_penetration": 1.0,
+      "competitors_with_feature": 12,
+      "top_competitor_with_feature": "nashsu/llm_wiki",
+      "top_competitor_stars": 14852,
+      "urgency": "high",
+      "gap_pressure": 1.0,
+      "comment": "100% 竞品已具备，属基础标配，不能落后"
+    },
+    {
+      "dimension": "业务可插拔",
+      "dimension_key": "business_pluggable",
+      "flowwiki_level": "l7_scenarios",
+      "flowwiki_desc": "L7 场景层外壳，industry.yaml 适配器",
+      "competitor_penetration": 0.417,
+      "competitors_with_feature": 5,
+      "top_competitor_with_feature": "nashsu/llm_wiki",
+      "top_competitor_stars": 14852,
+      "urgency": "low",
+      "gap_pressure": 0.58,
+      "comment": "仅 42% 竞品有，是差异化优势"
+    },
+    {
+      "dimension": "矛盾追踪",
+      "dimension_key": "conflict_tracking",
+      "flowwiki_level": "conflict_dir",
+      "flowwiki_desc": "conflict/ 目录显式记录，不静默覆盖",
+      "competitor_penetration": 0.583,
+      "competitors_with_feature": 7,
+      "top_competitor_with_feature": "nashsu/llm_wiki",
+      "top_competitor_stars": 14852,
+      "urgency": "medium",
+      "gap_pressure": 0.58,
+      "comment": "过半竞品具备，需持续保持领先"
+    },
+    {
+      "dimension": "自适应检索",
+      "dimension_key": "adaptive_retrieval",
+      "flowwiki_level": "bm25_graphrag_lightrag",
+      "flowwiki_desc": "BM25 → nano-graphrag → LightRAG 三档",
+      "competitor_penetration": 0.417,
+      "competitors_with_feature": 5,
+      "top_competitor_with_feature": "nashsu/llm_wiki",
+      "top_competitor_stars": 14852,
+      "urgency": "low",
+      "gap_pressure": 0.42,
+      "comment": "仅 42% 竞品有，是差异化优势"
+    }
+  ]
+}

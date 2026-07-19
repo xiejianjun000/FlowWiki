@@ -14,6 +14,7 @@ Usage:
 
 import argparse
 import datetime
+import importlib.util
 import json
 import logging
 import re
@@ -26,10 +27,20 @@ from pathlib import Path
 from typing import Any
 
 # ---------------------------------------------------------------------------
-from _scripts.ops_log import ops_log
+# 先加载 ops_log（_scripts 没有 __init__.py，不能直接 import）
+_OPS_LOG_PATH = Path(__file__).resolve().parent / "ops_log.py"
+_spec = importlib.util.spec_from_file_location("ops_log", _OPS_LOG_PATH)
+_ops_log_mod = importlib.util.module_from_spec(_spec) if _spec else None
+if _ops_log_mod and _spec and _spec.loader:
+    _spec.loader.exec_module(_ops_log_mod)
+    ops_log = _ops_log_mod.ops_log  # type: ignore[attr-defined]
+else:
+    # fallback noop
+    def ops_log(action, detail, extra=None, status="info"):  # noqa: D401
+        pass
 
-# Config
 # ---------------------------------------------------------------------------
+# Config
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 REPORT_DIR = PROJECT_ROOT / "ops" / "monitoring"
 
@@ -438,6 +449,7 @@ def _extract_graph_from_wiki() -> dict[str, dict[str, Any]]:
     wiki_dir = PROJECT_ROOT / "wiki"
     graph: dict[str, dict[str, Any]] = {}
     all_pages: set[str] = set()
+    page_basenames: set[str] = set()  # 用于 wikilink 解析
 
     if not wiki_dir.exists():
         return graph
@@ -449,6 +461,10 @@ def _extract_graph_from_wiki() -> dict[str, dict[str, Any]]:
         rel = str(md_file.relative_to(wiki_dir))
         page_id = rel.replace(".md", "")
         all_pages.add(page_id)
+        page_basenames.add(md_file.name.replace(".md", ""))
+
+    # index/README/log 虽不作为 graph 节点，但可以作为有效链接目标
+    page_basenames.update({"index", "README", "log"})
 
     # 提取每个页面的链接
     for md_file in wiki_dir.rglob("*.md"):
@@ -465,12 +481,18 @@ def _extract_graph_from_wiki() -> dict[str, dict[str, Any]]:
         outlinks: list[str] = []
         broken: list[str] = []
 
-        # [[wikilink]]
+        # [[wikilink]] — Obsidian 支持按 basename 解析
         for m in WIKILINK_RE.finditer(text):
             target = m.group(1).split("|")[0].strip()
             outlinks.append(target)
-            # 检查是否为有效页面
-            if target not in all_pages and not target.endswith((".png", ".jpg", ".svg", ".pdf")):
+            # 检查是否为有效页面：完整路径匹配或 basename 匹配
+            is_valid = (
+                target in all_pages
+                or target in page_basenames
+                or any(p.endswith(f"/{target}") for p in all_pages)
+                or target.endswith((".png", ".jpg", ".svg", ".pdf"))
+            )
+            if not is_valid:
                 broken.append(target)
 
         # markdown links
@@ -552,6 +574,7 @@ def phase6_graph_quality() -> dict[str, Any]:
                 "industry": name, "slug": slug,
                 "expected_count": 0, "found_count": 0,
                 "coverage_pct": 0, "missing": [],
+                "inter_density": 0,
                 "verdict": "skipped",
             })
             continue
@@ -808,7 +831,8 @@ def main() -> None:
     logger.info("[Phase 1] Script syntax check...")
     phase1 = phase1_script_syntax()
     p1_ok = sum(1 for r in phase1 if r["status"] == "pass")
-    logger.info("  %d/%d scripts passed", p1_ok, len(phase1))
+    p1_total = len(phase1)
+    logger.info("  %d/%d scripts passed", p1_ok, p1_total)
     for r in phase1:
         if r["status"] != "pass":
             logger.warning("  FAIL: %s — %s", r["script"], r.get("error", ""))
@@ -832,6 +856,8 @@ def main() -> None:
         result = phase3_industry_run(industry)
         phase3.append(result)
         logger.info("  Overall: %s", result["overall"])
+    p3_pass = sum(1 for r in phase3 if r["overall"] == "pass")
+    p3_total = len(phase3)
 
     # Phase 4
     logger.info("[Phase 4] Hermes verification...")

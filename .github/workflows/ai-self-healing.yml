@@ -1,0 +1,177 @@
+name: AI Self-Healing
+
+on:
+  schedule:
+    - cron: '0 1,4,7,10,13,16,19,22 * * *'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: '触发原因'
+        required: false
+        default: '手动触发自检自愈'
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  BRANCH_NAME: refactor/ai-self-healing
+
+jobs:
+  self-healing:
+    name: AI Self-Check + Self-Heal
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run self-check
+        id: check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "=== 步骤 1: AI 自检（含竞品对标） ==="
+          python _scripts/self_check.py wiki/meta/self-check-report.json
+          echo "check_done=true" >> $GITHUB_OUTPUT
+
+      - name: Upload self-check report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: self-check-report
+          path: |
+            wiki/meta/self-check-report.json
+            wiki/meta/competitor-benchmark.md
+            wiki/meta/competitor-benchmark.json
+          retention-days: 30
+
+      - name: Run self-heal
+        id: heal
+        run: |
+          echo "=== 步骤 2: AI 自愈 ==="
+          python _scripts/self_heal.py wiki/meta/self-check-report.json wiki/meta/self-heal-report.json
+          echo "heal_done=true" >> $GITHUB_OUTPUT
+
+      - name: Upload self-heal report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: self-heal-report
+          path: wiki/meta/self-heal-report.json
+          retention-days: 30
+
+      - name: Check for changes
+        id: diff
+        run: |
+          echo "=== 步骤 3: 检测变更 ==="
+          git diff --name-only
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "检测到变更，准备创建 PR"
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "无变更，知识库健康"
+          fi
+
+      - name: Configure git
+        if: steps.diff.outputs.has_changes == 'true'
+        run: |
+          git config user.name "flowwiki-bot"
+          git config user.email "bot@flowwiki.local"
+
+      - name: Create healing branch
+        if: steps.diff.outputs.has_changes == 'true'
+        run: |
+          echo "=== 步骤 4: 创建修复分支 ==="
+          BRANCH="${BRANCH_NAME}-$(date +%Y%m%d-%H%M%S)"
+          echo "BRANCH_FULL=$BRANCH" >> $GITHUB_ENV
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "fix: AI 自检自愈自动修复
+
+自动化修复，由 self-check + self-heal 流水线触发。
+
+修复内容详见 PR 描述中的自愈报告。
+
+Triggered by: ${{ github.event_name }}
+Reason: ${{ github.event.inputs.reason || '定时自检' }}"
+          git push origin "$BRANCH"
+
+      - name: Create Pull Request
+        if: steps.diff.outputs.has_changes == 'true'
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: ${{ env.BRANCH_FULL }}
+          destination_branch: main
+          pr_title: "[AI Self-Healing] 自动修复 - $(date +%Y-%m-%d)"
+          pr_body: |
+            ## 🤖 AI 自检自愈报告
+
+            **触发方式**: ${{ github.event_name }}
+            **触发时间**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+
+            ### 修复摘要
+
+            由 FlowWiki AI Self-Healing Engine 自动生成的修复 PR。
+
+            ⚠️ **请人工审核后再合并** — AI 修复可能不完美，特别是涉及内容语义的部分。
+
+            ### 附件
+
+            - 自检报告: 见 Artifact `self-check-report`
+            - 自愈报告: 见 Artifact `self-heal-report`
+            - 竞品对标分析: 见 Artifact 中的 `competitor-benchmark.md`
+
+            ### 竞品对标摘要
+
+            ```
+            $(if [ -f wiki/meta/competitor-benchmark.json ]; then python -c "
+import sys, json
+try:
+    d = json.load(open('wiki/meta/competitor-benchmark.json'))
+    print(f'对标竞品数: {d.get(\"competitor_count\", 0)}')
+    sugs = d.get('gap_suggestions', [])
+    high = [s for s in sugs if s.get('urgency') == 'high']
+    med = [s for s in sugs if s.get('urgency') == 'medium']
+    low = [s for s in sugs if s.get('urgency') == 'low']
+    print(f'高紧迫改进项: {len(high)}')
+    print(f'中紧迫改进项: {len(med)}')
+    print(f'低紧迫(差异化优势): {len(low)}')
+    if high:
+        print('\\n高紧迫项:')
+        for s in high[:3]:
+            print(f'  - {s[\"dimension\"]}: {s[\"comment\"]}')
+except Exception as e:
+    print(f'解析对标数据失败: {e}')
+"; else echo "本次未生成对标报告"; fi)
+            ```
+
+            ### 修复内容预览
+
+            ```
+            $(cat wiki/meta/self-heal-report.json | python -c "import sys,json; d=json.load(sys.stdin); print(f'修复项数: {d[\"fixed_items\"]}'); [print(f'  - {c[\"action\"]}: {c[\"file\"]}') for c in d.get('changes',[])[:20]]")
+            ```
+
+            ---
+            *Generated by FlowWiki AI Self-Healing Pipeline*
+          pr_label: "ai-self-healing,automated"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: No changes summary
+        if: steps.diff.outputs.has_changes == 'false'
+        run: |
+          echo "=== ✅ 知识库健康，无需修复 ==="
+          echo "本次自检未发现可自动修复的问题。"

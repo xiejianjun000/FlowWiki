@@ -1,18 +1,36 @@
 ---
-sources: [raw/enforcement-review/README.md]
-
+sources:
+- raw/enforcement-review/README.md
 title: 湖南省裁量基准 vs 部指导意见
 layer: 06-对比
 type: comparison
-触发词: [湖南省, 裁量基准, 部指导意见, 对比, 差异, 地方特色]
+触发词:
+- 湖南省
+- 裁量基准
+- 部指导意见
+- 对比
+- 差异
+- 地方特色
 适用场景: 案卷评查中涉及湖南省裁量基准适用时，需与生态环境部指导意见进行对比分析
-关联法条: [《生态环境行政处罚办法》第42条, 《关于进一步规范生态环境行政处罚自由裁量权指导意见》]
-调用skill: [eco-review-kb]
+关联法条:
+- 《生态环境行政处罚办法》第42条
+- 《关于进一步规范生态环境行政处罚自由裁量权指导意见》
+调用skill:
+- eco-review-kb
 风险等级: 🟡
 version: 1.0
-status: 现行
-updated: 2026-07-16
-tags: [06-对比, 🟡常规, 裁量基准, 湖南省, 部指导意见, 现行]
+status: draft
+updated: '2026-07-19'
+tags:
+- 06-对比
+- 🟡常规
+- 裁量基准
+- 湖南省
+- 部指导意见
+- 现行
+- flow-wiki
+created: '2026-07-19'
+confidence: medium
 ---
 
 # 湖南省裁量基准 vs 部指导意见
