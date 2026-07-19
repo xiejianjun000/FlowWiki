@@ -1,27 +1,38 @@
+---
+type: {{ type | default("concept") }}
+title: {{ title }}
+created: {{ created | default("2026-07-19") }}
+updated: {{ updated | default("2026-07-19") }}
+confidence: {{ confidence | default("medium") }}
+sources: [{% for s in sources %}"[[raw/{{ s }}]]"{% if not loop.last %}, {% endif %}{% endfor %}]
+tags: [flow-wiki, {{ type | default("concept") }}{% for t in tags %}, {{ t }}{% endfor %}]
+status: {{ status | default("draft") }}
+---
+
 # {{ title }}
 
-## 概述
+## 摘要
 
-{{ overview }}
+{{ overview | default("一句话主旨 + 判断要点 + 触发条件") }}
 
 ## 核心内容
 
 {{ content }}
 
+## 原文指针
+
+- 全文路径：`../raw/{{ raw_path | default("<subdir>/<file>.md") }}`
+- 引用规则：逐字引用到条/款/项，引用后回链本页
+- 加载方式：通过 `/fulltext` skill 按需 read
+
 ## 相关资料
 
 {% for source in sources %}
-- [{{ source.name }}]({{ source.path }})
+- [{{ source }}]({{ source }})
 {% endfor %}
 
 ## 关联知识
 
 {% for related in related %}
 - [{{ related.name }}]({{ related.path }})
-{% endfor %}
-
-## 原始证据
-
-{% for evidence in evidences %}
-- [{{ evidence.name }}](../raw/{{ evidence.path }})
 {% endfor %}

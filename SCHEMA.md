@@ -7,10 +7,10 @@ type: schema
 关联法条: []
 调用skill: [eco-review-kb]
 风险等级: 🟡
-version: 2.0
+version: 2.1
 status: 现行
 ingested: 2026-07-18T00:00:00+08:00
-updated: 2026-07-18
+updated: 2026-07-19
 tags: [10-元文档, schema, 现行, flowwiki]
 confidence: high
 sources: []
@@ -47,6 +47,15 @@ sources: []
 | onsite-checklist | onsite-checklist/SKILL.md | 现场核查清单 |
 | code-transition | code-transition/SKILL.md | 法典衔接判断 |
 
+### 通用 Skill（FlowWiki 方法论自带）
+| Skill | 文件 | 用途 |
+|-------|------|------|
+| ingest | `.agents/skills/ingest/SKILL.md` | 入仓 ACE 反思循环 |
+| query | `.agents/skills/query/SKILL.md` | 双索引查询 |
+| lint | `.agents/skills/lint/SKILL.md` | 知识体检（含原文指针检查） |
+| research | `.agents/skills/research/SKILL.md` | 跨页研究 |
+| **fulltext** | `.agents/skills/fulltext/SKILL.md` | **按需加载 raw/ 全文（指针铁律配套）** |
+
 ## 3. 提示词（Prompts）
 
 位置: `提示词库/task/enforcement-review/`
@@ -67,20 +76,34 @@ sources: []
 
 | 验证 | 方法 | 达标线 |
 |------|------|--------|
-| 一验 lint | frontmatter + 断链 | 0 缺 / 0 断 |
+| 一验 lint | frontmatter + 断链 + **原文指针** | 0 缺 / 0 断 / **指针齐全** |
 | 二验 graph | 孤立 + 密度 | 0 孤立 / 密度 ≥ 2.0 |
 | 三验 hermes | LLM 评审 | pass / 评分 ≥ 7.0 |
 
-## 6. 入库双标准（raw→wiki 编译必须遵守）
+## 6. 入库三标准（raw→wiki 编译必须遵守）
 
 1. **格式标准** → `wiki/meta/入库文档格式标准.md`
    - 网页残留清洗（导航/版权/跳转提示）
    - 表格还原为 markdown 表格
    - 标题层级规范化（正文从 ## 起）
    - Generator 阶段执行
+
 2. **质量标准** → `wiki/meta/入库质量标准.md`
    - 5 维度评分卡（信息密度/结构/溯源/独特性/可操作）
    - Curator 按分决策：≥9 优质入库、6-8 合格、3-5 待核、<3 退回
+
+3. **原文指针铁律**（v2.1 新增，SCHEMA §1.3 升级条款）
+   - 每个 wiki/ 页面**必须**包含 `## 原文指针` 段
+   - 段内必须给出三字段：
+     ```
+     ## 原文指针
+     - 全文路径：`../raw/<subdir>/<file>.md`
+     - 引用规则：逐字引用到条/款/项，引用后回链本页
+     - 加载方式：通过 `/fulltext` skill 按需 read
+     ```
+   - wiki/ 主体**只存摘要 + 判断要点**，禁止搬运全文（raw/ 已存原文，双写违反分层）
+   - 指针有效性：路径必须指向真实存在的 raw/ 文件，lint 必须检查悬空指针
+   - 全文搬运启发式检查：单页出现 ≥3 次"第X章"模式视为全文搬运，Curator 退回 Generator
 
 ## 7. 实时数据来源
 
@@ -103,5 +126,17 @@ python3 .scripts/lint.py
 1. raw/ 只读，AI 绝不修改原始内容
 2. wiki/ 写入必须经过 ACE 反思循环
 3. 所有知识必须可追溯到 raw/ 原始证据
-4. 每次操作自动记录到 .memory/ops/YYYY-MM-DD.jsonl
-5. 前端改动后必须运行 bootstrap.py 重新入库
+4. **每个 wiki/ 页面必须含 `## 原文指针` 段（v2.1 铁律）**
+5. **禁止把 raw/ 全文搬运到 wiki/ 主体，需要逐字引用时调用 `/fulltext` skill**
+6. 每次操作自动记录到 .memory/ops/YYYY-MM-DD.jsonl
+7. 前端改动后必须运行 bootstrap.py 重新入库
+
+## 9. 验收红线
+
+- 文件结构符合 7 层架构
+- 命名规范统一（小写+连字符）
+- frontmatter 完整（type/title/confidence/sources/status）
+- **原文指针齐全**：每个 wiki/ 页面均含 `## 原文指针` 段，路径有效、引用规则明确
+- **零全文搬运**：wiki/ 主体无大段法条/标准原文（raw/ 已存原文，禁止双写）
+- ACE 三阶段全部通过（Generator→Reflector→Curator）
+- 错误内容必须回退到上一版本，人类可否决 AI 输出
