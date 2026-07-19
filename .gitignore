@@ -2,5 +2,12 @@
 .obsidian/
 .claudian/
 
-.scripts/
-.templates/
+# 知识库内容隔离 —— 方法论仓库不应包含领域知识
+# enforcement-review 是参考实现数据，属于用户知识库而非方法论
+wiki/enforcement-review/
+raw/enforcement-review/
+
+# 构建产物
+__pycache__/
+*.pyc
+.DS_Store
