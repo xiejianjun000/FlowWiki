@@ -7,6 +7,53 @@ FlowWiki 的所有重要变更都会记录在此文件中。
 
 ---
 
+## [0.4.0] - 2026-07-20
+
+### 新增
+- **执法督察评查知识库全栈升级** — 155 篇专业文档的 enforcement-review 参考实现完全落地，含 109 节点 479 边关系图谱、6 页 00_首页/运营看板、7 行业适配器数据同步
+- **ACE 原文指针铁律** — `ace_review.py` v3.0 强制指针+按需展开替代全文入库，raw/ 保持只读不可篡改
+- **4 项方法论迭代** — status 字段修复、strict 强制执行模式、引用追踪链、知识缺口自动检测
+- **Lint 增强 4 项检查** — 新增 index 自动同步、frontmatter 完整性、wikilink 有效性、命名规范检查
+- **raw 入仓时间戳** — 每次文件采集自动记录入仓时间，每日采集记录自动生成
+- **Playbook 模板增强** — coverage 报告新增类型建议，场景模板更完善
+- **行业路由完整性** — 7 行业适配器路由覆盖验证，限值表标准化
+
+### 修复
+- 修复入仓时间戳插入逻辑，消除重复 `updated` 字段
+- 刷新 00_首页/6 页 enforcement-review 运营数据（109 节点 479 边）
+
+### 变更
+- **仓库治理** — 从仓库彻底移除知识库内容文件，`.gitignore` 添加路径防护规则，确保方法论项目与用户知识库严格分离
+- 参考实现数据同步到 `raw/enforcement-review/` 路径
+
+### 数据
+- 执法督察评查知识库：155 篇文档 / 109 节点 / 479 边 / 85%+ 可路由率
+- 测试覆盖：13 脚本全绿 / 5 知识库全通过 / CI lint 零告警
+
+## [0.3.0] - 2026-07-20
+
+### P0 新增（竞品研究驱动 · 1-2天迭代）
+- **全局 Skill 部署** — `.skills/wiki-query/SKILL.md` + `.skills/wiki-update/SKILL.md` + `_scripts/setup.sh`，一键安装到 8 个 Agent 路径（Claude Code/Gemini CLI/Codex/Hermes/OpenClaw/Copilot CLI/Kiro/OpenCode），知识可跨项目流动
+- **`_raw/` 快速暂存** — `_scripts/ingest_pipeline.py --quick`，TRIAGE 级浅层过滤，支持 stdin/--file/--text 三种输入，content-hash 去重幂等
+- **GEMINI.md + HERMES.md** — 新增 Gemini CLI 和 Hermes 核验 Agent 引导文件，Agent 兼容性 4→8
+
+### P1 新增（伴侣式记忆驱动 · 3-5天迭代）
+- **记忆衰减机制** — `_scripts/decay.py`，生命力公式（recency + frequency + utility + gravity - wear_penalty），引力保护底线条目免衰减，低价值条目压缩为摘要，归档为终态不删除
+- **少数派分支** — ACE v3.0 新增 `.memory/minority/` 矛盾缓存机制，V4（单源矛盾→Buffer）→ V5（多源多周期≥3→Compensate），矛盾不静默抹平
+- **冲突路由矩阵** — SCHEMA §10 新增 7 种冲突类型的明确路由规则（Mirror/Compensate/Buffer/AUDIT override/External correction），附缓冲压力管道图
+- **git-snapshot 防御性写入** — ACE v3.0 写入前自动 git stash，异常时 git stash pop 回滚（参考 Ar9av v2026.07.6）
+
+### 变更
+- SCHEMA.md 版本 2.1→2.2：新增 §10 冲突路由矩阵、L6 Agent 数量 4→8
+- AGENTS.md 触发词更新：新增 gemini/hermes/opencode/aider/droid
+- `_scripts/ace_review.py` v2.0→v3.0：新增 minority branch + git-snapshot + dedup bug 修复
+
+### 参考
+- 竞品深度研究：Ar9av/obsidian-wiki (2,928 Stars) + 伴侣式记忆论文 (Miteski 2026)
+- 完整研究：`junge-hermes/监控日报/竞品深度研究-Ar9av与伴侣式记忆-2026-07-20.md`
+
+---
+
 ## [0.2.0] - 2026-07-18
 
 ### 新增
