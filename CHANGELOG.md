@@ -7,6 +7,24 @@ FlowWiki 的所有重要变更都会记录在此文件中。
 
 ---
 
+## [0.4.1] - 2026-07-22
+
+### 新增
+- **VERIFY-BEFORE-WRITE 引用验证机制** — `ace_review.py` v3.1 新增 `phase_verify_references()`（引自 Ekgardt/llm-wiki + swarmvault 模式），在写入 wiki/ 前逐条验证 source 引用是否可追溯到 raw/ 原始文件
+- **隔离区（Quarantine）** — 验证失败的内容自动隔离到 `wiki/_quarantine/`，附带完整验证报告，等待人工审核
+- **引用提取与虚构检测** — 5 种引用模式自动提取（wikilink/raw_path/explicit_ref/sources_field/relative_raw_path），3 种虚构引用模式检测
+- **隔离区审查模式** — `--audit-quarantine` 命令列出所有待审核隔离内容及其验证分数
+
+### 变更
+- `ace_review.py` v3.0 → v3.1：ACE 循环新增 Verifier 阶段（Generator → Reflector → **Verifier** → Curator → GapLearner）
+- `--no-verify-references` 参数：可跳过引用验证（默认开启）
+- ACE 决策新增 `quarantined` 状态
+
+### 修复
+- 修复 `phase_generator` 函数定义缺失的 bug
+
+---
+
 ## [0.4.0] - 2026-07-20
 
 ### 新增
@@ -25,6 +43,7 @@ FlowWiki 的所有重要变更都会记录在此文件中。
 ### 变更
 - **仓库治理** — 从仓库彻底移除知识库内容文件，`.gitignore` 添加路径防护规则，确保方法论项目与用户知识库严格分离
 - 参考实现数据同步到 `raw/enforcement-review/` 路径
+- **方法论文档同步**（v0.4.0 post-release）— SCHEMA.md v2.2→v2.3（新增 §8-13 共 6 节：Lint增强/Strict模式/引用追踪链/缺口检测/入仓时间戳/行业路由）、README.md 数据更新（Agent 5→8、测试数据 109节点479边）、spec/design.md v1.1→v1.2（新增决策 7-10）
 
 ### 数据
 - 执法督察评查知识库：155 篇文档 / 109 节点 / 479 边 / 85%+ 可路由率
