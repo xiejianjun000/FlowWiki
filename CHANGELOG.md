@@ -7,6 +7,38 @@ FlowWiki 的所有重要变更都会记录在此文件中。
 
 ---
 
+---
+
+## [0.5.0] - 2026-07-23
+
+### 新增
+- **OKF 兼容层** — `okf_export.py` + `okf_import.py` 实现 Open Knowledge Format 可移植知识交换
+  - 导出：wiki/ → OKF bundle（okf.json 清单 + pages/ Markdown + SHA256SUMS 完整性校验）
+  - 导入：外部 OKF bundle → 隔离区审核（`--trusted` 直接导入，`--force` 覆盖冲突）
+  - 对齐 atomicstrata/llm-wiki-compiler v1.1.0 OKF 标准 + Google Cloud 新兴标准
+- **VERIFY-BEFORE-WRITE 独立工具** — `verify_before_write.py` 6 级引用验证门控
+  - L1 引用来源追溯（sources → raw/ 文件存在性）
+  - L2 虚构引用检测（正文 raw/ 路径真实性）
+  - L3 Frontmatter 完整性（必填字段 + 值域校验）
+  - L4 Wikilink 有效性（目标页面存在性）
+  - L5 内容新鲜度（来源修改时间 > 365 天告警）
+  - L6 交叉引用一致性（预留）
+  - 验证失败自动隔离到 `wiki/_quarantine/`
+- **OKF 配置项** — `config.toml` 新增 `[okf]` 段
+
+### 变更
+- README 竞品全景表更新至 2026-07-23，加入 OKF 维度
+- GitHub 同类项目对比表新增 OKF 行（维度数 9 → 10）
+- 竞品数据刷新：nashsu/llm_wiki 13.7K Stars、Ar9av/obsidian-wiki 2.9K Stars/36 skills、atomicstrata v1.1.0 OKF+Ed25519
+
+### 竞品驱动
+- 引自 atomicstrata/llm-wiki-compiler v1.1.0 OKF 开放知识格式标准
+- 引自 Ekgardt/llm-wiki VERIFY-BEFORE-WRITE 防御性写入机制
+- 引自 GBrain v0.42.61.0 每日迭代节奏
+
+---
+
+
 ## [0.4.1] - 2026-07-22
 
 ### 新增

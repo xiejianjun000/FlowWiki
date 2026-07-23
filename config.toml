@@ -60,6 +60,13 @@ switch_enabled = true
 lang = "zh"
 auto_detect = true
 
+[okf]
+# OKF（Open Knowledge Format）— 可移植知识交换格式（对齐 llm-wiki-compiler v1.x + Google Cloud 标准）
+enabled = true
+export_dir = "./okf_export"
+auto_import_quarantine = true
+verify_signature = false
+
 [storage]
 path = "./storage"
 backup_enabled = true

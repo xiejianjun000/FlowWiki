@@ -5,7 +5,7 @@
 [![CI](https://github.com/xiejianjun000/FlowWiki/actions/workflows/ci.yml/badge.svg)](https://github.com/xiejianjun000/FlowWiki/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Specs](https://img.shields.io/badge/Specs-7%E9%98%B6%E6%AE%B5-blue)](./spec/)
-[![Agents](https://img.shields.io/badge/Agents-5%E5%AE%B6%E5%85%BC%E5%AE%B9-green)](./CLAUDE.md)
+[![Agents](https://img.shields.io/badge/Agents-8%E5%AE%B6%E5%85%BC%E5%AE%B9-green)](./CLAUDE.md)
 [![Scenes](https://img.shields.io/badge/Scenes-L7%E5%8F%AF%E6%8F%92%E6%8B%94-orange)](./storage/)
 
 ---
@@ -71,7 +71,7 @@
 | 无人类入口 | **双索引** — 机器走 `wiki/index.md`，人类走 `00_首页/` 6 板块 MOC | L1 |
 | 知识不复利 | **任务→知识→Skill 三元组** — 高频任务自动抽象为 O(1) 调用的 skill | L5 |
 | 变更不可追溯 | **SpecCoding 七阶段** — 每个变更走 `openspec/changes/` | L3 |
-| 单平台绑定 | **多 agent bootstrap** — CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md | L6 |
+| 单平台绑定 | **多 agent bootstrap** — CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md + GEMINI.md + HERMES.md（8 家 agent） | L6 |
 
 ---
 
@@ -80,16 +80,17 @@
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │ L7 场景层（业务外壳，可插拔）                                    │
-│   通用 7 场景（根因分析/合规审查/证照管理/...）/ 任意领域场景      │
+│   7 行业适配器（enforcement-review / enterprise-compliance / ...） │
 ├──────────────────────────────────────────────────────────────┤
 │ L6 多 agent 接手层                                              │
-│   CLAUDE.md (Claude Code) + AGENTS.md (Codex/Amp/Gemini/WorkBuddy) │
+│   CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md               │
+│   + GEMINI.md + HERMES.md（8 家 agent 兼容）                      │
 ├──────────────────────────────────────────────────────────────┤
 │ L5 Skill 化层                                                   │
-│   4 操作 skill (ingest/query/lint/research) + 高频任务自动抽象    │
+│   5 操作 skill (ingest/query/lint/research/fulltext) + 高频任务自动抽象    │
 ├──────────────────────────────────────────────────────────────┤
 │ L4 Agent 记忆层 ★ FlowWiki 独有                                  │
-│   A-MEM 卡片（Zettelkasten）+ ACE 反思循环（三 agent 制约）        │
+│   A-MEM 卡片（Zettelkasten）+ ACE 反思循环 + 少数派分支 + 缺口检测   │
 ├──────────────────────────────────────────────────────────────┤
 │ L3 Spec-Driven 层                                                │
 │   spec/ 全局设计 + openspec/changes/<name>/ 单任务变更             │
@@ -103,6 +104,27 @@
 ```
 
 详细设计见 [spec/design.md](./spec/design.md)。
+
+---
+
+## OKF 兼容（v0.5.0 新增）
+
+FlowWiki v0.5.0 起支持 **OKF（Open Knowledge Format）** — 由 llm-wiki-compiler v1.1.0 定义的可移植知识交换格式，对齐 Google Cloud 新兴标准。OKF 是 LLM Wiki 领域的「POSIX」：
+
+```bash
+# 导出 wiki/ 为 OKF bundle（可供其他 LLM Wiki 工具消费）
+python _scripts/okf_export.py
+
+# 导入外部 OKF bundle（默认进入隔离区审核）
+python _scripts/okf_import.py --input ./external-bundle
+
+# 受信任的 bundle 直接导入
+python _scripts/okf_import.py --input ./bundle --trusted
+```
+
+- 导出产物：`okf.json` 清单 + `pages/` Markdown 页面 + `SHA256SUMS` 完整性校验
+- 导入安全：非 trusted 模式自动隔离到 `wiki/_quarantine/`，审核后放行
+- 跨工具兼容：与 llm-wiki-compiler、swarmvault 等支持 OKF 的系统互操作
 
 ---
 
@@ -167,9 +189,10 @@ python _scripts/graph.py --format stats --industry enforcement-review
 | 指标 | 值 |
 |------|-----|
 | raw/ | 155 篇原始资料 |
-| wiki/ | 98 节点知识图 |
+| wiki/ | 109 节点 / 479 边知识图谱 |
+| 可路由率 | ≥ 85%（Hermes 红线达标） |
 | Hermes | 8-9 / 10 pass |
-| 三验 | lint 0 + graph 0 孤立 + hermes pass |
+| 三验 | lint 0 告警 + graph 0 孤立 + hermes pass |
 
 详见 [TESTING.md](./TESTING.md)
 
@@ -188,7 +211,10 @@ bash _scripts/setup.sh
 
 # 选择你的 agent bootstrap
 # Claude Code → 读 CLAUDE.md
-# Codex / Gemini / WorkBuddy → 读 AGENTS.md
+# Codex / Amp → 读 AGENTS.md
+# Gemini CLI → 读 GEMINI.md
+# Hermes → 读 HERMES.md
+# WorkBuddy → 读 WORKBUDDY.md
 
 # 投入第一篇 raw
 mkdir -p raw/articles
@@ -245,10 +271,11 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 |------|--------------|--------------|
 | **ingest** | 单 agent 生成摘要 | ★ ACE 三 agent 反思循环 + A-MEM 卡片生成 |
 | **query** | 读 index + 加载相关页 | ★ 答案回存 episodic + 检查是否值得抽象 skill |
-| **lint** | 扫结构（悬空/孤儿/缺口） | ★ 加扫矛盾未解决 + confidence 不匹配 |
+| **lint** | 扫结构（悬空/孤儿/缺口） | ★ 加扫矛盾未解决 + confidence 不匹配 + 4 项新检查（index同步/frontmatter/wikilink/命名） |
 | **research** | （Karpathy 未定义） | ★ 跨页综合研究 + 自动生成 comparison 页 |
+| **fulltext** | （FlowWiki 原创） | ★ 按需加载 raw/ 全文，配套原文指针铁律，避免双写 |
 
-每个操作有对应的 `.claude/skills/<op>/SKILL.md` 和 `.agents/skills/<op>/SKILL.md`，5 家 agent 都能直接调用。
+每个操作有对应的 `.claude/skills/<op>/SKILL.md` 和 `.agents/skills/<op>/SKILL.md`，8 家 agent 都能直接调用。
 
 ---
 
@@ -274,7 +301,7 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 |------|------------------|-----------|---------|------------|
 | 知识复利 | ✅ | ❌ | ❌ | ✅ |
 | 人类 UX | ❌ | ✅ | ❌ | ✅ 双索引 |
-| AI 接手友好 | 🟡 仅 Claude | ❌ | ❌ | ✅ 5 家 agent |
+| AI 接手友好 | 🟡 仅 Claude | ❌ | ❌ | ✅ 8 家 agent |
 | 防幻觉 | ❌ lint 只扫结构 | N/A | ❌ | ✅ ACE 三 agent |
 | 跨会话记忆 | ❌ | ❌ | 🟡（向量库） | ✅ A-MEM 卡片 |
 | 变更追溯 | ❌ | ❌ | ❌ | ✅ SpecCoding |
@@ -285,26 +312,27 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 
 | 能力 | FlowWiki | llm-wiki-agent | claude-obsidian | llm-wiki-compiler | synthadoc |
 |------|:-:|:-:|:-:|:-:|:-:|
-| 防幻觉机制 | ACE 三 agent | 矛盾标记 | 无 | 无 | Pre-LLM 净化 |
+| 防幻觉机制 | ACE 三 agent + **VBFW** | 矛盾标记 | review policy | VERIFY-BEFORE-WRITE | Pre-LLM 净化 |
 | 跨会话记忆 | A-MEM 卡片 | 无 | Hot Cache | 无 | 无 |
-| 多 agent 兼容 | 5 家 agent | 3 家 | 仅 Claude | 仅 Claude | 3 家 |
+| 多 agent 兼容 | 8 家 agent | 3 家 | 仅 Claude | 仅 Claude | 3 家 |
 | 人类 UX | 双索引 6 板块 | 无 | Obsidian 原生 | 桌面 GUI | Web UI |
 | 业务可插拔 | L7 场景外壳 | 无 | 无 | 无 | 无 |
 | 变更追溯 | SpecCoding | 无 | 无 | 无 | 无 |
 | 知识复利到能力 | 任务→知识→Skill | 无 | 无 | 无 | 无 |
 | 自适应检索 | BM25→graphrag→LightRAG | 无 | 混合检索 | BM25 | 知识图谱 |
 | 矛盾追踪 | conflict/ 目录 | 标记不追踪 | 无 | 无 | 无 |
+| OKF 知识交换 | ✅ v0.5.0 | 无 | 无 | ✅ v1.1.0 | 无 |
 
-> **FlowWiki 是唯一同时覆盖以上 9 个维度的项目。**
+> **FlowWiki 是唯一同时覆盖以上 10 个维度的项目。**
 
-### 2026 Q3 竞品全景（截至 2026-07-18）
+### 2026 Q3 竞品全景（截至 2026-07-23）
 
 | 项目 | Stars | 定位 | 核心亮点 | FlowWiki 对比 |
 |------|-------|------|----------|-------------|
 | **nashsu/llm_wiki** | 14.8K | 桌面 GUI 应用 | Tauri+React GUI，Louvain 图谱聚类，Chrome 剪藏，MCP | FlowWiki 无 GUI 但方法论更深 |
 | **SamurAIGPT/llm-wiki-agent** | 3.2K | 多 Agent Skill 包 | Agent-agnostic，Git 版本控制，知识图谱可视化 | FlowWiki 的 ACE 是其没有的防幻觉层 |
-| **Ar9av/obsidian-wiki** | 2.9K | 完整框架 | 13 skill 文件，Delta tracking，图片编译，多 AI 兼容 | FlowWiki 有 ACE+A-MEM，但缺少技能数量 |
-| **atomicstrata/llm-wiki-compiler** | 1.8K | npm 知识编译器 | OKF 格式，eval harness，MCP Server，review policy | 最接近 FlowWiki 品质控制理念的竞品 |
+| **Ar9av/obsidian-wiki** | 2.9K | 完整框架 | 36 skill 文件，Delta tracking，图片编译，PyPI 包，15+ Agent 兼容，@name 多 vault 路由 | FlowWiki 有 ACE+OKF+VERIFY-BEFORE-WRITE，但技能数量较少 |
+| **atomicstrata/llm-wiki-compiler** | 1.5K | npm 知识编译器 | OKF 格式，eval harness，MCP Server，review policy，**Ed25519 签名模板分发** | 最接近 FlowWiki 品质控制理念的竞品；FlowWiki v0.5.0 已支持 OKF 互操作 |
 | **lucasastorian/llmwiki** | 1.4K | Web 托管 | llmwiki.app 在线服务，Chrome 扩展，自动维护 | FlowWiki 本地优先，数据主权更好 |
 | **agentmemory** | 22K | Agent 持久记忆 | MCP 集中式记忆，BM25+向量+图谱三流检索，自动遗忘 | FlowWiki 的 A-MEM 卡片更轻量，零依赖 |
 | **mem0** | 22K | 通用记忆层 | 生产级 SDK/API，LongMemEval=94.8，托管服务 | FlowWiki 面向方法论用户，mem0 面向开发者 |
@@ -322,9 +350,9 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 | 知识格式 | Markdown + YAML frontmatter | 人类可读、Obsidian 兼容 |
 | 检索 L2 | BM25 + CJK 分词 → nano-graphrag → LightRAG | 自适应三档，按规模自动切换 |
 | 记忆 L4 | A-MEM Zettelkasten 卡片 | 跨会话持久化，零数据库依赖 |
-| 防幻觉 L4 | ACE Generator→Reflector→Curator | 三 agent 制约，ingest 时拦截错误 |
+| 防幻觉 L4 | ACE Generator→Reflector→Curator + Strict 模式 + 原文指针铁律 | 三 agent 制约 + 强制校验，ingest 时拦截错误 |
 | 变更管理 L3 | OpenSpec + SpecCoding 七阶段 | 可追溯，每个变更有提案/执行/归档 |
-| Agent 兼容 L6 | CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md | 5 家 agent 通吃 |
+| Agent 兼容 L6 | CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md + GEMINI.md + HERMES.md | 8 家 agent 通吃 |
 | Skill 分发 L5 | .agents/skills/ + .claude/skills/ 双部署 | 同一 skill 两套格式 |
 | 可视化 | Obsidian Graph View + Dataview | 零额外依赖 |
 | 部署 | Docker + docker compose | 一键启动 |
@@ -418,7 +446,7 @@ RAG 是解释器——每次查询都重新推导，结果不持久化。FlowWik
 
 ### FlowWiki 支持哪些 AI agent？
 
-5 家：Claude Code（读 CLAUDE.md）、Codex（读 AGENTS.md）、Gemini CLI（读 AGENTS.md）、Amp（读 AGENTS.md）、WorkBuddy（读 WORKBUDDY.md）。所有 agent 共享同一套 skill（.agents/skills/ 和 .claude/skills/ 双部署），换 agent 不丢知识库。
+8 家：Claude Code（读 CLAUDE.md）、Codex（读 AGENTS.md）、Gemini CLI（读 GEMINI.md）、Amp（读 AGENTS.md）、WorkBuddy（读 WORKBUDDY.md）、Hermes（读 HERMES.md）、OpenCode、Aider。所有 agent 共享同一套 skill（.agents/skills/ 和 .claude/skills/ 双部署），换 agent 不丢知识库。
 
 ### FlowWiki 是 Obsidian 插件吗？
 
