@@ -59,6 +59,7 @@ REDLINES = {
     "D11_raw_coverage":       {"min": 0.70, "label": "覆盖率(raw→wiki)"},
     "D12_anti_hallucination": {"min": 0.90, "label": "反幻觉率"},
     "D13_dangling":            {"max": 0.05, "label": "悬空链接率"},
+    "D14_fault_tolerance":     {"min": 0.90, "label": "抗断裂度"},
 }
 
 
@@ -281,14 +282,49 @@ def compute_graph_metrics(stats: dict, page_slugs: set) -> dict:
                         queue.append(neighbor)
             max_component = max(max_component, component_size)
 
+    # 关节点检测 — 删除会导致图断裂的节点
+    articulation_points = set()
+    disc = {}
+    low = {}
+    parent = {}
+    visited_ap = set()
+    timer = [0]
+
+    def dfs_ap(u):
+        children = 0
+        visited_ap.add(u)
+        timer[0] += 1
+        disc[u] = low[u] = timer[0]
+        for v in adj.get(u, set()):
+            if v not in visited_ap:
+                children += 1
+                parent[v] = u
+                dfs_ap(v)
+                low[u] = min(low[u], low.get(v, float('inf')))
+                if parent.get(u) is not None and low.get(v, 0) >= disc.get(u, 0):
+                    articulation_points.add(u)
+            elif v != parent.get(u):
+                low[u] = min(low[u], disc.get(v, float('inf')))
+        if parent.get(u) is None and children > 1:
+            articulation_points.add(u)
+
+    for node in page_slugs:
+        if node not in visited_ap:
+            dfs_ap(node)
+
+    fault_tolerance = total - len(articulation_points)
+
     return {
         'bidirectional_rate': round(bidirectional / total * 100, 1),
         'connectivity': round(max_component / total * 100, 1),
         'orphan_rate': round(orphans / total * 100, 1),
+        'fault_tolerance': round(fault_tolerance / total * 100, 1),
         'total_nodes': total,
         'bi_nodes': bidirectional,
         'orphan_nodes': orphans,
         'max_component_size': max_component,
+        'articulation_points': len(articulation_points),
+        'fault_tolerant_nodes': fault_tolerance,
     }
 
 
@@ -318,6 +354,7 @@ def compute_scores(stats: dict, graph: dict) -> dict:
         ),
         'D12_anti_hallucination': round(stats['has_line_refs'] / total * 100, 1),
         'D13_dangling': round(len(stats['dangling_links']) / max(stats['has_wikilink'] * 3, 1) * 100, 1) if stats['has_wikilink'] > 0 else 0,
+        'D14_fault_tolerance': graph['fault_tolerance'],
     }
 
     # 综合健康度
@@ -401,6 +438,9 @@ def format_report(stats: dict, scores: dict, graph: dict, wiki_path: str):
     dangling_icon = '✅' if scores['D13_dangling'] <= 5 else '❌'
     print(f"  {'D13 悬空链接率':<18s} {scores['D13_dangling']:>6.1f}%  {dangling_icon}  "
           f"(悬空 wikilink: {len(stats['dangling_links'])} 个 — 越低越好)")
+    fault_icon = '✅' if scores['D14_fault_tolerance'] >= 90 else '❌'
+    print(f"  {'D14 抗断裂度':<18s} {scores['D14_fault_tolerance']:>6.1f}%  {fault_icon}  "
+          f"(非关节点: {graph['fault_tolerant_nodes']}/{graph['total_nodes']} — 删除任一节点图不裂)")
     print()
 
     # ── 红线汇总 ──
