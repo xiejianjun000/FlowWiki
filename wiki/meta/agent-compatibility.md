@@ -126,3 +126,8 @@ FlowWiki 设计为多 Agent 兼容，支持以下 Agent 平台：
 - 支持更多 Agent 平台（如 AutoGPT、BabyAGI 等）
 - 设计 MCP server 接口
 - 实现 Agent 间自动切换
+
+## 关联概念
+
+- [[智能体记忆四层架构]]
+- [[数据溯源链路]]

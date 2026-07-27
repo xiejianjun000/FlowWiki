@@ -1,144 +1,182 @@
 #!/usr/bin/env bash
-# ─────────────────────────────────────────────────────────────
-# FlowWiki 安装脚本 — 自动检测区域 + 生成本地化目录
-# ─────────────────────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────
+# FlowWiki setup.sh — 全局 Skill 部署脚本
+# 将 wiki-query 和 wiki-update 安装到所有 Agent 的发现路径，
+# 让用户在任何项目中都能操作 FlowWiki 知识库。
+#
+# 借鉴来源：Ar9av/obsidian-wiki 的 setup.sh
+# 创建时间：2026-07-20
+# ──────────────────────────────────────────────────────────
+
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+FLOWWIKI_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+SKILLS_SRC="$FLOWWIKI_ROOT/.skills"
+CONFIG_DIR="$HOME/.flowwiki"
+CONFIG_FILE="$CONFIG_DIR/config"
 
-echo "╔══════════════════════════════════════════╗"
-echo "║       FlowWiki 安装向导 v0.2.0          ║"
-echo "╚══════════════════════════════════════════╝"
+# ── ANSI 颜色 ──
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+echo -e "${CYAN}══════════════════════════════════════════${NC}"
+echo -e "${CYAN}  FlowWiki 全局 Skill 部署工具${NC}"
+echo -e "${CYAN}  FlowWiki 根目录: ${FLOWWIKI_ROOT}${NC}"
+echo -e "${CYAN}══════════════════════════════════════════${NC}"
 echo ""
 
-# ── Step 1: 检测 Python ──
-PYTHON=""
-for candidate in python3.13 python3.12 python3.11 python3; do
-    if command -v "$candidate" &>/dev/null; then
-        PYTHON="$candidate"
-        break
+# ── 步骤 1：写入配置文件 ──
+echo -e "${YELLOW}[1/4]${NC} 写入配置文件 → ${CONFIG_FILE}"
+mkdir -p "$CONFIG_DIR"
+cat > "$CONFIG_FILE" <<EOF
+# FlowWiki 全局配置
+# 由 setup.sh 自动生成于 $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+flowwiki_root: $FLOWWIKI_ROOT
+skills_dir: $SKILLS_SRC
+
+# 行业标识（执法督察评查知识库）
+industry: enforcement-review
+
+# 多 vault 支持（使用 @name 前缀切换）
+# 格式: vaults.<name>.root
+vaults:
+  default:
+    root: $FLOWWIKI_ROOT
+EOF
+echo -e "  ${GREEN}✓${NC} 配置已写入"
+
+# ── 步骤 2：符号链接 Skill 到所有 Agent 路径 ──
+echo ""
+echo -e "${YELLOW}[2/4]${NC} 安装全局 Skill 到 Agent 发现路径..."
+
+# 定义所有 Agent 的 skill 路径 (路径)
+AGENT_SKILL_DIRS=(
+    "$HOME/.claude/skills"
+    "$HOME/.gemini/skills"
+    "$HOME/.codex/skills"
+    "$HOME/.hermes/skills"
+    "$HOME/.openclaw/skills"
+    "$HOME/.copilot/skills"
+    "$HOME/.kiro/skills"
+    "$HOME/.agents/skills"
+)
+
+SKILLS=("wiki-query" "wiki-update")
+installed_count=0
+
+for skill in "${SKILLS[@]}"; do
+    skill_src="$SKILLS_SRC/$skill"
+    if [[ ! -d "$skill_src" ]]; then
+        echo -e "  ${RED}✗${NC} 技能源缺失: $skill_src"
+        continue
+    fi
+
+    for target_dir in "${AGENT_SKILL_DIRS[@]}"; do
+        mkdir -p "$target_dir"
+        target_link="$target_dir/$skill"
+
+        # 如果已存在且是符号链接，先删除
+        if [[ -L "$target_link" ]]; then
+            rm -f "$target_link"
+        elif [[ -d "$target_link" ]]; then
+            # 如果是目录而非符号链接，跳过（避免覆盖用户自定义 skill）
+            echo -e "  ${YELLOW}⚠${NC}  $(basename "$(dirname "$target_dir")")/$skill 已存在（非符号链接），跳过"
+            continue
+        fi
+
+        ln -sf "$skill_src" "$target_link"
+        installed_count=$((installed_count + 1))
+        echo -e "  ${GREEN}✓${NC}  $(basename "$(dirname "$target_dir")")/$skill → .../.skills/$skill/"
+    done
+done
+
+# ── 步骤 3：同步到项目本地 skills（.claude/skills/ 和 .agents/skills/） ──
+echo ""
+echo -e "${YELLOW}[3/4]${NC} 同步到项目本地技能目录..."
+
+PROJECT_SKILL_DIRS=(
+    "$FLOWWIKI_ROOT/.claude/skills"
+    "$FLOWWIKI_ROOT/.agents/skills"
+)
+
+for project_dir in "${PROJECT_SKILL_DIRS[@]}"; do
+    mkdir -p "$project_dir"
+    for skill in "${SKILLS[@]}"; do
+        target="$project_dir/$skill"
+        skill_src="$SKILLS_SRC/$skill"
+        if [[ -L "$target" ]]; then
+            rm -f "$target"
+        fi
+        ln -sf "$skill_src" "$target"
+    done
+done
+echo -e "  ${GREEN}✓${NC} 项目本地技能已同步"
+
+# ── 步骤 4：验证 ──
+echo ""
+echo -e "${YELLOW}[4/4]${NC} 验证安装..."
+
+errors=0
+for skill in "${SKILLS[@]}"; do
+    # 检查源文件
+    if [[ -f "$SKILLS_SRC/$skill/SKILL.md" ]]; then
+        echo -e "  ${GREEN}✓${NC} 技能源: .skills/$skill/SKILL.md"
+    else
+        echo -e "  ${RED}✗${NC} 技能源缺失: .skills/$skill/SKILL.md"
+        errors=$((errors + 1))
     fi
 done
 
-if [ -z "$PYTHON" ]; then
-    echo "❌ 需要 Python 3.11+，但系统中未找到。请安装后重试。"
+# 检查配置文件
+if [[ -f "$CONFIG_FILE" ]]; then
+    echo -e "  ${GREEN}✓${NC} 配置文件: $CONFIG_FILE"
+else
+    echo -e "  ${RED}✗${NC} 配置文件缺失: $CONFIG_FILE"
+    errors=$((errors + 1))
+fi
+
+# 检查至少一个 Agent skill 已安装
+claude_skill="$HOME/.claude/skills/wiki-query/SKILL.md"
+if [[ -f "$claude_skill" ]]; then
+    echo -e "  ${GREEN}✓${NC} Claude Code skill 已就绪"
+else
+    echo -e "  ${YELLOW}⚠${NC}  Claude Code skill 未安装（可能 Claude Code 未使用）"
+fi
+
+echo ""
+
+if [[ $errors -eq 0 ]]; then
+    echo -e "${GREEN}══════════════════════════════════════════${NC}"
+    echo -e "${GREEN}  部署成功！${NC}"
+    echo -e "${GREEN}══════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "  已安装的 Skill:"
+    echo -e "    ${CYAN}wiki-query${NC}  — 从任意项目查询 FlowWiki 知识库"
+    echo -e "    ${CYAN}wiki-update${NC} — 将任意项目的知识同步到 FlowWiki"
+    echo ""
+    echo -e "  支持的 Agent:"
+    echo -e "    Claude Code  → ~/.claude/skills/"
+    echo -e "    Gemini CLI   → ~/.gemini/skills/"
+    echo -e "    Codex        → ~/.codex/skills/"
+    echo -e "    Hermes       → ~/.hermes/skills/"
+    echo -e "    OpenClaw     → ~/.openclaw/skills/"
+    echo -e "    Copilot CLI  → ~/.copilot/skills/"
+    echo -e "    OpenCode等   → ~/.agents/skills/"
+    echo ""
+    echo -e "  使用方法:"
+    echo -e "    在任意项目中告诉 Agent:"
+    echo -e "    ${YELLOW}  /wiki-query 行政处罚的程序合法性要点${NC}"
+    echo -e "    ${YELLOW}  /wiki-update 把这段代码的坑记录到知识库${NC}"
+    echo ""
+    echo -e "  卸载:"
+    echo -e "    bash $SCRIPT_DIR/setup.sh --uninstall"
+else
+    echo -e "${RED}══════════════════════════════════════════${NC}"
+    echo -e "${RED}  部署完成但有 $errors 个错误${NC}"
+    echo -e "${RED}══════════════════════════════════════════${NC}"
     exit 1
-fi
-echo "✅ Python: $($PYTHON --version)"
-
-# ── Step 2: 检测区域 ──
-echo ""
-echo "📍 正在检测区域..."
-
-LANG_CODE="$($PYTHON -c "
-import sys; sys.path.insert(0, '$PROJECT_ROOT')
-from _scripts.locale import detect_locale
-print(detect_locale())
-" 2>/dev/null || echo "en")"
-
-if [ "$LANG_CODE" = "zh" ]; then
-    echo "   检测到：中国大陆 🇨🇳 → 使用中文目录名"
-    DISPLAY_DIR="原始资料/ 知识库/ 首页/"
-else
-    echo "   检测到：海外 🌍 → 使用英文目录名"
-    DISPLAY_DIR="raw/ wiki/ 00_首页/"
-fi
-
-# ── Step 3: 写入 config.toml ──
-CONFIG_FILE="$PROJECT_ROOT/config.toml"
-if [ -f "$CONFIG_FILE" ]; then
-    # 检查是否已有 locale 配置
-    if grep -q '\[locale\]' "$CONFIG_FILE" 2>/dev/null; then
-        echo "   config.toml 已有 locale 配置，跳过"
-    else
-        echo "" >> "$CONFIG_FILE"
-        echo "[locale]" >> "$CONFIG_FILE"
-        echo "lang = \"$LANG_CODE\"" >> "$CONFIG_FILE"
-        echo "auto_detect = true" >> "$CONFIG_FILE"
-        echo "✅ locale 配置已写入 config.toml"
-    fi
-fi
-
-# .llm-wiki/config.toml 同步
-LLM_WIKI_CONFIG="$PROJECT_ROOT/.llm-wiki/config.toml"
-if [ -f "$LLM_WIKI_CONFIG" ]; then
-    if ! grep -q '\[locale\]' "$LLM_WIKI_CONFIG" 2>/dev/null; then
-        echo "" >> "$LLM_WIKI_CONFIG"
-        echo "[locale]" >> "$LLM_WIKI_CONFIG"
-        echo "lang = \"$LANG_CODE\"" >> "$LLM_WIKI_CONFIG"
-        echo "auto_detect = true" >> "$LLM_WIKI_CONFIG"
-        echo "✅ locale 配置已同步到 .llm-wiki/config.toml"
-    fi
-fi
-
-# ── Step 4: 生成本地化目录入口 ──
-if [ "$LANG_CODE" != "en" ]; then
-    echo ""
-    echo "📁 正在生成本地化目录入口..."
-
-    CREATED=$($PYTHON -c "
-import sys; sys.path.insert(0, '$PROJECT_ROOT')
-from _scripts.locale import generate_locale_dirs
-from pathlib import Path
-created = generate_locale_dirs(Path('$PROJECT_ROOT'), '$LANG_CODE')
-for c in created[-5:]:
-    print(f'   {c}')
-" 2>&1)
-
-    if [ $? -eq 0 ]; then
-        echo "✅ 本地化目录已生成"
-        echo "$CREATED"
-    else
-        echo "⚠️  本地化目录生成失败（不影响核心功能）"
-    fi
-fi
-
-# ── Step 5: 检查依赖 ──
-echo ""
-echo "🔧 检查依赖..."
-
-if $PYTHON -c "import yaml" 2>/dev/null; then
-    echo "   ✅ PyYAML"
-else
-    echo "   ⚠️  PyYAML 未安装（可选：pip install pyyaml）"
-fi
-
-if $PYTHON -c "import mcp" 2>/dev/null; then
-    echo "   ✅ MCP SDK"
-else
-    echo "   ⚠️  MCP SDK 未安装（可选：pip install mcp 以启用 MCP Server）"
-fi
-
-# ── Step 6: Git 初始化（如果是全新 clone） ──
-if [ -d "$PROJECT_ROOT/.git" ]; then
-    echo "   ✅ Git 仓库已就绪"
-fi
-
-# ── 完成 ──
-echo ""
-echo "╔══════════════════════════════════════════╗"
-echo "║          安装完成！                      ║"
-echo "╠══════════════════════════════════════════╣"
-echo "║  语言:  $LANG_CODE                                  ║"
-echo "║  目录:  $DISPLAY_DIR"
-echo "╠══════════════════════════════════════════╣"
-echo "║  快速开始:                               ║"
-echo "║    mkdir -p raw/articles                 ║"
-echo "║    echo '# 测试' > raw/articles/test.md  ║"
-echo "║    在 AI Agent 中说: 请按 ingest skill   ║"
-echo "║    把 raw/articles/test.md 入库           ║"
-echo "╚══════════════════════════════════════════╝"
-echo ""
-echo "📖 完整文档: https://github.com/xiejianjun000/FlowWiki"
-echo "🐛 反馈问题: https://github.com/xiejianjun000/FlowWiki/issues"
-
-# ── 可选：打开 Obsidian ──
-if command -v open &>/dev/null && [ -d "/Applications/Obsidian.app" ]; then
-    echo ""
-    read -p "❓ 是否用 Obsidian 打开 FlowWiki？(y/n) " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        open -a Obsidian "$PROJECT_ROOT"
-    fi
 fi

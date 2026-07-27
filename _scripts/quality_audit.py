@@ -122,7 +122,8 @@ def audit_wiki_full(wiki_path: str, raw_path: str) -> dict:
     }
 
     cutoff_date = datetime.now() - timedelta(days=30)
-    page_slugs = set()
+    # 先收集所有 page slug（避免文件序增量构建导致的匹配遗漏）
+    page_slugs = set(str(r.with_suffix('')) for r in wiki_pages.keys())
 
     for rel_path, file_path in wiki_pages.items():
         try:
@@ -132,7 +133,6 @@ def audit_wiki_full(wiki_path: str, raw_path: str) -> dict:
             continue
 
         slug = str(rel_path.with_suffix(''))
-        page_slugs.add(slug)
 
         # ── frontmatter 解析 ──
         if not content.startswith('---'):

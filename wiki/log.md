@@ -9,3 +9,4 @@
 | 10:55 | ingest | AI (Generator) | raw/anomaly-detection.md → wiki/concepts/异常检测方法.md | ✅ 通过 ACE |
 | 10:58 | sync | sync_dual_index.py | wiki/index.md | ✅ 更新 |
 | 11:00 | lint | lint.py | wiki/ | ⚠️ 2 warnings |
+## [2026-07-22] ace_review | raw/README.md | accept

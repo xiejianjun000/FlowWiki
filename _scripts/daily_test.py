@@ -26,11 +26,22 @@ from pathlib import Path
 from typing import Any
 
 # ---------------------------------------------------------------------------
-from _scripts.ops_log import ops_log
-
 # Config
 # ---------------------------------------------------------------------------
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+import importlib.util as _importlib_util
+
+def _load_ops_log():
+    """Dynamically load ops_log from _scripts/ops_log.py."""
+    spec = _importlib_util.spec_from_file_location(
+        "ops_log", str(PROJECT_ROOT / "_scripts" / "ops_log.py")
+    )
+    mod = _importlib_util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.ops_log
+
+ops_log = _load_ops_log()
 REPORT_DIR = PROJECT_ROOT / "ops" / "monitoring"
 
 # ── Load Hermes config from config.toml ──
@@ -761,7 +772,7 @@ def generate_report(
             lines.append("|--------|----------|--------|--------|----------|------|")
             for item in ic:
                 icon = "✅" if item["verdict"] == "pass" else "⚠️"
-                lines.append(f"| {item['industry']} | {item['expected_count']} | {item['found_count']} | {item['coverage_pct']}% | {item['inter_density']} | {icon} |")
+                lines.append(f"| {item['industry']} | {item['expected_count']} | {item['found_count']} | {item['coverage_pct']}% | {item.get('inter_density', 'N/A')} | {icon} |")
                 if item.get("missing"):
                     lines.append(f"| ↳ 缺失: {', '.join(item['missing'][:5])} | | | | | |")
 
@@ -881,6 +892,10 @@ def main() -> None:
     logger.info("  JSON:     %s", json_path)
 
     # Exit code
+    p1_total = len(phase1)
+    p1_ok = sum(1 for r in phase1 if r["status"] == "pass")
+    p3_total = len(phase3)
+    p3_pass = sum(1 for r in phase3 if r["overall"] == "pass")
     all_pass = (
         all(r["status"] == "pass" for r in phase1)
         and phase2["status"] == "pass"
