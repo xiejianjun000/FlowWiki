@@ -1,0 +1,27 @@
+---
+title: 关于印发《规范环境行政处罚自由裁量权若干意见》的通知
+category: 外部资料
+subcategory: ''
+source_type: external
+source_path: raw/inbox/online_monitoring_external_v3/backend/experts/case-review/案卷评查知识库/39_规范行政处罚自由裁量权若干意见.md
+created: '2026-07-26'
+updated: '2026-07-26'
+confidence: medium
+status: draft
+ace_review:
+  generator: auto
+  reflector: auto
+  curator: auto
+  ingested_date: '2026-07-26'
+  source_inbox: online_monitoring_external_v3
+tags:
+- - - 环境执法
+---
+
+您访问的链接即将离开生态环境部门户网站，是否继续？
+ 
+
+ 
+ 
+ 继续访问
+ 取消
