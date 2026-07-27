@@ -284,3 +284,36 @@
 - ✅ ACE 工程化集成：VERIFY-BEFORE-WRITE 门控接入 `ingest_pipeline.py`
 - ✅ CHANGELOG v0.6.0 + README 竞品表更新至 7/27（新增 GBrain/OpenWiki/Ekgardt）
 - 验证：flowwiki_init 语法 ✅ | ingest_pipeline 语法 ✅ | flowwiki init + doctor 端到端 ✅
+
+---
+
+## 2026-07-28 执行摘要（第 10 轮）
+
+### 执行状态：成功
+
+### 关键发现
+- FlowWiki: 2 Stars, 1 Fork, 62 views / 19 unique
+- 🚨 **sage-wiki v0.2.0 (Jul 25)** — Go 生态 LLM Wiki 编译器新标杆：HNSW ANN 百万级检索、六语言 README（含中文）、LLM 成本预估、Web UI 加固、独立 RAGAS 评测套件
+- 🚨 **OpenWiki Brains 定义"主动记忆"新阶段** — 六源自动连接（Gmail/Notion/Git/X/HN/Web）+ 定时刷新，LLM Wiki 从"等用户喂"升级到"自己去吃"
+- Ar9av v2026.07.4 (Jul 11)：7月已发布 4 个 release，PyPI 9.7K 月下载，15+ Agent
+- Mem0（61.6K Stars）发布《The State of Agent Wikis》行业分析专栏
+- 🟢 **FlowWiki 首次被中文社区提及** — 掘金 35+ 项目对比文章中出现 FlowWiki
+- 行业认知升级：从"LLM Wiki vs RAG"转向"AI 知识基础设施分层架构"（原始来源/编译/检索/记忆四层分离）
+- atomicstrata/swarmvault 继续静默（可能已进入维护模式）
+
+### 深度反思结论
+1. 竞品领先：主动信源连接(OpenWiki·🔴新弱点)、HNSW 大规模检索(sage-wiki)、定时自动刷新(OpenWiki)、六语言国际化(sage-wiki)、PyPI 分发(Ar9av)、release cadence(Ar9av 4次/月)
+2. FlowWiki 薄弱环节：社区可见性(🔴致命·第七周)、主动信源连接(🔴致命·新弱点)、分发渠道(🔴严重)、自我进化(🔴严重)、评测基准(🟡)、大规模检索落地(🟡)
+3. **P0 下一步：社区破冰**（掘金文章 + awesome-llm-wiki PR）— 第七周
+4. **P0：主动信源连接器**（Git watcher + RSS connector）— 对标 OpenWiki
+5. **P1：sage-wiki 对标**（HNSW 混合检索工程化 + RAGAS 评测）
+6. 竞争格局判断：主动记忆将 LLM Wiki 赛道分为两个时代——手动时代（FlowWiki 所在）和自动时代（OpenWiki 定义）。跨越这道鸿沟是 FlowWiki 生存的关键。
+
+### 差距自动修复
+- 本轮以监控/反思为主，无代码级修复触发
+- P0 项（社区破冰 + 主动信源连接器）为内容创作和功能新增
+- FlowWiki 7 层架构恰好命中"四层分离"行业共识，可作为差异化叙事基础
+
+### 报告位置
+- 监控日报: /Users/mac/Documents/junge-hermes/监控日报/FlowWiki-监控日报-2026-07-28.md
+- 成长日记: /Users/mac/Documents/junge-hermes/成长日记/FlowWiki-成长日记-2026-07-28.md

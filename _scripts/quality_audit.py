@@ -58,6 +58,7 @@ REDLINES = {
     "D10_freshness":          {"min": 0.70, "label": "知识新鲜度"},
     "D11_raw_coverage":       {"min": 0.70, "label": "覆盖率(raw→wiki)"},
     "D12_anti_hallucination": {"min": 0.90, "label": "反幻觉率"},
+    "D13_dangling":            {"max": 0.05, "label": "悬空链接率"},
 }
 
 
@@ -119,6 +120,7 @@ def audit_wiki_full(wiki_path: str, raw_path: str) -> dict:
         'linked_from': defaultdict(set),  # 入链: page_slug → {referrer_slugs}
         'linked_to': defaultdict(set),    # 出链: page_slug → {target_slugs}
         'raw_to_wiki': defaultdict(set),  # raw_file → {wiki_pages}
+        'dangling_links': [],             # 悬空链接: wikilink → 不存在的页面
     }
 
     cutoff_date = datetime.now() - timedelta(days=30)
@@ -201,12 +203,18 @@ def audit_wiki_full(wiki_path: str, raw_path: str) -> dict:
                 stats['linked_to'][slug].add(target_slug)
                 stats['linked_from'][target_slug].add(slug)
             else:
-                # 匹配 'concepts/xxx' 中的 'xxx' 部分
+                matched = False
                 for ps in page_slugs:
                     if ps.endswith('/' + target_slug) or ps == target_slug:
                         stats['linked_to'][slug].add(ps)
                         stats['linked_from'][ps].add(slug)
+                        matched = True
                         break
+                if not matched:
+                    stats['dangling_links'].append({
+                        'from': str(rel_path),
+                        'to': target_slug,
+                    })
 
         # ── 新鲜度 ──
         updated_match = re.search(r'updated:\s*(\d{4}-\d{2}-\d{2})', fm_text)
@@ -309,6 +317,7 @@ def compute_scores(stats: dict, graph: dict) -> dict:
             max(stats['total_raw_sources'], 1) * 100, 1
         ),
         'D12_anti_hallucination': round(stats['has_line_refs'] / total * 100, 1),
+        'D13_dangling': round(len(stats['dangling_links']) / max(stats['has_wikilink'] * 3, 1) * 100, 1) if stats['has_wikilink'] > 0 else 0,
     }
 
     # 综合健康度
@@ -389,6 +398,9 @@ def format_report(stats: dict, scores: dict, graph: dict, wiki_path: str):
           f"(raw→wiki 映射: {stats['total_raw_sources']} 源文件)")
     print(f"  {'D12 反幻觉率':<18s} {scores['D12_anti_hallucination']:>6.1f}%  {'✅' if scores['D12_anti_hallucination'] >= 90 else '❌'}  "
           f"(行号引用≥2处: {stats['has_line_refs']}/{stats['total_pages']} | 总引用: {stats['total_line_refs']} 处)")
+    dangling_icon = '✅' if scores['D13_dangling'] <= 5 else '❌'
+    print(f"  {'D13 悬空链接率':<18s} {scores['D13_dangling']:>6.1f}%  {dangling_icon}  "
+          f"(悬空 wikilink: {len(stats['dangling_links'])} 个 — 越低越好)")
     print()
 
     # ── 红线汇总 ──
@@ -413,8 +425,13 @@ def format_report(stats: dict, scores: dict, graph: dict, wiki_path: str):
     print(f"   {'✅ 全部红线通过' if scores['all_redlines_pass'] else fail_msg}")
 
     # ── 详细问题 ──
+    if stats['dangling_links']:
+        print(f"\n⚠️ 悬空 wikilink (前 5 个) — wikilink 指向不存在的页面:")
+        for dl in stats['dangling_links'][:5]:
+            print(f"   {dl['from']} → [[{dl['to']}]] (页面不存在)")
+
     if stats['dangling_refs']:
-        print(f"\n⚠️ 悬空引用 (前 5 个):")
+        print(f"\n⚠️ 悬空引用 (前 5 个) — sources 指向不存在的文件:")
         for ref in stats['dangling_refs'][:5]:
             print(f"   {ref['page']} → {ref['reference']} (文件不存在)")
 
