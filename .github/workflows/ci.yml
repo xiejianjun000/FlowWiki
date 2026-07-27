@@ -95,3 +95,57 @@ jobs:
           else:
               print('All lint checks passed.')
           "
+
+  quality-gate:
+    name: 12-dimension quality gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Run 12-dimension quality audit
+        id: audit
+        run: python _scripts/quality_audit.py --json > audit-result.json
+
+      - name: Check redline compliance
+        run: |
+          python -c "
+          import json, sys
+          with open('audit-result.json') as f:
+              data = json.load(f)
+
+          scores = data.get('scores', {})
+          redlines = scores.get('redlines', {})
+          all_pass = scores.get('all_redlines_pass', False)
+          health = scores.get('health_score', 0)
+
+          print(f'Health: {health}%')
+          print(f'Redlines: {scores.get(\"passed_count\",0)}/{scores.get(\"total_checks\",12)}')
+
+          fail_count = 0
+          for key, rule in redlines.items():
+              if not rule.get('passed', False):
+                  fail_count += 1
+                  print(f'  ❌ {rule[\"label\"]}: {rule[\"actual\"]} (threshold {rule[\"threshold\"]})')
+
+          if not all_pass:
+              print(f'\n❌ Quality gate FAILED: {fail_count} redline violations')
+              print('Fix violations before merge. Run: python _scripts/quality_audit.py')
+              sys.exit(1)
+          else:
+              print(f'\n✅ Quality gate PASSED: all {scores[\"total_checks\"]} checks')
+          "
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-audit-report
+          path: audit-result.json
+          retention-days: 30
