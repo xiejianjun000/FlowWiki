@@ -2,8 +2,8 @@
 标题: AGENTS.md — FlowWiki 通用 Agent Bootstrap
 layer: 00-导航
 type: schema
-触发词: ["agents", "bootstrap", "codex", "workbuddy", "gemini"]
-适用场景: Codex / Amp / Gemini / WorkBuddy 首次连接知识库时读取
+触发词: ["agents", "bootstrap", "codex", "workbuddy", "gemini", "hermes", "opencode", "aider", "droid"]
+适用场景: Codex / Amp / Gemini / WorkBuddy / Hermes / OpenCode / Aider / Droid 首次连接知识库时读取
 风险等级: 🟡
 version: 1.0
 status: 现行

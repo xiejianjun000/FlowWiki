@@ -4,7 +4,7 @@ title: Agent 兼容矩阵
 created: '2026-07-17'
 updated: '2026-07-17'
 confidence: medium
-sources: []
+sources: ["ai-governance/agent-memory-design.md"]
 tags: [flow-wiki]
 status: draft
 ---
@@ -131,3 +131,10 @@ FlowWiki 设计为多 Agent 兼容，支持以下 Agent 平台：
 
 - [[智能体记忆四层架构]]
 - [[数据溯源链路]]
+
+
+## 溯源引用
+
+> 引用：`../raw/ai-governance/agent-memory-design.md` 第 11 行
+> 引用：`../raw/ai-governance/agent-memory-design.md` 第 13 行
+> 引用：`../raw/ai-governance/agent-memory-design.md` 第 25 行

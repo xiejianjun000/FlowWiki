@@ -19,7 +19,9 @@ articles:
     seq: 2
     title: "让 AI 互相吵架然后裁决──FlowWiki 的 ACE 反思循环如何拦截幻觉"
     topic: "ACE Generator→Reflector→Curator 三 agent 防幻觉机制深度拆解"
-    status: draft
+    status: ready_for_review
+    draft_date: "2026-07-19"
+    draft_file: "ops/publishing/series/drafts/article-02.md"
     relations: ["article-01 提到 ACE 是三大创新之首"]
     key_points:
       - "为什么单个 LLM 不可信──RAG 的 9-40% 幻觉率真相"
@@ -32,7 +34,9 @@ articles:
     seq: 3
     title: "你的 AI 助手总在「失忆」？FlowWiki 的 A-MEM 卡片记忆系统来了"
     topic: "A-MEM Zettelkasten 卡片──跨会话持久化记忆"
-    status: draft
+    status: ready_for_review
+    draft_date: "2026-07-21"
+    draft_file: "ops/publishing/series/drafts/article-03.md"
     relations: ["article-01 提到 A-MEM 是三大创新之二"]
     key_points:
       - "无状态 AI 的致命问题──每次新会话 = 新生儿"
@@ -45,7 +49,9 @@ articles:
     seq: 4
     title: "知识不应该只躺着等被查──FlowWiki 的「任务→知识→Skill」三元组"
     topic: "Skill 化层──知识如何自动变成可调用的能力"
-    status: draft
+    status: ready_for_review
+    draft_date: "2026-07-21"
+    draft_file: "ops/publishing/series/drafts/article-04.md"
     relations: ["article-01 提到 Skill 是三大创新之三"]
     key_points:
       - "Karpathy 的 raw→wiki 两层够吗？知识复利的深水区在哪"
@@ -58,7 +64,9 @@ articles:
     seq: 5
     title: "AI 看 index.md，人类看 6 板块──FlowWiki 的双索引人机协作架构"
     topic: "双索引──兼具 AI 效率与人类可读性的知识入口设计"
-    status: draft
+    status: ready_for_review
+    draft_date: "2026-07-22"
+    draft_file: "ops/publishing/series/drafts/article-05.md"
     relations: ["article-01 提到双索引是解决人类 UX 缺口的方案"]
     key_points:
       - "AI 和人类的信息消费方式根本不同──为什么单索引不够"
@@ -71,8 +79,10 @@ articles:
     seq: 6
     title: "知识库也需要 CI/CD──FlowWiki 的 SpecCoding 变更管理体系"
     topic: "SpecCoding 七阶段 + OpenSpec──让知识库变更像代码一样可追溯"
-    status: draft
-    relations: ["article-01 提到变更追溯是 6 缺口之一"]
+    status: ready_for_review
+    draft_date: "2026-07-23"
+    draft_file: "ops/publishing/series/drafts/article-06.md"
+    relations: ["article-01 提到变更追溯是 6 缺口之一", "结合 v0.5.0 OKF 兼容层实际变更作为案例"]
     key_points:
       - "为什么知识库越用越像黑箱──无追溯的代价"
       - "SpecCoding：接任务 → spec → execute → archive → 复利"
@@ -84,7 +94,9 @@ articles:
     seq: 7
     title: "换 AI 助手不换知识库──FlowWiki 的多 Agent 兼容架构"
     topic: "5 家 Agent 通吃──CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md"
-    status: draft
+    status: ready_for_review
+    draft_date: "2026-07-24"
+    draft_file: "ops/publishing/series/drafts/article-07.md"
     relations: ["article-01 提到多 agent 兼容是 6 缺口之一"]
     key_points:
       - "供应商锁定──AI 基础设施的最大风险"
@@ -97,8 +109,10 @@ articles:
     seq: 8
     title: "同一个架构，不同的行业──FlowWiki 的 L7 场景可插拔设计"
     topic: "场景层──通用骨架 + industry.yaml 业务变量分离"
-    status: draft
-    relations: ["article-01 提到场景可插拔是差异化特性"]
+    status: ready_for_review
+    draft_date: "2026-07-26"
+    draft_file: "ops/publishing/series/drafts/article-08.md"
+    relations: ["article-01 提到场景可插拔是差异化特性", "article-07 多 Agent 兼容自然过渡到场景切换"]
     key_points:
       - "为什么知识库不能一套模板打天下──行业的差异性在哪"
       - "骨肉分离设计：L2-L6 通用骨架，L1+L7 行业专属"
@@ -110,7 +124,9 @@ articles:
     seq: 9
     title: "100 页用 BM25、500 页上 GraphRAG──FlowWiki 的自适应检索策略"
     topic: "L2 检索增强层──规模自适应的三级切换"
-    status: draft
+    status: ready_for_review
+    draft_date: "2026-07-27"
+    draft_file: "ops/publishing/series/drafts/article-09.md"
     relations: ["article-01 提到三档切换是独特设计"]
     key_points:
       - "为什么小规模不需要向量数据库──BM25+CJK 分词就够了"

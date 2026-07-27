@@ -1,0 +1,28 @@
+[    1745ms] [WARNING] 使用兜底 TDK @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/bdfed93.js:0
+[    1849ms] [LOG] [options] {commonOptions: Object, captchaOptions: Object, secondVerifyWebOptions: undefined} @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/c75e2a7.js:1
+[    1921ms] [LOG] %c想要加入稀土掘金？投递简历：https://job.toutiao.com/s/idq6X5rb color:#1e80ff; @ :0
+[    2722ms] [ERROR] parseImageXUrl "tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bKb6ZuoQUk=:q75.awebp" parse error @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3
+[    2726ms] [ERROR] parseImageXUrl "tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5piv5rGf6L-q5ZGA:q75.awebp" parse error @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3
+[    2736ms] [ERROR] parseImageXUrl "tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg56iL5bqP5ZGY5aSn5Y2r:q75.awebp" parse error @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3
+[    2741ms] [ERROR] parseImageXUrl "tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg6J2O5a2Q6I6x6I6x54ix5omT5oCq:q75.awebp" parse error @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3
+[    2748ms] [ERROR] parseImageXUrl "tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bem5rGf5rab:q75.awebp" parse error @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3
+[    2753ms] [ERROR] parseImageXUrl "tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5LiA54K55LiA5pyo:q75.awebp" parse error @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3
+[    2762ms] [ERROR] parseImageXUrl "tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5YmN56uv6Zi_5b2s:q75.awebp" parse error @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3
+[    2765ms] [ERROR] parseImageXUrl "tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg56iL5bqP5ZGY6bG855qu:q75.awebp" parse error @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3
+[    2772ms] [ERROR] parseImageXUrl "tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5oiR5pivQWxsZW4=:q75.awebp" parse error @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3
+[    2775ms] [ERROR] parseImageXUrl "tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgQXNoZXJK:q75.awebp" parse error @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3
+[    2893ms] [LOG] current login_guide login_type {login_type: all} all @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3
+[    3251ms] [ERROR] Access to fetch at 'https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/2bab2ba4400f4f75815e4e44e73e7fa2~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bKb6ZuoQUk=:q75.awebp?rk3s=f64ab15b&x-expires=1784893765&x-signature=UIUsGJCHndwQx5omGFZwpctlt%2Fk%3D' from origin 'https://juejin.cn' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://juejin.cn/:0
+[    3251ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/2bab2ba4400f4f75815e4e44e73e7fa2~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg5bKb6ZuoQUk=:q75.awebp?rk3s=f64ab15b&x-expires=1784893765&x-signature=UIUsGJCHndwQx5omGFZwpctlt%2Fk%3D:0
+[    3252ms] [LOG] [SDK] 1784288966438        0 获取header失败 TypeError: Failed to fetch
+    at fetch (https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/static/rc-client-security-web-glue/1.0.0.19/sdk-glue.js:1:43571)
+    at window.fetch (https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/static/rc-client-security-web-glue/1.0.0.19/sdk-glue.js:1:82234)
+    at window.fetch (https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:4:2194268)
+    at e (https://lf-headquarters-speed.yhgfb-cn-static.com/obj/rc-client-security/web/stable/1.0.0.33/bdms.js:1:214165)
+    at e (https://lf-headquarters-speed.yhgfb-cn-static.com/obj/rc-client-security/web/stable/1.0.0.33/bdms.js:1:213135)
+    at Ts.window.fetch (https://lf-cdn-tos.bytescm.com/obj/rc-verifycenter/sec_sdk_build/4.0.10/captcha/index.js:16:44602)
+    at https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/static/slardar-plugin/imageReport.js:1:7069
+    at o (https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/static/slardar-plugin/imageReport.js:1:3227)
+    at https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/browser.cn.js?bid=2608&globalName=SlardarWeb:1:15681
+    at o (https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/browser.cn.js?bid=2608&globalName=SlardarWeb:1:3178) @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3
+[   10714ms] [LOG] [fpStr] ===> verify_mrovkwwl_6vyqCNW8_M59i_4r69_98Vg_gjQSL51WGWDM @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/2c897f5.js:3

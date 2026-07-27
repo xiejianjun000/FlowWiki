@@ -195,3 +195,9 @@ origin	git@github.com:xiejianjun000/FlowWik
 
 - [[根因分析五步法]]
 - [[异常检测方法]]
+
+
+## 溯源引用
+
+> 引用：`../raw/root-cause/sample-incident-report.md` 第 54 行
+> 引用：`../raw/root-cause/sample-incident-report.md` 第 194 行

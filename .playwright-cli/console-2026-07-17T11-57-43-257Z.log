@@ -1,0 +1,11 @@
+[     991ms] [LOG] [options] {commonOptions: Object, captchaOptions: Object, secondVerifyWebOptions: undefined} @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/20e14d1.js:1
+[    1194ms] [LOG] %c想要加入稀土掘金？投递简历：https://job.toutiao.com/s/idq6X5rb color:#1e80ff; @ :0
+[    1198ms] [LOG] [fpStr] ===> verify_mrovkwwl_6vyqCNW8_M59i_4r69_98Vg_gjQSL51WGWDM @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/20e14d1.js:1
+[  132380ms] [WARNING] 全局错误捕获: null @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/8472b94.js:2
+[  132392ms] Failed to read a named property 'search' from 'Location': Blocked a frame with origin "https://juejin.cn" from accessing a frame with origin "https://juejin.cn". Protocols, domains, and ports must match.
+[  132391ms] [WARNING] 全局错误捕获: null @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/8472b94.js:2
+[  132417ms] Failed to read a named property 'search' from 'Location': Blocked a frame with origin "https://juejin.cn" from accessing a frame with origin "https://juejin.cn". Protocols, domains, and ports must match.
+[  132408ms] [WARNING] 全局错误捕获: null @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/8472b94.js:2
+[  132434ms] Failed to read a named property 'search' from 'Location': Blocked a frame with origin "https://juejin.cn" from accessing a frame with origin "https://juejin.cn". Protocols, domains, and ports must match.
+[  132418ms] [WARNING] 全局错误捕获: null @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/8472b94.js:2
+[  132436ms] Failed to read a named property 'search' from 'Location': Blocked a frame with origin "https://juejin.cn" from accessing a frame with origin "https://juejin.cn". Protocols, domains, and ports must match.

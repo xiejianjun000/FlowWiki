@@ -1,0 +1,3 @@
+{"ts": "2026-07-20T01:56:28.925377", "action": "daily_test", "status": "error", "detail": "FAILED: 13/13 scripts, 5/5 industries", "industry": null, "meta": {"duration": 8.527406}}
+{"ts": "2026-07-20T01:57:18.536677", "action": "daily_test", "status": "ok", "detail": "13/13 scripts, 5/5 industries, 16 nodes", "industry": null, "meta": {"duration": 10.561492}}
+{"ts": "2026-07-20T08:50:38.680128", "action": "daily_test", "status": "ok", "detail": "13/13 scripts, 5/5 industries, 16 nodes", "industry": null, "meta": {"duration": 8.15867}}

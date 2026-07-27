@@ -5,7 +5,7 @@ type: spec
 触发词: ["架构", "设计", "flowwiki", "7层"]
 适用场景: 理解本库的架构设计与关键决策
 风险等级: 🟡
-version: 1.1
+version: 1.2
 status: 现行
 tags: [10-元文档, 🟡常规, spec, 现行]
 confidence: high
@@ -19,10 +19,10 @@ sources: []
 ## 7 层总览
 
 ```
-L7 场景层      执法督察评查（enforcement-review）
-L6 多Agent层   CLAUDE.md / AGENTS.md / CODEX.md
-L5 Skill化层   .agents/skills/ + .claude/skills/（4操作+8行业+1全文加载）
-L4 记忆层      .memory/（zettelkasten / episodic / conflict / ace / gaps / ops）
+L7 场景层      7 行业适配器可插拔（enforcement-review 等）
+L6 多Agent层   CLAUDE.md / AGENTS.md / CODEX.md / WORKBUDDY.md / GEMINI.md / HERMES.md
+L5 Skill化层   .agents/skills/ + .claude/skills/（5操作+8行业+1全文加载）
+L4 记忆层      .memory/（zettelkasten / episodic / conflict / ace / gaps / minority / ops）
 L3 变更治理    spec/ + openspec/changes/
 L2 检索增强    config.toml（BM25→nano-graphrag→LightRAG）
 L1 知识编译    raw/ + wiki/ + 首页/
@@ -88,6 +88,30 @@ L1 知识编译    raw/ + wiki/ + 首页/
 | 混合模式 | 渐进迁移 | 两套规则并行，复杂度高 |
 
 本库采用方案 2：指针+按需展开。
+
+### 决策 7：Strict 强制执行模式（v1.2 新增）
+
+**问题**：默认 ACE 模式下 Curator 对指针缺失、三空字段等问题仅警告，不阻止入库。这导致质量问题累积，后续 Hermes 核验时才发现。
+
+**方案**：新增 `--strict` 标志，启用后 Curator 对指针缺失/三空字段/格式错误/全文搬运零容忍，直接阻止 ingest 完成。生产环境强制启用 strict 模式。
+
+### 决策 8：引用追踪链 + 知识缺口检测（v1.2 新增）
+
+**问题**：单层指针（wiki→raw）无法保证 raw 文件本身的来源可靠性，且 ingest 时无法发现知识体系的结构性空白。
+
+**方案**：建立 wiki → raw → sources 三层引用链，lint 逐环节检查；ACE Curator 在 ingest 时自动检测术语/法条/场景/覆盖四类缺口，生成 `.memory/gaps/` 待补充清单。
+
+### 决策 9：raw/ 入仓时间戳（v1.2 新增）
+
+**问题**：raw/ 文件缺少入仓元数据，无法追溯文件采集时间和变更历史。
+
+**方案**：`ace_review.py` v3.0 自动为每个入仓文件追加 `ingested` 时间戳（ISO 8601），每日采集记录自动生成 `raw/.log/`。`ingested` 字段由脚本自动设置不可手动修改，`updated` 仅内容变化时更新（无重复写入）。
+
+### 决策 10：7 行业适配器路由（v1.2 新增）
+
+**问题**：L7 场景层声明了 7 个行业场景，但缺少路由验证机制确保所有适配器可达。
+
+**方案**：每个行业适配器通过 `industry.yaml` 声明 raw/ + wiki/ 路径前缀、专属 Skill 列表、限值表路径。`bootstrap.py` 启动时验证所有适配器路由可达。
 
 ## 风险与权衡
 

@@ -1,0 +1,5 @@
+[     663ms] [LOG] [options] {commonOptions: Object, captchaOptions: Object, secondVerifyWebOptions: undefined} @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/20e14d1.js:1
+[     769ms] [LOG] %c想要加入稀土掘金？投递简历：https://job.toutiao.com/s/idq6X5rb color:#1e80ff; @ :0
+[     774ms] [LOG] [fpStr] ===> verify_mrozupzj_juYwtbxB_8gWK_4Q4E_B3dB_J3libMolIvng @ https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/20e14d1.js:1
+[    2795ms] [ERROR] Access to XMLHttpRequest at 'https://mon.zijieapi.com/monitor_web/settings/browser-settings?bid=2608&store=1' from origin 'https://juejin.cn' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://juejin.cn/login?to=https%3A%2F%2Fjuejin.cn%2Feditor%2Fdrafts%2Fnew:0
+[    2796ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://mon.zijieapi.com/monitor_web/settings/browser-settings?bid=2608&store=1:0

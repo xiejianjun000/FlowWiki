@@ -4,7 +4,7 @@ title: Lint Report
 created: '2026-07-17'
 updated: '2026-07-17'
 confidence: medium
-sources: []
+sources: ["root-cause/sample-audit-log.md"]
 tags: [flow-wiki]
 status: draft
 ---
@@ -40,3 +40,10 @@ status: draft
 
 - [[数据溯源链路]]
 - [[异常检测方法]]
+
+
+## 溯源引用
+
+> 引用：`../raw/root-cause/sample-audit-log.md` 第 11 行
+> 引用：`../raw/root-cause/sample-audit-log.md` 第 13 行
+> 引用：`../raw/root-cause/sample-audit-log.md` 第 20 行

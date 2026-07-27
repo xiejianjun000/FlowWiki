@@ -4,7 +4,7 @@ title: 自上而下 vs 自下而上
 created: 2026-07-17
 updated: 2026-07-17
 confidence: medium
-sources: []
+sources: ["root-cause/自上而下vs自下而上.md"]
 tags: [flow-wiki, comparison, root-cause]
 status: draft
 ---
@@ -78,3 +78,10 @@ status: draft
 ## 关联概念
 
 - [[定量分析-vs-定性分析]]
+
+
+## 溯源引用
+
+> 引用：`../raw/root-cause/自上而下vs自下而上.md` 第 12 行
+> 引用：`../raw/root-cause/自上而下vs自下而上.md` 第 14 行
+> 引用：`../raw/root-cause/自上而下vs自下而上.md` 第 19 行

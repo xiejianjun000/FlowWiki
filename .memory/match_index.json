@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-07-17T00:00:00Z",
+  "matches": [],
+  "raw_files": [
+    "test_e2e.md",
+    "README.md",
+    "root-cause/sample-incident-report.md",
+    "root-cause/sample-audit-log.md"
+  ],
+  "wiki_pages": [
+    "README.md",
+    "log.md",
+    "index.md",
+    "comparisons/定量分析-vs-定性分析.md",
+    "comparisons/自上而下-vs-自下而上.md",
+    "meta/lint-report.md",
+    "meta/agent-compatibility.md",
+    "meta/e2e-test-report.md",
+    "playbooks/局部分析工作流.md",
+    "playbooks/跨域分析工作流.md",
+    "playbooks/根因分析五步法.md",
+    "concepts/趋势分析方法.md",
+    "concepts/异常检测方法.md",
+    "concepts/数据重构方法.md",
+    "concepts/数据溯源链路.md",
+    "criteria/环境条件.md",
+    "criteria/数据质量.md",
+    "criteria/化学组分.md",
+    "criteria/气象条件.md"
+  ]
+}
