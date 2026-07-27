@@ -5,7 +5,7 @@
 [![CI](https://github.com/xiejianjun000/FlowWiki/actions/workflows/ci.yml/badge.svg)](https://github.com/xiejianjun000/FlowWiki/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Specs](https://img.shields.io/badge/Specs-7%E9%98%B6%E6%AE%B5-blue)](./spec/)
-[![Agents](https://img.shields.io/badge/Agents-8%E5%AE%B6%E5%85%BC%E5%AE%B9-green)](./CLAUDE.md)
+[![Agents](https://img.shields.io/badge/Agents-12%E5%AE%B6%E5%85%BC%E5%AE%B9-green)](./CLAUDE.md)
 [![Scenes](https://img.shields.io/badge/Scenes-L7%E5%8F%AF%E6%8F%92%E6%8B%94-orange)](./storage/)
 
 ---
@@ -200,7 +200,26 @@ python _scripts/graph.py --format stats --industry enforcement-review
 
 ## 快速开始
 
-### Option 1：从模板克隆（推荐）
+### Option 0：一键初始化（推荐，v0.6.0 新增）
+
+```bash
+pip install flowwiki
+flowwiki init my-wiki
+cd my-wiki
+flowwiki doctor    # 健康检查 ✅
+```
+
+对标 Ar9av `obsidian-wiki setup` 和 GBrain `gbrain init`。2 秒创建完整知识库结构（23 目录 + 6 文件），幂等安全。
+
+放入原始资料即开始编译：
+
+```bash
+mkdir -p raw/articles
+cp ~/some-article.md raw/articles/
+flowwiki-ingest    # 开始编译知识
+```
+
+### Option 1：从模板克隆
 
 ```bash
 git clone https://github.com/xiejianjun000/FlowWiki.git my-wiki
@@ -209,12 +228,16 @@ cd my-wiki
 # 自动检测区域 + 生成本地化目录（中文/英文）
 bash _scripts/setup.sh
 
-# 选择你的 agent bootstrap
-# Claude Code → 读 CLAUDE.md
-# Codex / Amp → 读 AGENTS.md
-# Gemini CLI → 读 GEMINI.md
-# Hermes → 读 HERMES.md
-# WorkBuddy → 读 WORKBUDDY.md
+  # 选择你的 agent bootstrap（12 家兼容）
+  # Claude Code → 读 CLAUDE.md
+  # Codex / Amp → 读 AGENTS.md
+  # Gemini CLI → 读 GEMINI.md
+  # Hermes → 读 HERMES.md
+  # WorkBuddy → 读 WORKBUDDY.md
+  # Kiro IDE → 读 KIRO.md
+  # Pi Agent → 读 PI.md
+  # Trae / Trae CN → 读 TRAE.md
+  # Droid / Aider → 读 OPENDROID.md
 
 # 投入第一篇 raw
 mkdir -p raw/articles
@@ -275,7 +298,7 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 | **research** | （Karpathy 未定义） | ★ 跨页综合研究 + 自动生成 comparison 页 |
 | **fulltext** | （FlowWiki 原创） | ★ 按需加载 raw/ 全文，配套原文指针铁律，避免双写 |
 
-每个操作有对应的 `.claude/skills/<op>/SKILL.md` 和 `.agents/skills/<op>/SKILL.md`，8 家 agent 都能直接调用。
+每个操作有对应的 `.claude/skills/<op>/SKILL.md` 和 `.agents/skills/<op>/SKILL.md`，12 家 agent 都能直接调用。
 
 ---
 
@@ -301,7 +324,7 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 |------|------------------|-----------|---------|------------|
 | 知识复利 | ✅ | ❌ | ❌ | ✅ |
 | 人类 UX | ❌ | ✅ | ❌ | ✅ 双索引 |
-| AI 接手友好 | 🟡 仅 Claude | ❌ | ❌ | ✅ 8 家 agent |
+| AI 接手友好 | 🟡 仅 Claude | ❌ | ❌ | ✅ 12 家 agent |
 | 防幻觉 | ❌ lint 只扫结构 | N/A | ❌ | ✅ ACE 三 agent |
 | 跨会话记忆 | ❌ | ❌ | 🟡（向量库） | ✅ A-MEM 卡片 |
 | 变更追溯 | ❌ | ❌ | ❌ | ✅ SpecCoding |
@@ -314,7 +337,7 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 |------|:-:|:-:|:-:|:-:|:-:|
 | 防幻觉机制 | ACE 三 agent + **VBFW** | 矛盾标记 | review policy | VERIFY-BEFORE-WRITE | Pre-LLM 净化 |
 | 跨会话记忆 | A-MEM 卡片 | 无 | Hot Cache | 无 | 无 |
-| 多 agent 兼容 | 8 家 agent | 3 家 | 仅 Claude | 仅 Claude | 3 家 |
+| 多 agent 兼容 | 12 家 agent | 3 家 | 仅 Claude | 仅 Claude | 3 家 |
 | 人类 UX | 双索引 6 板块 | 无 | Obsidian 原生 | 桌面 GUI | Web UI |
 | 业务可插拔 | L7 场景外壳 | 无 | 无 | 无 | 无 |
 | 变更追溯 | SpecCoding | 无 | 无 | 无 | 无 |
@@ -325,17 +348,19 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 
 > **FlowWiki 是唯一同时覆盖以上 10 个维度的项目。**
 
-### 2026 Q3 竞品全景（截至 2026-07-23）
+### 2026 Q3 竞品全景（截至 2026-07-27）
 
 | 项目 | Stars | 定位 | 核心亮点 | FlowWiki 对比 |
 |------|-------|------|----------|-------------|
-| **nashsu/llm_wiki** | 14.8K | 桌面 GUI 应用 | Tauri+React GUI，Louvain 图谱聚类，Chrome 剪藏，MCP | FlowWiki 无 GUI 但方法论更深 |
+| **garrytan/gbrain** | 25K+ | 企业级 AI 大脑 | PGLite 零基础设施引擎（v0.7.0），company brain scope-by-login，DreamCycle 9 阶段自维护，Skillify 技能进化，146K+ 页生产部署 | 企业级能力远超 FlowWiki；FlowWiki 面向方法论和个人用户 |
+| **nashsu/llm_wiki** | 15.2K | 桌面 GUI 应用 | Tauri+React GUI，Louvain 图谱聚类，Chrome 剪藏，MCP，Two-Step CoT 摄入 | FlowWiki 无 GUI 但方法论更深、防幻觉更强 |
 | **SamurAIGPT/llm-wiki-agent** | 3.2K | 多 Agent Skill 包 | Agent-agnostic，Git 版本控制，知识图谱可视化 | FlowWiki 的 ACE 是其没有的防幻觉层 |
-| **Ar9av/obsidian-wiki** | 2.9K | 完整框架 | 36 skill 文件，Delta tracking，图片编译，PyPI 包，15+ Agent 兼容，@name 多 vault 路由 | FlowWiki 有 ACE+OKF+VERIFY-BEFORE-WRITE，但技能数量较少 |
-| **atomicstrata/llm-wiki-compiler** | 1.5K | npm 知识编译器 | OKF 格式，eval harness，MCP Server，review policy，**Ed25519 签名模板分发** | 最接近 FlowWiki 品质控制理念的竞品；FlowWiki v0.5.0 已支持 OKF 互操作 |
-| **lucasastorian/llmwiki** | 1.4K | Web 托管 | llmwiki.app 在线服务，Chrome 扩展，自动维护 | FlowWiki 本地优先，数据主权更好 |
-| **agentmemory** | 22K | Agent 持久记忆 | MCP 集中式记忆，BM25+向量+图谱三流检索，自动遗忘 | FlowWiki 的 A-MEM 卡片更轻量，零依赖 |
-| **mem0** | 22K | 通用记忆层 | 生产级 SDK/API，LongMemEval=94.8，托管服务 | FlowWiki 面向方法论用户，mem0 面向开发者 |
+| **Ar9av/obsidian-wiki** | 3.0K | 完整框架 | PyPI 包分发(`pip install`)，36 skill，trust-ledger `strict_trust`，12+ Agent 兼容，7 月已发布 9 个 release | FlowWiki 有 ACE+OKF+VBFW，已对标 PyPI 分发和 Agent 数量 |
+| **atomicstrata/llm-wiki-compiler** | 1.5K | npm 知识编译器 | OKF 格式，eval harness，MCP Server，Ed25519 签名模板分发（v1.1.0 Jul 15） | 最接近 FlowWiki 品控理念；FlowWiki v0.5.0 已支持 OKF 互操作 |
+| **LangChain OpenWiki** | 新发布 | Agent 主动记忆 | 6 信源自动连接（Gmail/Notion/Git/X/HN/Web），定时刷新，Personal Brain 模式 | FlowWiki 缺少主动信源连接；OpenWiki 没有 ACE 反思 |
+| **swarmclawai/swarmvault** | ~600 | 知识图谱编译器 | candidate review queue，桌面应用，本地图谱查看器，30+ 输入格式 | 活跃度下降（6/30 最后推送）；FlowWiki 方法论覆盖更全 |
+| **lucasastorian/llmwiki** | 1.4K | Web 托管 | llmwiki.app 在线服务，Chrome 扩展 | FlowWiki 本地优先，数据主权更好 |
+| **Ekgardt/llm-wiki** | 新品 | 会话记忆系统 | VERIFY-BEFORE-WRITE，会话生命周期钩子，三级分类（FLUSH_MAJOR/MINOR/OK） | FlowWiki v0.6.0 已集成 VBFW 门控到 ingest 流程 |
 
 **FlowWiki 的差异化定位**：最严格的知识质量保证 + 能力复利飞轮。
 - 桌面应用选 nashsu，Web 托管选 lucasastorian，工程化编译选 atomicstrata

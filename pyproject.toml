@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "flowwiki"
+version = "0.6.0"
+description = "FlowWiki — AI 与人类协同复利的知识库方法论（Karpathy LLM Wiki × TRAE Work × ACE 反思循环 × A-MEM 卡片记忆 × SpecCoding 七阶段）"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "junge", email = "xiejianjun000@github.com"}
+]
+keywords = [
+    "llm-wiki",
+    "knowledge-base",
+    "ai-agent",
+    "obsidian",
+    "karpathy",
+    "rag-alternative",
+    "agent-memory",
+    "knowledge-management",
+    "enforcement-review",
+    "ace-reflection",
+    "markdown-wiki",
+    "personal-knowledge-base",
+    "skill-framework",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Markup :: Markdown",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml>=6.0",
+    "tomli>=2.0 ; python_version < '3.11'",
+]
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+]
+all = [
+    "pyyaml>=6.0",
+    "pytest>=8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/xiejianjun000/FlowWiki"
+Repository = "https://github.com/xiejianjun000/FlowWiki"
+Issues = "https://github.com/xiejianjun000/FlowWiki/issues"
+Changelog = "https://github.com/xiejianjun000/FlowWiki/blob/main/CHANGELOG.md"
+
+[project.scripts]
+flowwiki = "_scripts.flowwiki_init:main"
+flowwiki-init = "_scripts.flowwiki_init:main"
+flowwiki-doctor = "_scripts.flowwiki_init:doctor"
+flowwiki-lint = "_scripts.lint:main"
+flowwiki-ingest = "_scripts.ingest_pipeline:main"
+flowwiki-query = "_scripts.ace_review:main"
+
+[tool.setuptools]
+packages = []
+py-modules = []
+
+[tool.setuptools.package-data]
+"_scripts" = ["*.py"]
+"_templates" = ["*.j2"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]

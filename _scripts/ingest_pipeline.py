@@ -165,7 +165,195 @@ def run_ace_review(wiki_content: str, raw_root: Path = None) -> dict:
         "comments": "符合 SCHEMA §4.2：含摘要 + 原文指针段，无全文搬运"
     }
 
+# ═══════════════════════════════════════════════════════════
+# 快速暂存模式（引自 Ar9av --quick / 伴侣式记忆 TRIAGE）
+# 用途：60 秒内将临时知识片段存入 raw/inbox/
+#       标记 confidence=pending，等待后续正式 ingest
+# 约束：不执行 ACE 审查、不编译 wiki、不读取活跃 wiki
+# ═══════════════════════════════════════════════════════════
+
+def _content_hash(text: str) -> str:
+    """生成内容哈希作为稳定 ID（TRIAGE 要求）。"""
+    import hashlib
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()[:12]
+
+def _slugify(title: str) -> str:
+    """将标题转为文件安全的 slug。"""
+    slug = title.lower().strip()
+    slug = re.sub(r'[^\w\s-]', '', slug)
+    slug = re.sub(r'[-\s]+', '-', slug)
+    return slug[:80]  # 截断过长标题
+
+def quick_capture(content: str, title: str = None, source: str = None,
+                  tags: list = None, confidence: str = "pending") -> str:
+    """快速暂存：将知识片段存入 raw/inbox/。
+
+    此为 TRIAGE 操作：只做浅层过滤（去重 + 分配 ID），
+    不执行语义矛盾解决，不读取活跃 wiki。
+
+    Args:
+        content: 知识片段正文
+        title: 标题（可选，自动提取首行或内容哈希）
+        source: 来源说明（项目名/文件路径/对话摘要）
+        tags: 标签列表
+        confidence: 置信度（pending 或 low）
+
+    Returns:
+        写入的文件路径（相对项目根）
+    """
+    inbox_dir = Path("raw/inbox")
+    inbox_dir.mkdir(parents=True, exist_ok=True)
+
+    # 分配稳定 ID
+    content_id = _content_hash(content)
+
+    # 自动标题
+    if not title:
+        first_line = content.strip().split("\n")[0]
+        title = first_line[:120] if len(first_line) > 5 else f"untitled-{content_id}"
+
+    slug = _slugify(title)
+    today = datetime.date.today().isoformat()
+    filename = f"{today}-{slug}-{content_id}.md"
+
+    # 去重：相同 content hash 不产生重复条目（TRIAGE MUST 幂等）
+    existing = list(inbox_dir.glob(f"*-{content_id}.md"))
+    if existing:
+        dup_path = str(existing[0])
+        logger.info(f"Duplicate skipped (content hash {content_id}): "
+                     f"already in {dup_path}")
+        return dup_path
+
+    # 构建 frontmatter
+    tags_yaml = "\n  - ".join([""] + (tags or ["inbox"]))
+    source_line = f"\nsource: {source}" if source else ""
+
+    file_content = f"""---
+title: "{title}"
+type: inbox
+confidence: {confidence}
+created: {today}
+updated: {today}
+content_hash: {content_id}{source_line}
+tags: [{tags_yaml}
+]
+---
+
+# {title}
+
+{content.strip()}
+
+---
+
+> 快速暂存于 {datetime.datetime.now().isoformat()}
+> 状态: {confidence} — 等待正式 ingest 或人类策展
+"""
+
+    filepath = inbox_dir / filename
+    filepath.write_text(file_content, encoding="utf-8")
+    logger.info(f"Quick capture: raw/inbox/{filename} (confidence={confidence})")
+
+    return f"raw/inbox/{filename}"
+
+
+def verify_before_write_gate(wiki_dir: Path, strict: bool = False) -> dict:
+    """ACE Verifier 门控：写入前逐条验证引用来源。
+    
+    对标 Ekgardt/llm-wiki VERIFY-BEFORE-WRITE + swarmvault candidate review。
+    在 wiki/ 页面实际写入前，调用 verify_before_write.py 验证可追溯性。
+    
+    Args:
+        wiki_dir: wiki 目录路径
+        strict: 严格模式（失败即阻止写入）
+    
+    Returns:
+        {"passed": int, "failed": int, "quarantined": list}
+    """
+    import importlib.util
+    
+    spec = importlib.util.spec_from_file_location(
+        "verify_before_write",
+        Path(__file__).resolve().parent / "verify_before_write.py"
+    )
+    if spec is None:
+        logger.warning("verify_before_write.py not found, skipping pre-write verification")
+        return {"passed": 0, "failed": 0, "quarantined": [], "skipped": True}
+    
+    vbw = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(vbw)
+    
+    result = vbw.verify_wiki_dir(str(wiki_dir), strict=strict)
+    
+    if result.get("failed", 0) > 0:
+        logger.warning(f"VERIFY-BEFORE-WRITE: {result['failed']} pages failed, "
+                       f"{result['quarantined_count']} quarantined")
+    else:
+        logger.info(f"VERIFY-BEFORE-WRITE: all {result['passed']} pages passed")
+    
+    return result
+
+
 def main():
+    import argparse
+
+    parser = argparse.ArgumentParser(description="FlowWiki Ingest Pipeline")
+    parser.add_argument("--quick", "-q", action="store_true",
+                        help="快速暂存模式：将内容存入 raw/inbox/（跳过 ACE 审查）")
+    parser.add_argument("--title", "-t", type=str, default=None,
+                        help="快速暂存的标题")
+    parser.add_argument("--source", "-s", type=str, default=None,
+                        help="快速暂存的来源说明")
+    parser.add_argument("--tags", type=str, default=None,
+                        help="快速暂存的标签（逗号分隔）")
+    parser.add_argument("--file", "-f", type=str, default=None,
+                        help="从文件读取内容（默认从 stdin）")
+    parser.add_argument("--text", type=str, default=None,
+                        help="直接传入文本内容")
+    parser.add_argument("--verify", action="store_true", default=True,
+                        help="启用 VERIFY-BEFORE-WRITE 门控（默认开启）")
+    parser.add_argument("--no-verify", action="store_true",
+                        help="跳过 VERIFY-BEFORE-WRITE 门控")
+    parser.add_argument("--strict-verify", action="store_true",
+                        help="严格验证模式（失败即阻止写入）")
+
+    args = parser.parse_args()
+
+    # ── 快速暂存模式 ──
+    if args.quick:
+        # 读取内容：优先 --text > --file > stdin
+        if args.text:
+            content = args.text
+            source_hint = "命令行参数"
+        elif args.file:
+            filepath = Path(args.file)
+            if not filepath.exists():
+                logger.error(f"File not found: {args.file}")
+                sys.exit(1)
+            content = filepath.read_text(encoding="utf-8")
+            source_hint = args.source or str(filepath)
+        elif not sys.stdin.isatty():
+            content = sys.stdin.read()
+            source_hint = args.source or "标准输入"
+        else:
+            logger.error("快速暂存需要内容输入：--text / --file / 管道 stdin")
+            sys.exit(1)
+
+        tags = args.tags.split(",") if args.tags else None
+        source = args.source or source_hint
+
+        result_path = quick_capture(
+            content=content,
+            title=args.title,
+            source=source,
+            tags=tags,
+            confidence="pending"
+        )
+
+        print(f"✓ 快速暂存完成: {result_path}")
+        print(f"  下一步: python _scripts/ingest_pipeline.py (正式 ingest 时将处理 inbox)")
+        return
+
+    # ── 正式 Ingest 模式 ──
     logger.info("Starting ingest pipeline...")
 
     default_industry = "root-cause"
@@ -180,6 +368,23 @@ def main():
     logger.info(f"Found {len(raw_files)} raw files")
 
     compile_to_wiki(raw_files, industry_config)
+
+    # ── VERIFY-BEFORE-WRITE 门控（对标 Ekgardt/llm-wiki + swarmvault） ──
+    if args.verify and not args.no_verify:
+        logger.info("Running VERIFY-BEFORE-WRITE gate...")
+        verify_result = verify_before_write_gate(
+            Path("wiki"),
+            strict=args.strict_verify
+        )
+        if verify_result.get("skipped"):
+            logger.info("VERIFY-BEFORE-WRITE skipped (module not available)")
+        elif verify_result.get("failed", 0) > 0:
+            logger.warning(
+                f"VERIFY-BEFORE-WRITE: {verify_result['failed']} pages failed — "
+                f"see wiki/_quarantine/ for isolated content"
+            )
+    else:
+        logger.info("VERIFY-BEFORE-WRITE gate disabled (--no-verify)")
 
     logger.info("Ingest pipeline completed successfully")
 

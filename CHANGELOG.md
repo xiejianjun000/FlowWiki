@@ -9,6 +9,41 @@ FlowWiki 的所有重要变更都会记录在此文件中。
 
 ---
 
+## [0.6.0] - 2026-07-27
+
+### 新增
+- **PyPI 包分发** — `pyproject.toml` + `pip install flowwiki`（对标 Ar9av obsidian-wiki PyPI 分发）
+  - CLI 入口：`flowwiki init` / `flowwiki doctor` / `flowwiki status`
+  - 依赖管理：pyyaml + tomli
+- **一键初始化** — `_scripts/flowwiki_init.py`（对标 Ar9av `obsidian-wiki setup` + GBrain `gbrain init`）
+  - `flowwiki init`：2 秒创建完整知识库结构（23 目录 + 6 文件）
+  - `flowwiki doctor`：健康检查（核心目录/文件/脚本存在性 + config.toml 解析验证）
+  - `flowwiki status`：状态快照（页面数/资料数/最近操作）
+  - 幂等设计：已存在文件不覆盖（`--force` 覆盖检查）
+- **Agent 生态扩展** — 新增 4 个 Agent bootstrap 文件（对标 Ar9av 15+ agent 兼容）
+  - `KIRO.md` — Kiro IDE/CLI
+  - `PI.md` — Pi Coding Agent
+  - `TRAE.md` — Trae / Trae CN
+  - `OPENDROID.md` — Factory Droid / Aider
+  - Agent bootstrap 数：8 → 12（+50%）
+- **ACE 工程化集成** — VERIFY-BEFORE-WRITE 门控接入 ingest 流程
+  - `ingest_pipeline.py` 新增 `verify_before_write_gate()` 入口
+  - 写入 wiki/ 前自动调用 `verify_before_write.py` 6 级验证
+  - `--no-verify` 跳过验证，`--strict-verify` 严格模式（失败即阻止写入）
+
+### 变更
+- Agent bootstrap 列表更新：AGENTS/CLAUDE/CODEX/GEMINI/HERMES/WORKBUDDY → +KIRO/PI/TRAE/OPENDROID
+- `ingest_pipeline.py`：新增 `--verify` / `--no-verify` / `--strict-verify` 参数
+- 项目元数据：`pyproject.toml` 定义项目名称/版本/依赖/CLI 入口/关键词
+
+### 竞品驱动
+- 引自 Ar9av/obsidian-wiki PyPI 分发模式（`pip install obsidian-wiki`）
+- 引自 GBrain PGLite 零基础设施设计（`gbrain init` 2 秒启动）
+- 引自 Ar9av 多 Agent 兼容的策略（15+ agent bootstrap）
+- VERIFY-BEFORE-WRITE 门控从独立工具升级为流程集成
+
+---
+
 ## [0.5.0] - 2026-07-23
 
 ### 新增
