@@ -1,0 +1,32 @@
+# --- RAW METADATA ---
+# source_path: /Users/mac/企业合规AI管理知识库/raw/processed/done_标准_GB_2008-08-01_制浆造纸工业水污染物排放标准.txt
+# ingest_date: 2026-07-18
+# raw_type: standard
+# status: archived
+# notes: 原始标准全文，只读
+# ---
+制浆造纸工业水污染物排放标准
+GB 3544-2008
+Discharge standard of water pollutants for pulp and paper industry
+2008-08-01 实施
+
+本标准规定了制浆造纸企业或生产设施水污染物排放限值、监测和监控要求。
+
+适用范围：适用于现有制浆造纸企业或生产设施的水污染物排放管理。适用于制浆造纸工业建设项目的环境影响评价、环境保护设施设计、竣工环境保护验收及其投产后的水污染物排放管理。适用于法律允许的污染物排放行为。
+
+主要污染物控制项目：CODCr、BOD5、SS、氨氮、总氮、总磷、色度、AOX（可吸附有机卤素）、二噁英等。
+
+企业废水总排放口限值（新建企业，直接排放）：
+- CODCr: 制浆企业 90 mg/L, 造纸企业 80 mg/L, 制浆造纸联合企业 70 mg/L
+- BOD5: 20 mg/L
+- 悬浮物: 50 mg/L
+- 氨氮: 12 mg/L
+- 总氮: 制浆企业 18 mg/L, 造纸企业 15 mg/L
+- 总磷: 1.0 mg/L
+- AOX: 制浆企业 12 mg/L, 造纸企业 8 mg/L, 制浆造纸联合企业 10 mg/L
+- 色度（稀释倍数）: 50
+- 二噁英: 3 pg-TEQ/L（车间或生产设施排放口）
+
+特别排放限值区域执行更严格标准。
+
+（全文PDF来源：湖北省生态环境厅网站 http://sthjt.hubei.gov.cn/hjsj/hbbz/shjbh/swrbz/swrgb/201009/t20100907_631817.shtml）

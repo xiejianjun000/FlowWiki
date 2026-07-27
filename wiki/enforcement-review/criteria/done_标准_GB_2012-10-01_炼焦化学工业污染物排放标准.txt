@@ -1,0 +1,33 @@
+# --- RAW METADATA ---
+# source_path: /Users/mac/企业合规AI管理知识库/raw/processed/done_标准_GB_2012-10-01_炼焦化学工业污染物排放标准.txt
+# ingest_date: 2026-07-18
+# raw_type: standard
+# status: archived
+# notes: 原始标准全文，只读
+# ---
+炼焦化学工业污染物排放标准
+GB 16171-2012
+Emission standard of pollutants for coking chemical industry
+2012-10-01 实施
+
+本标准规定了炼焦化学工业企业水污染物和大气污染物排放限值、监测和监控要求。
+
+适用范围：适用于独立焦化企业和钢铁企业焦化分厂，涵盖焦炭生产、煤气净化、化产品回收等全流程。
+
+大气污染物排放限值（焦炉烟囱）：
+
+现有企业：颗粒物 50 mg/m3, SO2 200 mg/m3, NOx 500 mg/m3, 苯并[a]芘 0.3 ug/m3, H2S 3 mg/m3, 氨 10 mg/m3
+新建企业：颗粒物 30 mg/m3, SO2 100 mg/m3, NOx 400 mg/m3, 苯并[a]芘 0.3 ug/m3
+特别排放限值：颗粒物 15 mg/m3, SO2 50 mg/m3, NOx 150 mg/m3, H2S 1 mg/m3, 氨 5 mg/m3
+
+水污染物排放限值（直接排放）：
+- CODCr: 80 mg/L
+- 氨氮: 15 mg/L
+- 氰化物: 0.5 mg/L
+- 挥发酚: 0.5 mg/L
+- 石油类: 5 mg/L
+- 总氮: 20 mg/L
+- 总磷: 1.0 mg/L
+- 苯并[a]芘: 0.03 ug/L
+
+（数据来源于标准文本及公开解读。2015年起现有企业执行新建企业限值。）
