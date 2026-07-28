@@ -1,3 +1,4 @@
+import sys; sys.stdout.reconfigure(encoding="utf-8")
 #!/usr/bin/env python3
 """
 quality_audit.py — FlowWiki 知识库 12 维质量审计工具 (v2.0)
@@ -402,51 +403,51 @@ def format_report(stats: dict, scores: dict, graph: dict, wiki_path: str):
 
     # ── 结构性维度 ──
     print(f"📋 结构性维度（知识内容本身的质量）")
-    print(f"  {'D1 溯源准确率':<18s} {scores['D1_traceability']:>6.1f}%  {'✅' if scores['D1_traceability'] >= 90 else '❌'}  "
+    print(f"  {'D1 溯源准确率':<18s} {scores['D1_traceability']:>6.1f}%  {'OK ' if scores['D1_traceability'] >= 90 else 'FAIL '}  "
           f"(sources→raw/ 可追溯: {stats['sources_traceable']}/{stats['total_pages']})")
-    print(f"  {'D2 frontmatter':<18s} {scores['D2_frontmatter']:>6.1f}%  {'✅' if scores['D2_frontmatter'] >= 90 else '❌'}  "
+    print(f"  {'D2 frontmatter':<18s} {scores['D2_frontmatter']:>6.1f}%  {'OK ' if scores['D2_frontmatter'] >= 90 else 'FAIL '}  "
           f"(完整: {stats['has_frontmatter']}/{stats['total_pages']})")
-    print(f"  {'D3 置信度标注':<18s} {scores['D3_confidence']:>6.1f}%  {'✅' if scores['D3_confidence'] >= 80 else '❌'}  "
+    print(f"  {'D3 置信度标注':<18s} {scores['D3_confidence']:>6.1f}%  {'OK ' if scores['D3_confidence'] >= 80 else 'FAIL '}  "
           f"(已标注: {stats['has_confidence']}/{stats['total_pages']})")
-    print(f"  {'D4 摘要段':<18s} {scores['D4_summary']:>6.1f}%  {'✅' if scores['D4_summary'] >= 80 else '❌'}  "
+    print(f"  {'D4 摘要段':<18s} {scores['D4_summary']:>6.1f}%  {'OK ' if scores['D4_summary'] >= 80 else 'FAIL '}  "
           f"(存在: {stats['has_summary']}/{stats['total_pages']})")
     print()
 
     # ── 关联性维度 ──
     print(f"🕸️ 关联性维度（知识之间的网络效应）")
-    print(f"  {'D5 交叉引用率':<18s} {scores['D5_crossref']:>6.1f}%  {'✅' if scores['D5_crossref'] >= 90 else '❌'}  "
+    print(f"  {'D5 交叉引用率':<18s} {scores['D5_crossref']:>6.1f}%  {'OK ' if scores['D5_crossref'] >= 90 else 'FAIL '}  "
           f"([[wikilink]]: {stats['has_wikilink']}/{stats['total_pages']})")
-    print(f"  {'D6 双向链接率':<18s} {scores['D6_bidirectional']:>6.1f}%  {'✅' if scores['D6_bidirectional'] >= 90 else '❌'}  "
+    print(f"  {'D6 双向链接率':<18s} {scores['D6_bidirectional']:>6.1f}%  {'OK ' if scores['D6_bidirectional'] >= 90 else 'FAIL '}  "
           f"(双向: {graph['bi_nodes']}/{graph['total_nodes']})")
-    print(f"  {'D7 图谱连通度':<18s} {scores['D7_connectivity']:>6.1f}%  {'✅' if scores['D7_connectivity'] >= 90 else '❌'}  "
+    print(f"  {'D7 图谱连通度':<18s} {scores['D7_connectivity']:>6.1f}%  {'OK ' if scores['D7_connectivity'] >= 90 else 'FAIL '}  "
           f"(最大分量: {graph['max_component_size']}/{graph['total_nodes']})")
-    orphan_icon = '✅' if graph['orphan_rate'] <= 10 else '❌'
+    orphan_icon = 'OK ' if graph['orphan_rate'] <= 10 else 'FAIL '
     print(f"  {'D8 孤岛率':<18s} {scores['D8_orphan']:>6.1f}%  {orphan_icon}  "
           f"(零入链: {graph['orphan_nodes']}/{graph['total_nodes']} — 越低越好)")
     print()
 
     # ── 治理性维度 ──
     print(f"🏛️ 治理性维度（知识库的健康维护）")
-    print(f"  {'D9 索引完整性':<18s} {scores['D9_index_coverage']:>6.1f}%  {'✅' if scores['D9_index_coverage'] >= 90 else '❌'}  "
+    print(f"  {'D9 索引完整性':<18s} {scores['D9_index_coverage']:>6.1f}%  {'OK ' if scores['D9_index_coverage'] >= 90 else 'FAIL '}  "
           f"(index.md 覆盖: {stats['in_index']}/{stats['total_pages']})")
-    print(f"  {'D10 知识新鲜度':<18s} {scores['D10_freshness']:>6.1f}%  {'✅' if scores['D10_freshness'] >= 70 else '❌'}  "
+    print(f"  {'D10 知识新鲜度':<18s} {scores['D10_freshness']:>6.1f}%  {'OK ' if scores['D10_freshness'] >= 70 else 'FAIL '}  "
           f"(30天内更新: {stats['recent_updated']}/{stats['total_pages']})")
-    print(f"  {'D11 覆盖率':<18s} {scores['D11_raw_coverage']:>6.1f}%  {'✅' if scores['D11_raw_coverage'] >= 70 else '❌'}  "
+    print(f"  {'D11 覆盖率':<18s} {scores['D11_raw_coverage']:>6.1f}%  {'OK ' if scores['D11_raw_coverage'] >= 70 else 'FAIL '}  "
           f"(raw→wiki 映射: {stats['total_raw_sources']} 源文件)")
-    print(f"  {'D12 反幻觉率':<18s} {scores['D12_anti_hallucination']:>6.1f}%  {'✅' if scores['D12_anti_hallucination'] >= 90 else '❌'}  "
+    print(f"  {'D12 反幻觉率':<18s} {scores['D12_anti_hallucination']:>6.1f}%  {'OK ' if scores['D12_anti_hallucination'] >= 90 else 'FAIL '}  "
           f"(行号引用≥2处: {stats['has_line_refs']}/{stats['total_pages']} | 总引用: {stats['total_line_refs']} 处)")
-    dangling_icon = '✅' if scores['D13_dangling'] <= 5 else '❌'
+    dangling_icon = 'OK ' if scores['D13_dangling'] <= 5 else 'FAIL '
     print(f"  {'D13 悬空链接率':<18s} {scores['D13_dangling']:>6.1f}%  {dangling_icon}  "
           f"(悬空 wikilink: {len(stats['dangling_links'])} 个 — 越低越好)")
-    fault_icon = '✅' if scores['D14_fault_tolerance'] >= 90 else '❌'
+    fault_icon = 'OK ' if scores['D14_fault_tolerance'] >= 90 else 'FAIL '
     print(f"  {'D14 抗断裂度':<18s} {scores['D14_fault_tolerance']:>6.1f}%  {fault_icon}  "
           f"(非关节点: {graph['fault_tolerant_nodes']}/{graph['total_nodes']} — 删除任一节点图不裂)")
     print()
 
     # ── 红线汇总 ──
-    print(f"🚨 红线判定: {scores['passed_count']}/{scores['total_checks']} 通过")
+    print(f"REDLINE  红线判定: {scores['passed_count']}/{scores['total_checks']} 通过")
     for key, r in scores['redlines'].items():
-        icon = "✅" if r['passed'] else "❌"
+        icon = "OK " if r['passed'] else "FAIL "
         print(f"  {icon} {r['label']}: {r['actual']} (阈值 {r['threshold']})")
 
     print()
@@ -461,8 +462,8 @@ def format_report(stats: dict, scores: dict, graph: dict, wiki_path: str):
         grade = "🔴 D 级 — 需要重建"
 
     print(f"📊 综合健康度: {health}% — {grade}")
-    fail_msg = f'❌ {scores["total_checks"] - scores["passed_count"]} 条红线违规'
-    print(f"   {'✅ 全部红线通过' if scores['all_redlines_pass'] else fail_msg}")
+    fail_msg = f'FAIL  {scores["total_checks"] - scores["passed_count"]} 条红线违规'
+    print(f"   {'OK  全部红线通过' if scores['all_redlines_pass'] else fail_msg}")
 
     # ── 详细问题 ──
     if stats['dangling_links']:
@@ -509,10 +510,10 @@ def main():
         print(json.dumps(output, ensure_ascii=False, indent=2))
     else:
         if args.redline:
-            print(f"🚨 红线判定: {scores['passed_count']}/{scores['total_checks']}")
+            print(f"REDLINE  红线判定: {scores['passed_count']}/{scores['total_checks']}")
             for key, r in scores['redlines'].items():
                 if not r['passed']:
-                    print(f"  ❌ {r['label']}: {r['actual']} (阈值 {r['threshold']})")
+                    print(f"  FAIL  {r['label']}: {r['actual']} (阈值 {r['threshold']})")
         else:
             format_report(stats, scores, graph, wiki_path)
 
