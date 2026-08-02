@@ -242,3 +242,18 @@ FABRICATED_PATTERNS = [
 *本文是 FlowWiki 从零到一系列第 5 篇，下一篇：[知识库也需要 CI/CD──FlowWiki 的 SpecCoding 变更管理体系]*
 *系列目录：[第一篇：Karpathy 提出了 LLM Wiki 的构想，我把 6 个致命缺口全补上了](#) | [上一篇：知识不应该只躺着等被查](#) | [下一篇：知识库也需要 CI/CD](#)*
 *GitHub：[xiejianjun000/FlowWiki](https://github.com/xiejianjun000/FlowWiki)*
+
+---
+
+## 本文配图
+
+![01-cover](../assets/article-05/01-cover.png)
+
+![03-diagram-1](../assets/article-05/03-diagram-1.png)
+
+![03-diagram-2](../assets/article-05/03-diagram-2.png)
+
+![04-table-1](../assets/article-05/04-table-1.png)
+
+![04-table-2](../assets/article-05/04-table-2.png)
+

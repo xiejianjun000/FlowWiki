@@ -139,7 +139,9 @@ articles:
     seq: 10
     title: "从 v0.1.0 到 v0.2.0──FlowWiki 是如何让 AI Agent 一句话操作知识库的"
     topic: "MCP Server + Docker 实战──FlowWiki 的进化之路"
-    status: draft
+    status: ready_for_review
+    draft_date: "2026-07-28"
+    draft_file: "ops/publishing/series/drafts/article-10.md"
     relations: ["基于 2026-07-18 的实际开发过程"]
     key_points:
       - "v0.1.0 的不足：好架构但没有交互入口"
@@ -148,9 +150,62 @@ articles:
       - "GitHub Topics 优化：14 个标签让项目可被发现"
       - "竞品监控启示：nashsu 14.8K Stars 的启示──可视化是增长引擎"
 
-  - id: article-N
+  - id: article-11
     seq: 11
-    title: ""
-    topic: "预留：根据实际开发进度动态生成主题"
-    status: draft
-    relations: ["后续文章紧扣日常 git log 中的实际变更"]
+    title: "知识库从 74% 到 87.3%──FlowWiki 的三层质量门控与反断裂度工程"
+    topic: "v0.6.0 → v0.7.5 质量工程飞跃：三层门控 + 14 维审计 + D1-D14 健康度 + 反断裂度"
+    status: ready_for_review
+    draft_date: "2026-07-29"
+    draft_file: "ops/publishing/series/drafts/article-11.md"
+    relations: ["基于 2026-07-28/29 的 v0.7.x 实际开发进度", "article-06 SpecCoding 变更管理的进化版本", "article-09 检索质量的下游保障", "article-10 结尾预告的直接承接"]
+    key_points:
+      - "为什么知识库的健康度会随着 AI 协作而退化──熵增定律"
+      - "三层质量门控：pre-commit hook → CI quality-gate → 每日自动化监控"
+      - "D1-D14 健康度仪表盘：74% → 87.3% 的优化全流程（Phase 1代码修复 + Phase 2 LLM管道）"
+      - "反断裂度：Tarjan 关节点算法验证──删任何一页图都不会裂"
+      - "内容反哺 + 双向同步（sync_bidirectional.sh）：基础设施与内容的自我修复"
+
+  - id: article-12
+    seq: 12
+    title: "代码写完了，然后呢？──FlowWiki 开源两周的竞品监控与社区破冰实战"
+    topic: "开源项目生存策略：竞品监控体系 + 社区从零启动 + GitHub 运营数据复盘"
+    status: ready_for_review
+    draft_date: "2026-07-30"
+    draft_file: "ops/publishing/series/drafts/article-12.md"
+    relations: ["文章系列从技术深入转向开源运营", "基于 2026-07-17~07-30 两周实际数据", "第 11 轮竞品监控的发现总结", "社区破冰 P0 连续 8 周未执行的真实反思"]
+    key_points:
+      - "开源残酷第一课：好代码不会自己说话──12 天 7 个大版本 vs 15 个 Star"
+      - "竞品监控体系设计：35+ 项目全景扫描 → 11 轮手动巡查 → 自动化基础设施建设"
+      - "竞品四大发现：reground 循环 / Gold In Gold Out / Skill 市场化 / LLM Wiki 学术化"
+      - "社区破冰：策略写好了但执行是零──P0 拖了 8 周的根本原因分析"
+      - "六条开源生存法则 + 下一步 P0-P2 行动计划"
+
+  - id: article-13
+    seq: 13
+    title: "可视化即增长引擎──给 FlowWiki 造一个在线 Playground"
+    topic: "前端实战：基于 FlowWiki API 构建交互式知识库 Demo，解决可发现性问题"
+    status: ready_for_review
+    draft_date: "2026-07-31"
+    draft_file: "ops/publishing/series/drafts/article-13.md"
+    relations: ["article-12 结尾预告", "nashsu 15K Stars 启示──可视化是增长引擎"]
+    key_points:
+      - "为什么 nashsu/llm_wiki 能 15K Stars──桌面的消费级门槛"
+      - "FlowWiki Playground 设计：在线浏览 + 搜索 + ingest 演示"
+      - "技术选型：Next.js + Mermaid 图谱渲染 + MCP 后端对接"
+      - "部署：Vercel + GitHub Pages 双线"
+      - "从 Playground 到文档站的路径"
+
+  - id: article-14
+    seq: 14
+    title: "把 155 篇执法文档丢进 FlowWiki 三个月后，我对「AI 写知识库」这件事彻底改观了"
+    topic: "一个真实团队如何用 FlowWiki 活过 3 个月──执法督察评查知识库实战复盘"
+    status: ready_for_review
+    draft_date: "2026-08-01"
+    draft_file: "ops/publishing/series/drafts/article-14.md"
+    relations: ["article-13 结尾预告", "系列第三幕收尾：从架构理论到真实验证"]
+    key_points:
+      - "155+ 篇真实执法文档的 FlowWiki 全流程改造"
+      - "从混乱 → 7 层架构的重构路径和时间线"
+      - "ACE 防幻觉在真实法律场景中的拦截率数据"
+      - "质量门控从 74% 到 87.3% 的工程决策复盘"
+      - "3 个月后的知识库健康度对比 ──没有 FlowWiki 会怎样"

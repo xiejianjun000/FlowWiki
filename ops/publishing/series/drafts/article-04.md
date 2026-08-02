@@ -265,3 +265,18 @@ A-MEM（记忆）── Skill（能力）
 * [第五篇：AI 看 index.md，人类看 6 板块──FlowWiki 的双索引人机协作架构]
 
 *GitHub：[xiejianjun000/FlowWiki](https://github.com/xiejianjun000/FlowWiki)*
+
+---
+
+## 本文配图
+
+![01-cover](../assets/article-04/01-cover.png)
+
+![03-diagram-1](../assets/article-04/03-diagram-1.png)
+
+![03-diagram-2](../assets/article-04/03-diagram-2.png)
+
+![03-diagram-3](../assets/article-04/03-diagram-3.png)
+
+![04-table-1](../assets/article-04/04-table-1.png)
+

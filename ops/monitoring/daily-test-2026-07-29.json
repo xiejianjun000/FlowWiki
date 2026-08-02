@@ -1,0 +1,382 @@
+{
+  "date": "2026-07-29",
+  "duration_sec": 383.853718,
+  "phase1": [
+    {
+      "script": "ingest_pipeline",
+      "status": "pass"
+    },
+    {
+      "script": "ace_review",
+      "status": "pass"
+    },
+    {
+      "script": "a_mem_card",
+      "status": "pass"
+    },
+    {
+      "script": "lint",
+      "status": "pass"
+    },
+    {
+      "script": "graph",
+      "status": "pass"
+    },
+    {
+      "script": "sync_dual_index",
+      "status": "pass"
+    },
+    {
+      "script": "reindex",
+      "status": "pass"
+    },
+    {
+      "script": "normalize",
+      "status": "pass"
+    },
+    {
+      "script": "build_match_index",
+      "status": "pass"
+    },
+    {
+      "script": "gen_criteria_pages",
+      "status": "pass"
+    },
+    {
+      "script": "fix_dangling",
+      "status": "pass"
+    },
+    {
+      "script": "e2e_test",
+      "status": "pass"
+    },
+    {
+      "script": "mcp_server",
+      "status": "pass"
+    }
+  ],
+  "phase2": {
+    "status": "warning",
+    "errors": [
+      "No frontmatter: wiki/enforcement-review/concepts/民航行业温室气体排放核算方法与报告指南.md",
+      "No frontmatter: wiki/enforcement-review/concepts/水污染事件现场断控处置checklist.md",
+      "No frontmatter: wiki/enforcement-review/concepts/2026-07-05-环境应急每日学习.md",
+      "No frontmatter: wiki/enforcement-review/concepts/娄政发2025-2号-娄底市突发环境事件应急预案-全文与要点.md",
+      "No frontmatter: wiki/enforcement-review/concepts/微塑料污染防治政策汇编.md",
+      "No frontmatter: wiki/enforcement-review/concepts/温室气体排放核查机构要求.md",
+      "No frontmatter: wiki/enforcement-review/concepts/辐射应急防护三原则.md",
+      "No frontmatter: wiki/enforcement-review/concepts/2026-07-19-环境应急每日学习.md",
+      "No frontmatter: wiki/enforcement-review/concepts/检验检测机构监督管理办法_2025修订版.md",
+      "No frontmatter: wiki/enforcement-review/concepts/Phase1_深度学习笔记_20260624.md",
+      "No frontmatter: wiki/enforcement-review/concepts/企业事业单位突发环境事件应急预案备案管理办法.md",
+      "No frontmatter: wiki/enforcement-review/concepts/2026-06-27-环境应急每日学习.md",
+      "No frontmatter: wiki/enforcement-review/concepts/应急演练评估标准.md",
+      "No frontmatter: wiki/enforcement-review/concepts/化工行业温室气体排放核算方法与报告指南.md",
+      "No frontmatter: wiki/enforcement-review/concepts/2026-07-10-环境应急每日学习.md",
+      "No frontmatter: wiki/enforcement-review/concepts/娄底市重点河流一河一策一图编制模板与空间清单.md",
+      "No frontmatter: wiki/enforcement-review/concepts/环境监测数据弄虚作假判定及处理办法.md",
+      "No frontmatter: wiki/enforcement-review/concepts/2026-07-09-环境应急每日学习.md",
+      "No frontmatter: wiki/enforcement-review/concepts/Phase5A_高德地图应急应用_20260624.md",
+      "No frontmatter: wiki/enforcement-review/concepts/Phase4A_环境化学与毒理学_20260624.md"
+    ],
+    "stats": {
+      "pages": 30693,
+      "with_frontmatter": 30462,
+      "orphan_pages": 0
+    }
+  },
+  "phase3": [
+    {
+      "industry": "根因分析",
+      "slug": "root-cause",
+      "steps": {
+        "wiki_count": 30707,
+        "lint": {
+          "status": "error",
+          "error": "Command '['/Users/mac/.workbuddy/binaries/python/versions/3.13.12/bin/python3', '/Users/mac/Desktop/FlowWiki/_scripts/lint.py']' timed out after 60 seconds"
+        },
+        "ingest": {
+          "status": "fail",
+          "output": ""
+        }
+      },
+      "overall": "pass"
+    },
+    {
+      "industry": "合规审查",
+      "slug": "compliance-review",
+      "steps": {
+        "wiki_count": 30707,
+        "lint": {
+          "status": "error",
+          "error": "Command '['/Users/mac/.workbuddy/binaries/python/versions/3.13.12/bin/python3', '/Users/mac/Desktop/FlowWiki/_scripts/lint.py']' timed out after 60 seconds"
+        },
+        "ingest": {
+          "status": "fail",
+          "output": ""
+        }
+      },
+      "overall": "pass"
+    },
+    {
+      "industry": "证照管理",
+      "slug": "license-management",
+      "steps": {
+        "wiki_count": 30707,
+        "lint": {
+          "status": "error",
+          "error": "Command '['/Users/mac/.workbuddy/binaries/python/versions/3.13.12/bin/python3', '/Users/mac/Desktop/FlowWiki/_scripts/lint.py']' timed out after 60 seconds"
+        },
+        "ingest": {
+          "status": "fail",
+          "output": ""
+        }
+      },
+      "overall": "pass"
+    },
+    {
+      "industry": "企业合规AI管家",
+      "slug": "enterprise-compliance",
+      "steps": {
+        "wiki_count": 30707,
+        "lint": {
+          "status": "error",
+          "error": "Command '['/Users/mac/.workbuddy/binaries/python/versions/3.13.12/bin/python3', '/Users/mac/Desktop/FlowWiki/_scripts/lint.py']' timed out after 60 seconds"
+        },
+        "ingest": {
+          "status": "fail",
+          "output": ""
+        }
+      },
+      "overall": "pass"
+    },
+    {
+      "industry": "执法督察评查（测试用）",
+      "slug": "enforcement-review",
+      "steps": {
+        "wiki_count": 30707,
+        "lint": {
+          "status": "error",
+          "error": "Command '['/Users/mac/.workbuddy/binaries/python/versions/3.13.12/bin/python3', '/Users/mac/Desktop/FlowWiki/_scripts/lint.py']' timed out after 60 seconds"
+        },
+        "ingest": {
+          "status": "fail",
+          "output": ""
+        }
+      },
+      "overall": "pass"
+    }
+  ],
+  "phase4": {
+    "reviews": [
+      {
+        "industry": "root-cause",
+        "scores": {
+          "结构": 3,
+          "内容": 2,
+          "关联": 1,
+          "操作": 2,
+          "整体": 2
+        },
+        "verdict": "needs_attention",
+        "notes": "wiki 样本完全未体现根因分析领域的概念，索引中包含大量无关内容（如智能体记忆、配置门控），与 config 定义严重不符；playbook 只有标题而无步骤，缺乏可操作性。"
+      },
+      {
+        "industry": "compliance-review",
+        "scores": {
+          "结构": 2,
+          "内容": 1,
+          "关联": 1,
+          "操作": 1,
+          "整体": 1
+        },
+        "verdict": "needs_attention",
+        "notes": "wiki 样本引用的是根因分析的概念列表，完全缺失案卷评查标准、程序合法性等应有概念，内容准确性极低，索引无法反映合规审查领域。"
+      },
+      {
+        "industry": "license-management",
+        "scores": {
+          "结构": 2,
+          "内容": 1,
+          "关联": 1,
+          "操作": 1,
+          "整体": 1
+        },
+        "verdict": "needs_attention",
+        "notes": "wiki 样本同样提供错误索引，未包含行政许可、资质证书等概念，与 config 定义的证照管理体系毫无关系。"
+      },
+      {
+        "industry": "enterprise-compliance",
+        "scores": {
+          "结构": 2,
+          "内容": 1,
+          "关联": 1,
+          "操作": 1,
+          "整体": 1
+        },
+        "verdict": "needs_attention",
+        "notes": "wiki 样本仍为根因分析内容，缺失合规管理体系、风险评估等关键概念，无法用于企业合规场景。"
+      },
+      {
+        "industry": "enforcement-review",
+        "scores": {
+          "结构": 3,
+          "内容": 2,
+          "关联": 1,
+          "操作": 2,
+          "整体": 2
+        },
+        "verdict": "needs_attention",
+        "notes": "尽管 config 提供了详细的执法督察概念结构，但 wiki 样本未体现任何评查标准、督察实战等内容，仍是通用模板，领域知识缺失。"
+      }
+    ],
+    "overall_verdict": "needs_attention",
+    "top_issues": [
+      "所有知识库的 wiki 样本内容与各自 config 定义完全脱节，出现大量无关概念",
+      "playbook 仅有标题，无实际步骤，无法执行",
+      "概念之间没有任何交叉引用，关联性几乎为零",
+      "索引、日志等元文件为同一模板，未按领域定制，结构形同虚设"
+    ],
+    "mode": "llm",
+    "model_used": "deepseek-v4-pro"
+  },
+  "phase5": {
+    "status": "fail",
+    "output": "nstall the buildx component to build images with BuildKit:\n            https://docs.docker.com/go/buildx/\n\nfailed to connect to the docker API at unix:///var/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /var/run/docker.sock: connect: no such file or directory"
+  },
+  "phase6": {
+    "status": "needs_attention",
+    "total_nodes": 30696,
+    "total_edges": 27083,
+    "density": 0.88,
+    "isolated_nodes": 24054,
+    "isolated_pct": 78.4,
+    "broken_links": 27027,
+    "isolated_list": [
+      "enforcement-review/tools/14大类违法取证要点卡",
+      "enforcement-review/comparisons/08_湖南省裁量权基准（2021版）",
+      "enforcement-review/comparisons/生态环境法典_案卷评查新标准_20260815起施行",
+      "enforcement-review/comparisons/07_评查细则全文（2024年版）",
+      "enforcement-review/comparisons/生态环境法典_案卷评查快速查阅手册_20260815起施行",
+      "enforcement-review/comparisons/生态环境法典核心解读_执法评查视角",
+      "enforcement-review/comparisons/01_评查标准体系",
+      "enforcement-review/comparisons/05_评查实务要点",
+      "enforcement-review/articles/102_生态环境执法要有力度更要守住法治底线",
+      "enforcement-review/articles/《生态环境法典》九大“检察条款”全梳理",
+      "enforcement-review/articles/够行政不够刑事？污染环境罪行刑证据转化实操要点",
+      "enforcement-review/articles/84_生态环境法典草案行政罚则整合",
+      "enforcement-review/articles/33_2026版危废排除管理清单红利合规要点",
+      "enforcement-review/articles/49_产业链供应链安全法律服务",
+      "enforcement-review/articles/88_生态环境法典污染防治编17项变化要点",
+      "enforcement-review/articles/94_聚焦生态环境法典第53条派出机构独立执法权分析",
+      "enforcement-review/articles/生态环境部就《关于机动车排放检验机构伪造排放检验结果或出具虚假排放检验报告情节严重判定标准的意见》答记者问【后附《意见》】",
+      "enforcement-review/articles/15_固体废物鉴别标准通则",
+      "enforcement-review/articles/19_检验检测机构资质认定评审补充要求",
+      "enforcement-review/articles/三年磨一剑，排污许可证申请与核发技术规范体系形成"
+    ],
+    "quality_checks": {
+      "density": {
+        "value": 0.88,
+        "threshold": 0.3,
+        "pass": true
+      },
+      "isolation": {
+        "value": 78.4,
+        "threshold": 40.0,
+        "pass": false
+      },
+      "broken_links": {
+        "value": 27027,
+        "threshold": 3,
+        "pass": false
+      }
+    },
+    "industry_coverage": [
+      {
+        "industry": "根因分析",
+        "slug": "root-cause",
+        "expected_count": 9,
+        "found_count": 7,
+        "coverage_pct": 77.8,
+        "missing": [
+          "自上而下 vs 自下而上",
+          "定量分析 vs 定性分析"
+        ],
+        "inter_density": 0.0,
+        "verdict": "needs_attention"
+      },
+      {
+        "industry": "合规审查",
+        "slug": "compliance-review",
+        "expected_count": 8,
+        "found_count": 0,
+        "coverage_pct": 0.0,
+        "missing": [
+          "案卷评查标准",
+          "程序合法性",
+          "证据链完整性",
+          "案卷评查操作流程",
+          "程序审查五步法",
+          "证据链审核指南",
+          "行政处罚 vs 行政强制",
+          "一般程序 vs 简易程序"
+        ],
+        "inter_density": 0,
+        "verdict": "needs_attention"
+      },
+      {
+        "industry": "证照管理",
+        "slug": "license-management",
+        "expected_count": 9,
+        "found_count": 0,
+        "coverage_pct": 0.0,
+        "missing": [
+          "行政许可",
+          "资质证书",
+          "合规边界",
+          "审批条件",
+          "证照审批工作流",
+          "许可证核发流程",
+          "许可后监管",
+          "许可 vs 备案",
+          "报告书 vs 报告表 vs 登记表"
+        ],
+        "inter_density": 0,
+        "verdict": "needs_attention"
+      },
+      {
+        "industry": "企业合规AI管家",
+        "slug": "enterprise-compliance",
+        "expected_count": 9,
+        "found_count": 0,
+        "coverage_pct": 0.0,
+        "missing": [
+          "合规管理体系",
+          "风险评估",
+          "合规审计",
+          "合规培训",
+          "合规清单生成流程",
+          "合规风险评估工作流",
+          "合规检查程序",
+          "合规 vs 内控",
+          "ISO 19600 vs GB/T 35770"
+        ],
+        "inter_density": 0,
+        "verdict": "needs_attention"
+      },
+      {
+        "industry": "执法督察评查（测试用）",
+        "slug": "enforcement-review",
+        "expected_count": 0,
+        "found_count": 0,
+        "coverage_pct": 0,
+        "missing": [],
+        "verdict": "skipped"
+      }
+    ],
+    "issues": [
+      "孤立节点过多: 78.4%（阈值 ≤ 40.0%），24054 个节点无任何连接",
+      "断链: 27027 个（阈值 ≤ 3）: enforcement-review/SCHEMA → '[[../SCHEMA.md]]'; comparisons/定量分析-vs-定性分析 → '[[自上而下-vs-自下而上]]'; comparisons/定量分析-vs-定性分析 → '[[异常检测方法]]'; comparisons/自上而下-vs-自下而上 → '[[定量分析-vs-定性分析]]'; meta/lint-report → '[[数据溯源链路]]'"
+    ]
+  }
+}

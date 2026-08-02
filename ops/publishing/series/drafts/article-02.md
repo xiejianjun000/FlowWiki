@@ -243,3 +243,20 @@ ACE 反思循环是 FlowWiki 防幻觉机制的核心──它不是一次 lint 
 *系列目录：[第一篇：Karpathy 提出了 LLM Wiki 的构想，我把 6 个致命缺口全补上了](https://juejin.cn/post/xxxxx) | 下一篇：A-MEM 卡片记忆系统*
 
 *GitHub：[xiejianjun000/FlowWiki](https://github.com/xiejianjun000/FlowWiki)*
+
+---
+
+## 本文配图
+
+![01-cover](../assets/article-02/01-cover.png)
+
+![03-diagram-1](../assets/article-02/03-diagram-1.png)
+
+![03-diagram-2](../assets/article-02/03-diagram-2.png)
+
+![03-diagram-3](../assets/article-02/03-diagram-3.png)
+
+![04-table-1](../assets/article-02/04-table-1.png)
+
+![04-table-2](../assets/article-02/04-table-2.png)
+

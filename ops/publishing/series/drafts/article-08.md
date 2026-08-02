@@ -322,3 +322,20 @@ FlowWiki 的 7 层架构里，L1 和 L7 是"长在骨头上的肉"──换了�
 *系列目录：[第一篇：Karpathy LLM Wiki 构想 + 6 缺口 + FlowWiki 开源首发](#) | [上一篇：多 Agent 兼容架构](#) | [下一篇：自适应检索策略](#)*
 
 *GitHub：[xiejianjun000/FlowWiki](https://github.com/xiejianjun000/FlowWiki)*
+
+---
+
+## 本文配图
+
+![01-cover](../assets/article-08/01-cover.png)
+
+![03-diagram-1](../assets/article-08/03-diagram-1.png)
+
+![03-diagram-2](../assets/article-08/03-diagram-2.png)
+
+![03-diagram-3](../assets/article-08/03-diagram-3.png)
+
+![04-table-1](../assets/article-08/04-table-1.png)
+
+![04-table-2](../assets/article-08/04-table-2.png)
+

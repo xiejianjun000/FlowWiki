@@ -222,3 +222,20 @@ FlowWiki 的答案很朴素：**BM25 起步，够用就一直用；发现语义�
 *系列目录：[第一篇：Karpathy LLM Wiki 构想 + 6 缺口 + FlowWiki 开源首发](#) | [上一篇：L7 场景可插拔设计](#) | [下一篇：v0.1.0 → v0.2.0 进化之路](#)*
 
 *GitHub：[xiejianjun000/FlowWiki](https://github.com/xiejianjun000/FlowWiki)*
+
+---
+
+## 本文配图
+
+![01-cover](../assets/article-09/01-cover.png)
+
+![03-diagram-1](../assets/article-09/03-diagram-1.png)
+
+![03-diagram-2](../assets/article-09/03-diagram-2.png)
+
+![03-diagram-3](../assets/article-09/03-diagram-3.png)
+
+![04-table-1](../assets/article-09/04-table-1.png)
+
+![04-table-2](../assets/article-09/04-table-2.png)
+

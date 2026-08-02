@@ -247,3 +247,20 @@ llm-wiki-agent 有一个基础 lint 检查，但只是扫格式，不扫内容�
 *本文是 FlowWiki 从零到一系列第 6 篇，下一篇：[换 AI 助手不换知识库──FlowWiki 的多 Agent 兼容架构]*
 *系列目录：[第一篇：Karpathy 提出了 LLM Wiki 的构想，我把 6 个致命缺口全补上了](#) | [上一篇：AI 看 index.md，人类看 6 板块](#) | [下一篇：换 AI 助手不换知识库](#)*
 *GitHub：[xiejianjun000/FlowWiki](https://github.com/xiejianjun000/FlowWiki)*
+
+---
+
+## 本文配图
+
+![01-cover](../assets/article-06/01-cover.png)
+
+![03-diagram-1](../assets/article-06/03-diagram-1.png)
+
+![03-diagram-2](../assets/article-06/03-diagram-2.png)
+
+![03-diagram-3](../assets/article-06/03-diagram-3.png)
+
+![04-table-1](../assets/article-06/04-table-1.png)
+
+![04-table-2](../assets/article-06/04-table-2.png)
+

@@ -4,7 +4,7 @@ build-backend = "setuptools.backends._legacy:_Backend"
 
 [project]
 name = "flowwiki"
-version = "0.6.0"
+version = "0.7.5"
 description = "FlowWiki — AI 与人类协同复利的知识库方法论（Karpathy LLM Wiki × TRAE Work × ACE 反思循环 × A-MEM 卡片记忆 × SpecCoding 七阶段）"
 readme = "README.md"
 license = {text = "MIT"}

@@ -300,3 +300,20 @@ FlowWiki 的 L6 多 Agent 层的答案是：**六个启动文件，同一套知�
 *系列目录：[第一篇：Karpathy 提出了 LLM Wiki 构想 | 6 缺口全补上](#) | [上一篇：知识库也需要 CI/CD](#) | [下一篇：同一个架构，不同的行业](#)*
 
 *GitHub：[xiejianjun000/FlowWiki](https://github.com/xiejianjun000/FlowWiki)*
+
+---
+
+## 本文配图
+
+![01-cover](../assets/article-07/01-cover.png)
+
+![03-diagram-1](../assets/article-07/03-diagram-1.png)
+
+![03-diagram-2](../assets/article-07/03-diagram-2.png)
+
+![03-diagram-3](../assets/article-07/03-diagram-3.png)
+
+![04-table-1](../assets/article-07/04-table-1.png)
+
+![04-table-2](../assets/article-07/04-table-2.png)
+

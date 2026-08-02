@@ -5,7 +5,7 @@
 [![CI](https://github.com/xiejianjun000/FlowWiki/actions/workflows/ci.yml/badge.svg)](https://github.com/xiejianjun000/FlowWiki/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Specs](https://img.shields.io/badge/Specs-7%E9%98%B6%E6%AE%B5-blue)](./spec/)
-[![Agents](https://img.shields.io/badge/Agents-12%E5%AE%B6%E5%85%BC%E5%AE%B9-green)](./CLAUDE.md)
+[![Agents](https://img.shields.io/badge/Agents-10%E5%AE%B6%E5%85%BC%E5%AE%B9-green)](./CLAUDE.md)
 [![Scenes](https://img.shields.io/badge/Scenes-L7%E5%8F%AF%E6%8F%92%E6%8B%94-orange)](./storage/)
 
 ---
@@ -71,7 +71,7 @@
 | 无人类入口 | **双索引** — 机器走 `wiki/index.md`，人类走 `00_首页/` 6 板块 MOC | L1 |
 | 知识不复利 | **任务→知识→Skill 三元组** — 高频任务自动抽象为 O(1) 调用的 skill | L5 |
 | 变更不可追溯 | **SpecCoding 七阶段** — 每个变更走 `openspec/changes/` | L3 |
-| 单平台绑定 | **多 agent bootstrap** — CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md + GEMINI.md + HERMES.md（8 家 agent） | L6 |
+| 单平台绑定 | **多 agent bootstrap** — CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md + GEMINI.md + HERMES.md + KIRO.md + PI.md + TRAE.md + OPENDROID.md（10 家 agent） | L6 |
 
 ---
 
@@ -84,10 +84,11 @@
 ├──────────────────────────────────────────────────────────────┤
 │ L6 多 agent 接手层                                              │
 │   CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md               │
-│   + GEMINI.md + HERMES.md（8 家 agent 兼容）                      │
+│   + GEMINI.md + HERMES.md + KIRO.md + PI.md + TRAE.md + OPENDROID.md  │
+│   （10 家 agent 兼容）                                            │
 ├──────────────────────────────────────────────────────────────┤
 │ L5 Skill 化层                                                   │
-│   5 操作 skill (ingest/query/lint/research/fulltext) + 高频任务自动抽象    │
+│   36 skill（双部署：.agents/skills/ + .claude/skills/）+ 高频任务自动抽象    │
 ├──────────────────────────────────────────────────────────────┤
 │ L4 Agent 记忆层 ★ FlowWiki 独有                                  │
 │   A-MEM 卡片（Zettelkasten）+ ACE 反思循环 + 少数派分支 + 缺口检测   │
@@ -173,6 +174,36 @@ python _scripts/okf_import.py --input ./bundle --trusted
 
 ---
 
+## v0.7.x 质量工程：知识库不会自行"健康"（v0.7.5 新增）
+
+知识库最大的敌人不是 AI 不够聪明，而是时间。新法规出台、旧标准废止、跨页引用断裂——FlowWiki v0.7.x 引入了五道防线：
+
+### 三层质量门控
+
+```
+┌──────────────────────┐
+│ L1: pre-commit hook  │ ← 本地写入前 lint + frontmatter 校验
+├──────────────────────┤
+│ L2: CI quality-gate  │ ← push/PR 自动跑 14 维度审计 + 红线阻断
+├──────────────────────┤
+│ L3: daily auto-audit │ ← 每日全量巡检 + 自动修复 + 报告同步
+└──────────────────────┘
+```
+
+### D1-D14 健康度仪表盘
+
+14 个维度量化知识库健康度：文件覆盖率、frontmatter 完整性、溯源率、内容信号密度、内部链接有效性、悬空链接率……从第一次审计的 **74%** 到 v0.7.5 的 **87.3%**，两阶段优化（代码修复 + LLM 管道）。
+
+### Tarjan 反断裂度验证（D14）
+
+用图论的 Tarjan 关节点算法扫描整个知识图谱——**删掉任何一个 wiki 页面，图谱都不会断裂。** 这是知识库架构的结构性保障，不是事后修补。
+
+### 双向同步自修复
+
+`sync_bidirectional.sh` 让 wiki 内容反向更新 raw 索引、检测孤立节点、自动补全缺失引用。v0.7.4 一次运行反哺 806 条关联——知识库从"被动存储"进入"自我修复"模式。
+
+---
+
 ## 测试用知识库
 
 仓库预置 **enforcement-review（执法督察评查）** 作为测试知识库：
@@ -189,10 +220,10 @@ python _scripts/graph.py --format stats --industry enforcement-review
 | 指标 | 值 |
 |------|-----|
 | raw/ | 155 篇原始资料 |
-| wiki/ | 109 节点 / 479 边知识图谱 |
-| 可路由率 | ≥ 85%（Hermes 红线达标） |
-| Hermes | 8-9 / 10 pass |
-| 三验 | lint 0 告警 + graph 0 孤立 + hermes pass |
+| wiki/ | 806 页知识图谱 |
+| 可路由率 | 87.3%（Hermes 红线 ≥ 85% 达标） |
+| 反断裂度 | Tarjan 零关节点 |
+| 质量门控 | 三层自动化 |
 
 详见 [TESTING.md](./TESTING.md)
 
@@ -228,7 +259,7 @@ cd my-wiki
 # 自动检测区域 + 生成本地化目录（中文/英文）
 bash _scripts/setup.sh
 
-  # 选择你的 agent bootstrap（12 家兼容）
+  # 选择你的 agent bootstrap（10 家兼容）
   # Claude Code → 读 CLAUDE.md
   # Codex / Amp → 读 AGENTS.md
   # Gemini CLI → 读 GEMINI.md
@@ -298,7 +329,7 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 | **research** | （Karpathy 未定义） | ★ 跨页综合研究 + 自动生成 comparison 页 |
 | **fulltext** | （FlowWiki 原创） | ★ 按需加载 raw/ 全文，配套原文指针铁律，避免双写 |
 
-每个操作有对应的 `.claude/skills/<op>/SKILL.md` 和 `.agents/skills/<op>/SKILL.md`，12 家 agent 都能直接调用。
+每个操作有对应的 `.claude/skills/<op>/SKILL.md` 和 `.agents/skills/<op>/SKILL.md`，10 家 agent 都能直接调用。
 
 ---
 
@@ -324,7 +355,7 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 |------|------------------|-----------|---------|------------|
 | 知识复利 | ✅ | ❌ | ❌ | ✅ |
 | 人类 UX | ❌ | ✅ | ❌ | ✅ 双索引 |
-| AI 接手友好 | 🟡 仅 Claude | ❌ | ❌ | ✅ 12 家 agent |
+| AI 接手友好 | 🟡 仅 Claude | ❌ | ❌ | ✅ 10 家 agent |
 | 防幻觉 | ❌ lint 只扫结构 | N/A | ❌ | ✅ ACE 三 agent |
 | 跨会话记忆 | ❌ | ❌ | 🟡（向量库） | ✅ A-MEM 卡片 |
 | 变更追溯 | ❌ | ❌ | ❌ | ✅ SpecCoding |
@@ -337,7 +368,7 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 |------|:-:|:-:|:-:|:-:|:-:|
 | 防幻觉机制 | ACE 三 agent + **VBFW** | 矛盾标记 | review policy | VERIFY-BEFORE-WRITE | Pre-LLM 净化 |
 | 跨会话记忆 | A-MEM 卡片 | 无 | Hot Cache | 无 | 无 |
-| 多 agent 兼容 | 12 家 agent | 3 家 | 仅 Claude | 仅 Claude | 3 家 |
+| 多 agent 兼容 | 10 家 agent | 3 家 | 仅 Claude | 仅 Claude | 3 家 |
 | 人类 UX | 双索引 6 板块 | 无 | Obsidian 原生 | 桌面 GUI | Web UI |
 | 业务可插拔 | L7 场景外壳 | 无 | 无 | 无 | 无 |
 | 变更追溯 | SpecCoding | 无 | 无 | 无 | 无 |
@@ -377,8 +408,10 @@ FlowWiki 继承 Karpathy 的 4 操作，并在每个操作中嵌入创新：
 | 记忆 L4 | A-MEM Zettelkasten 卡片 | 跨会话持久化，零数据库依赖 |
 | 防幻觉 L4 | ACE Generator→Reflector→Curator + Strict 模式 + 原文指针铁律 | 三 agent 制约 + 强制校验，ingest 时拦截错误 |
 | 变更管理 L3 | OpenSpec + SpecCoding 七阶段 | 可追溯，每个变更有提案/执行/归档 |
-| Agent 兼容 L6 | CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md + GEMINI.md + HERMES.md | 8 家 agent 通吃 |
-| Skill 分发 L5 | .agents/skills/ + .claude/skills/ 双部署 | 同一 skill 两套格式 |
+| Agent 兼容 L6 | CLAUDE.md + AGENTS.md + CODEX.md + WORKBUDDY.md + GEMINI.md + HERMES.md + KIRO.md + PI.md + TRAE.md + OPENDROID.md | 10 家 agent 通吃 |
+| Skill 分发 L5 | .agents/skills/ + .claude/skills/ 双部署 | 同一 skill 两套格式，36 个 skill |
+| 质量工程 L3-L4 | quality_audit.py（14 维）+ CI quality-gate + Tarjan 反断裂度 + 双向同步 | 三层门控，知识库自我修复 |
+| 竞品监控 | 35+ 项目全景扫描 + 11 轮手动巡查 | 自动化基础设施常态化 |
 | 可视化 | Obsidian Graph View + Dataview | 零额外依赖 |
 | 部署 | Docker + docker compose | 一键启动 |
 | MCP 接口 | `_scripts/mcp_server.py` | 5 工具暴露给 AI Agent |
@@ -445,7 +478,8 @@ raw → wiki → skill → 自动调用 → 新任务 → 新 raw → wiki 增�
 | M4 | 双索引同步 | ✅ |
 | M5 | L7 场景参考实现 | ✅ |
 | M6 | 多 agent 兼容矩阵 | ✅ |
-| M7 | 方法论白皮书发布 | ✅ |
+| M7 | 方法论白皮书 + GitHub 发布 | ✅ |
+| M8 | 质量工程——三层门控 + D1-D14 健康度 + 反断裂度 + 双向同步（v0.7.5） | ✅ |
 
 详细任务见 [spec/tasks.md](./spec/tasks.md)。
 
@@ -471,7 +505,7 @@ RAG 是解释器——每次查询都重新推导，结果不持久化。FlowWik
 
 ### FlowWiki 支持哪些 AI agent？
 
-8 家：Claude Code（读 CLAUDE.md）、Codex（读 AGENTS.md）、Gemini CLI（读 GEMINI.md）、Amp（读 AGENTS.md）、WorkBuddy（读 WORKBUDDY.md）、Hermes（读 HERMES.md）、OpenCode、Aider。所有 agent 共享同一套 skill（.agents/skills/ 和 .claude/skills/ 双部署），换 agent 不丢知识库。
+10 家：Claude Code（读 CLAUDE.md）、Codex（读 AGENTS.md）、Gemini CLI（读 GEMINI.md）、Amp（读 AGENTS.md）、WorkBuddy（读 WORKBUDDY.md）、Hermes（读 HERMES.md）、Kiro IDE（读 KIRO.md）、Pi Agent（读 PI.md）、Trae（读 TRAE.md）、OpenCode/Aider/Droid（读 OPENDROID.md）。所有 agent 共享同一套 skill（.agents/skills/ 和 .claude/skills/ 双部署），换 agent 不丢知识库。
 
 ### FlowWiki 是 Obsidian 插件吗？
 
